@@ -21,7 +21,7 @@ export default {
             {name: 'naver-site-verification', content: ''},
             {name: 'google-site-verification', content: ''},
 
-            {property: 'og:image', content: '/asset/images/thumbnail.jpg'},
+            {property: 'og:image', content: '/asset/images/thumbnail.png'},
             /*{property: 'og:url', content: 'https://wooriview.co.kr'},
             {property: 'keywords', content: 'wooriview, 우리뷰, 리뷰, 캠페인'},
             {property: 'og:site_name', content: '우리뷰 | 우리가 만드는 모든 리뷰 우리뷰'},
