@@ -99,11 +99,12 @@ export default {
         }
     }, */
     auth: {
-        redirect: {
+        redirect: false,
+        /*redirect: {
             login: "/login",
             callback: '/login',
-            // home: '/'
-        },
+            home: '/'
+        },*/
         strategies: {
             laravelSanctum: {
                 provider: 'laravel/sanctum',
