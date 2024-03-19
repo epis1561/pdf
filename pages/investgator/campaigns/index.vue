@@ -265,7 +265,7 @@ export default {
 
             this.$store.commit("setLoading", true);
 
-            this.form.delete("/api/investgators")
+            this.form.delete("/api/admin/investgators")
                     .then(response => {
                         this.getUsers();
                     });
@@ -277,7 +277,7 @@ export default {
 
             this.$store.commit("setLoading", true);
 
-            this.form.post("/api/investgators")
+            this.form.post("/api/admin/investgators")
                     .then(response => {
                         this.getUsers();
                     });
