@@ -4,7 +4,7 @@
             <div class="sca-box">
                 <ul>
                     <li><p>회원 관리</p></li>
-                    <li class="active"><p>제공사</p></li>
+                    <li class="active"><p>공급사</p></li>
                 </ul>
             </div>
             <div class="mt30">
