@@ -1,0 +1,126 @@
+<template>
+    <div class="admin-left">
+        <div class="admin-left-category" v-if="$auth.user.data.type === 'MASTER'">
+            <ul>
+                <li class="active">
+                    <a href="javascript:;">
+                        회원 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd :class="activeClass('/admin/companies')"><nuxt-link to="/admin/companies">회사</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/users')"><nuxt-link to="/admin/users">회원</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/providers')"><nuxt-link to="/admin/providers">제공사</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/agencies')"><nuxt-link to="/admin/agencies">대리점</nuxt-link></dd>
+                    </dl>
+                </li>
+                <li class="active">
+                    <a href="javascript:;">캠페인 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd :class="activeClass('/admin/questions')"><nuxt-link to="/admin/questions">질의</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/campaigns')"><nuxt-link to="/admin/campaigns">캠페인</nuxt-link></dd>
+                    </dl>
+                </li>
+                <li class="active">
+                    <a href="javascript:;">시스템 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><a href="javascript:;">서버로그</a></dd>
+                        <dd><a href="javascript:;">메모리 현황</a></dd>
+                    </dl>
+                </li>
+                <li class="active">
+                    <a href="javascript:;">로그 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><a href="javascript:;">회원접속로그</a></dd>
+                        <dd><a href="javascript:;">관리자로그</a></dd>
+                        <dd><a href="javascript:;">로그</a></dd>
+                    </dl>
+                </li>
+                <li class="active">
+                    <a href="javascript:;">게시판 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><a href="javascript:;">1대1 문의</a></dd>
+                        <dd><a href="javascript:;">회원전용</a></dd>
+                        <dd><a href="javascript:;">공지사항</a></dd>
+                        <dd><a href="javascript:;">캠페인</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="admin-left-category" v-if="$auth.user.data.type === 'AGENCY_ADMIN'">
+            <ul>
+                <li>
+                    <a href="#">캠페인 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><nuxt-link to="/investgator/campaigns">캠페인</nuxt-link></dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</template>
+<script>
+import Form from "../utils/Form";
+export default {
+    data(){
+        return {
+            word: "",
+            headerClass: "",
+            activeHeader: true,
+        }
+    },
+
+    methods: {
+        logout(){
+            this.$auth.logout();
+
+            this.$router.push("/admin/login");
+        },
+
+        activeClass(url){
+            return this.$route.path.includes(url) ? 'active' : '';
+        },
+    },
+
+    computed: {
+
+    },
+
+    watch: {
+        '$route'(to, from) {
+            this.activeHeader = this.$route.path === "/admin/login" ? false : true;
+
+            setTimeout(function(){
+                $('.gnb-item').unbind("click").bind("click",function(){
+                    $(this).toggleClass('active');
+                });
+            },10);
+        }
+    },
+
+    mounted() {
+        $(".admin-left-category > ul > li > a").unbind("click").bind("click", function(){
+            $(this).parents("li").toggleClass("active");
+        });
+    }
+}
+</script>
