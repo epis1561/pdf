@@ -268,6 +268,8 @@ export default {
             this.usersForm.delete("/api/investgator/investgators")
                     .then(response => {
                         this.getUsers();
+
+                        this.filter();
                     });
         },
 
@@ -280,6 +282,8 @@ export default {
             this.usersForm.post("/api/investgator/investgators")
                     .then(response => {
                         this.getUsers();
+
+                        this.filter();
                     });
         },
     },
