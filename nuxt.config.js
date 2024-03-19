@@ -1,4 +1,4 @@
-let baseUrl = process.env.NODE_ENV === "production" ? "https://api-ok.honest-family.com" : "http://localhost:80";
+let baseUrl = process.env.NODE_ENV === "production" ? "https://api-esg.honest-family.com" : "http://localhost:80";
 
 export default {
     target: "client",

@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'app.e-box.kr',
+            name: 'esg.honest-family.com',
             script: './node_modules/nuxt/bin/nuxt.js',
             args: 'start',
             port: 3018, // yoru app port
