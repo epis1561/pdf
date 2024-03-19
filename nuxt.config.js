@@ -102,7 +102,7 @@ export default {
         redirect: {
             login: "/login",
             callback: '/login',
-            home: '/'
+            // home: '/'
         },
         strategies: {
             laravelSanctum: {
