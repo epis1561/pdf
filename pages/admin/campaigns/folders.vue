@@ -165,7 +165,7 @@
                     <ul>
                         <li v-for="(question, index) in form.questions" :key="question.id">
                             <div class="list-head">
-                                <a href="#" class="name">[{{question.id}}] {{ question.format_type }}</a>
+                                <a :href="`/admin/questions/create?id=${question.id}`" target="_blank" class="name">[{{question.id}}] {{ question.format_type }}</a>
                                 <a href="#" class="delete" @click.prevent="removeFolderQuestion(index)">삭제</a>
                             </div>
                             <div class="list-body">
