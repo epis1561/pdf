@@ -1,6 +1,15 @@
 <template>
     <div class="admin-left">
         <div class="admin-left-category" v-if="$auth.user.data.type === 'MASTER'">
+            <div class="top" style="
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color:#2B9F97;
+">{{ $auth.user.data.name }}님 <i class="xi-log-out" style="
+    font-size: 20px;
+    margin-left: 8px; color:#2B9F97;" @click.prevent="logout"></i></div>
+
             <ul>
                 <li class="active">
                     <a href="javascript:;">
@@ -62,6 +71,15 @@
         </div>
 
         <div class="admin-left-category" v-if="$auth.user.data.type === 'AGENCY_ADMIN'">
+            <div class="top" style="
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color:#2B9F97;
+">{{ $auth.user.data.name }}님 <i class="xi-log-out" style="
+    font-size: 20px;
+    margin-left: 8px; color:#2B9F97;" @click.prevent="logout"></i></div>
+
             <ul>
                 <li>
                     <a href="#">캠페인 관리
