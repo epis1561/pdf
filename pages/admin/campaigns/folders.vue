@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="list-content flex flex-vc">
                                     <p class="flex-1 active">{{ campaign.title }}</p>
-                                    <a href="" class="link" @click.prevent="ready">다른캠페인 불러오기</a>
+                                    <a href="" class="link" @click.prevent="activeCampaigns = true">다른캠페인 불러오기</a>
                                 </div>
                             </li>
 <!--                            <li class="full">
@@ -422,6 +422,78 @@
                 </div>
             </div>
         </div>
+
+        <div class="popup-box fixed" v-if="activeCampaigns">
+            <div class="box lg active">
+                <div class="popup-head">
+                    <div class="title-box">
+                        <h2>캠페인 목록</h2>
+                    </div>
+                    <a href="#" class="close" @click.prevent="activeCampaigns = false">닫기</a>
+                </div>
+                <div class="popup-body">
+                    <div class="line-box"></div>
+                    <div class="flex flex-vc flex-tj mt15">
+                        <form @submit.prevent="getCampaigns" class="flex flex-vc">
+                            <!--                            <div class="select-box mr10">
+                                                            <select v-model="form.classification_id">
+                                                                <option value="">분류</option>
+                                                                <option :value="classification.title" v-></option>
+                                                            </select>
+                                                        </div>-->
+                            <div class="select-box mr10">
+                                <select v-model="campaignsForm.column" @change="() => {campaignsForm.page = 1; getCampaigns();}">
+                                    <option value="">검색조건</option>
+                                    <option value="title">제목</option>
+                                    <option value="provider">공급사명</option>
+                                </select>
+                            </div>
+
+                            <div class="search-box">
+                                <input type="text" placeholder="검색어를 입력해주세요." v-model="campaignsForm.word">
+                            </div>
+
+                            <div class="button-box ml10">
+                                <button type="submit" class="btn btn-active-2" @click.prevent="getCampaigns">검색</button>
+                            </div>
+                        </form>
+                        <div class="list-count-box">
+                            <p>목록 <b>{{ campaigns.meta.total.toLocaleString() }}</b>건</p>
+                        </div>
+                    </div>
+                    <div class="table-box mt25">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th width="65">번호</th>
+                                <th>공급사</th>
+                                <th>캠페인명</th>
+                                <th>상태</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="campaign in campaigns.data" :key="campaign.id">
+                                <td>{{ campaign.id }}</td>
+                                <td>{{ campaign.provider.title }}</td>
+                                <td><a target="_blank" :href="`/admin/campaigns/create?id=${campaign.id}`" class="subject">{{ campaign.title }}</a></td>
+                                <td>{{ campaign.format_state }}</td>
+                                <td>
+                                    <div class="table-button-box">
+                                        <a href="#" class="active" @click.prevent="copyCampaign(campaign)">선택</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt24"></div>
+
+                    <pagination :meta="campaigns.meta" @paginate="(page) => {campaignsForm.page = page; getCampaigns()}" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -442,6 +514,7 @@ export default {
             item: null,
 
             activePop : false,
+            activeCampaigns: false,
 
             items: {
                 data: [],
@@ -453,6 +526,15 @@ export default {
             },
 
             folderQuestions: {
+                data: [],
+                meta: {
+                    current_page:1,
+                    last_page:1,
+                    total: 0,
+                }
+            },
+
+            campaigns: {
                 data: [],
                 meta: {
                     current_page:1,
@@ -505,6 +587,13 @@ export default {
 
             }),
 
+            campaignsForm: new Form(this.$axios, {
+                campaign_id: "",
+                column: "",
+                word: "",
+                type: "",
+            }),
+
             activeIds: [],
 
             question: {
@@ -541,6 +630,29 @@ export default {
                         this.loading = false;
 
                         $("html,body").scrollTop(0);
+                    });
+        },
+
+        getCampaigns(){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/admin/campaigns/" , {
+                params: this.form.data()
+            }).then(response => {
+                this.campaigns = response.data;
+            });
+        },
+
+        copyCampaign(campaign){
+            this.campaignsForm.campaign_id = campaign.id;
+
+            this.$store.commit("setLoading", true);
+
+            this.campaignsForm.patch("/api/admin/campaigns/" + this.campaign.id + "/copy")
+                    .then(response => {
+                        this.getItems();
+
+                        this.activeCampaigns = false;
                     });
         },
 
@@ -725,6 +837,8 @@ export default {
         this.getCampaign();
 
         this.getItems();
+
+        this.getCampaigns();
 
     }
 
