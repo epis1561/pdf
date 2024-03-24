@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="full" v-if="targetFolder && targetFolder.folder_id">
+                            <li class="full" v-if="targetFolder && !targetFolder.folder_id">
                                 <div class="list-title">
                                     <strong>가중치</strong>
                                 </div>
