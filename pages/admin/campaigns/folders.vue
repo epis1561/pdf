@@ -473,14 +473,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="campaign in campaigns.data" :key="campaign.id">
-                                <td>{{ campaign.id }}</td>
-                                <td>{{ campaign.provider.title }}</td>
-                                <td><a target="_blank" :href="`/admin/campaigns/create?id=${campaign.id}`" class="subject">{{ campaign.title }}</a></td>
-                                <td>{{ campaign.format_state }}</td>
+                            <tr v-for="campaignData in campaigns.data" :key="campaignData.id" v-if="campaign.id != campaignData.id">
+                                <td>{{ campaignData.id }}</td>
+                                <td>{{ campaignData.provider.title }}</td>
+                                <td><a target="_blank" :href="`/admin/campaigns/create?id=${campaignData.id}`" class="subject">{{ campaignData.title }}</a></td>
+                                <td>{{ campaignData.format_state }}</td>
                                 <td>
                                     <div class="table-button-box">
-                                        <a href="#" class="active" @click.prevent="copyCampaign(campaign)">선택</a>
+                                        <a href="#" class="active" @click.prevent="copyCampaign(campaignData)">선택</a>
                                     </div>
                                 </td>
                             </tr>
