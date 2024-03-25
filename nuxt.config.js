@@ -45,7 +45,7 @@ export default {
             {src: "//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"},
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/images/favicon.ico'},
+            {rel: 'icon', type: 'image/x-icon', href: '/asset/images/favicon.ico'},
             {rel: 'stylesheet', type: 'text/css', href: '//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css'},
             {rel: 'stylesheet', type: 'text/css', href: '//unpkg.com/aos@2.3.1/dist/aos.css'},
             {rel: 'stylesheet', type: 'text/css', href: '//cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css'},
