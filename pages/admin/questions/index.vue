@@ -31,6 +31,13 @@
                     </div>-->
 
                     <div class="select-box mr10">
+                        <select v-model="form.category_id" @change="() => {form.page=1; filter();}">
+                            <option value="">카테고리</option>
+                            <option :value="category.id" v-for="category in categories.data" :key="category.id" v-if="!category.category_id">{{ category.title }}</option>
+                        </select>
+                    </div>
+
+                    <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="">검색 조건</option>
                             <option value="label_search">검색용 라벨</option>
@@ -59,7 +66,12 @@
 
                         <th>카테고리</th>
                         <th>검색용 라벨</th>
-                        <th>제목</th>
+                        <th>
+                            제목
+                            <button class="btn-sort" @click.prevent="() => {form.order_by='title'; form.align = form.align === 'desc' ? 'asc' : 'desc'; form.page = 1; filter();}">
+                                <i class="xi-renew"></i>
+                            </button>
+                        </th>
                         <th>유형</th>
                         <th>필수</th>
                         <th>해당없음</th>
@@ -83,7 +95,7 @@
                         <td>
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/questions/create?id=${item.id}`" class="active">조회</nuxt-link>
-                                <a href="#" @click.prevent="remove(item)">삭제</a>
+<!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
                     </tr>
@@ -132,9 +144,14 @@ export default {
                 word: "",
                 column: "",
                 file: "",
+                category_id: "",
+
+                order_by: "",
+                align: "",
 
                 active: "",
             }),
+
         }
     },
 
@@ -229,7 +246,9 @@ export default {
 
     computed: {
 
-
+        categories(){
+            return this.$store.state.categories;
+        }
     },
 
     mounted() {

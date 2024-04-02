@@ -16,6 +16,10 @@ export const state = () => ({
         data: []
     },
 
+    categories: {
+        data: []
+    },
+
     basic: null,
 
     coords: {
@@ -58,7 +62,11 @@ export const mutations = {
 
     setBasic(state, data){
         state.basic = data;
-    }
+    },
+
+    setCategories(state, data){
+        state.categories = data;
+    },
 
 }
 
@@ -78,5 +86,14 @@ export const actions = {
             );
         }
     },
+
+    async getCategories({commit}) {
+        this.$axios.get("/api/admin/categories", {})
+            .then(response => {
+                console.log(response.data);
+                commit("setCategories", response.data);
+            })
+    },
+
 }
 

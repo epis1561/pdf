@@ -10,6 +10,28 @@
             <div class="mt30">
                 <div class="write-box">
                     <ul>
+                        <template v-if="item && item.provider">
+                            <li>
+                                <div class="list-title">
+                                    <strong>공급사</strong>
+                                </div>
+                                <div class="list-content">
+                                    <div class="input-box no-border">
+                                        <input type="text" class="f18" placeholder="" :value="item.provider.title" disabled>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list-title">
+                                    <strong>관련 캠페인 <small>(최근 3개)</small></strong>
+                                </div>
+                                <div class="list-content">
+                                    <div class="input-box no-border">
+                                        <input type="text" class="f18" placeholder="" :value="item.provider.format_campaigns" disabled>
+                                    </div>
+                                </div>
+                            </li>
+                        </template>
                         <li>
                             <div class="list-title">
                                 <strong>권한 유형</strong>
@@ -22,6 +44,19 @@
                                     </select>
 
                                     <error :form="form" name="type" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="list-title">
+                                <strong>아이디</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="input-box no-border">
+                                    <input type="text" class="f18" placeholder="내용을 입력해 주세요." v-model="form.ids">
+
+                                    <error :form="form" name="ids" />
                                 </div>
                             </div>
                         </li>
@@ -45,9 +80,9 @@
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="내용을 입력해 주세요." v-model="form.text">
+                                    <input type="password" class="f18" placeholder="내용을 입력해 주세요." v-model="form.password">
 
-                                    <error :form="form" name="text" />
+                                    <error :form="form" name="password" />
                                 </div>
                             </div>
                         </li>
@@ -85,9 +120,12 @@
 
                             <input-address @change="(data) => form[data.name] = data.value" :form="form" />
 
-                            <error :form="form" name="address" />
-                            <error :form="form" name="address_detail" />
-                            <error :form="form" name="address_zipcode" />
+                            <div style="width: 100%;">
+                                <error :form="form" name="address" />
+                                <error :form="form" name="address_detail" />
+                                <error :form="form" name="address_zipcode" />
+                            </div>
+
                         </li>
 
                         <li>
@@ -112,6 +150,7 @@
 
             <div class="button-box flex-tr mt32">
                 <a href="" class="btn btn-lightgray px45 mr10" @click.prevent="() => $router.back()">취소</a>
+                <a href="" class="btn btn-red px45 mr10" @click.prevent="remove">삭제</a>
                 <a href="" class="btn btn-blue px45" @click.prevent="store">등록</a>
             </div>
         </div>
@@ -134,7 +173,11 @@ export default {
             keep: false,
             item: null,
             form: new Form(this.$axios, {
-                type: "",
+                company_id: this.$route.query.company_id || "",
+                provider_id: this.$route.query.provider_id || "",
+                type: this.$route.query.company_id ? 'COMMON' : '',
+
+                ids: "",
                 email: "",
                 name: "",
                 contact: "",
@@ -145,7 +188,7 @@ export default {
 
                 password: "",
 
-                active: "",
+                active: 1,
 
                 files: [],
                 files_mobile: [],
@@ -159,17 +202,39 @@ export default {
     },
 
     methods: {
+        remove(){
+            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+            if(confirmed)
+                this.form.delete("/api/admin/users/" + this.item.id)
+                        .then(response => {
+                            this.$router.replace("/admin/users");
+                        });
+        },
+
         store(){
             if(this.item)
                 return this.form.post("/api/admin/users/" + this.item.id)
                         .then(response => {
-                            this.$router.push("/admin/users");
-                        });
+                            if(this.$route.query.company_id)
+                                return this.$router.replace("/admin/companies/create?id=" + this.$route.query.company_id);
+
+                            if(this.$route.query.provider_id)
+                                return this.$router.replace("/admin/providers/create?id=" + this.$route.query.provider_id);
+
+                            this.$router.replace("/admin/users");
+                        }).catch(error => {});
 
             this.form.post("/api/admin/users")
                     .then(response => {
-                        this.$router.push("/admin/users");
-                    });
+                        if(this.$route.query.company_id)
+                            return this.$router.replace("/admin/companies/create?id=" + this.$route.query.company_id);
+
+                        if(this.$route.query.provider_id)
+                            return this.$router.replace("/admin/providers/create?id=" + this.$route.query.provider_id);
+
+                        this.$router.replace("/admin/users");
+                    }).catch(error => {});
         },
 
         getTypes(){

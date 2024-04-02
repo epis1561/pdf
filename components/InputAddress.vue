@@ -170,10 +170,10 @@ export default {
                 onclose:function(state) {
                     if(state === "COMPLETE_CLOSE") {
                         // 콜백함수를 실행하여 슬라이드 업 기능이 실행 완료후 작업을 진행한다.
-                        offDaumZipAddress(function() {
+                        /*offDaumZipAddress(function() {
                             postcodeWrap.style.display = "none";
                             btnClose.style.display = "none";
-                        });
+                        });*/
                     }
                 }
             }).embed(postcodeWrap);

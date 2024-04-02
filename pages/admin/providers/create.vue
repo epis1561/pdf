@@ -4,7 +4,7 @@
             <div class="sca-box">
                 <ul>
                     <li><p>회원 관리</p></li>
-                    <li class="active"><p>공급사</p></li>
+                    <li class="active"><p>클라이언트</p></li>
                 </ul>
             </div>
             <div class="mt30">
@@ -85,7 +85,9 @@
                         <label for="excel" class="btn btn-active mr10">엑셀 업로드</label>
 
                         <a href="#" style="opacity:0; position:absolute; left:-10000px;" id="download"></a>
-                        <a href="#" class="btn btn-active-2" @click.prevent="exportExcel">엑셀 다운로드</a>
+                        <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>
+
+                        <nuxt-link :to="`/admin/users/create?provider_id=${item.id}`" class="btn btn-blue">사용자 추가</nuxt-link>
                     </div>
                 </div>
                 <div class="table-box mt24">
@@ -93,6 +95,7 @@
                         <thead>
                         <tr>
                             <th>번호</th>
+                            <th>아이디</th>
                             <th>이메일</th>
                             <th>연락처</th>
                             <th>이름</th>
@@ -103,6 +106,7 @@
                         <tbody>
                         <tr v-for="user in users.data" :key="user.id">
                             <td>{{ user.id }}</td>
+                            <td>{{ user.ids }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.contact }}</td>
                             <td>{{ user.name }}</td>
@@ -110,7 +114,7 @@
                             <td>
                                 <div class="table-button-box">
                                     <nuxt-link :to="`/admin/users/create?id=${user.id}`" class="active">조회</nuxt-link>
-                                    <a href="#" @click.prevent="detachUser(user)">삭제</a>
+<!--                                    <a href="#" @click.prevent="detachUser(user)">삭제</a>-->
                                 </div>
                             </td>
                         </tr>
@@ -172,7 +176,7 @@ export default {
 
                 title: "",
                 business_number: "",
-                active: "",
+                active: 1,
 
                 files: [],
                 files_mobile: [],
@@ -187,6 +191,8 @@ export default {
 
     methods: {
         store(){
+            this.$store.commit("setLoading", true);
+
             if(this.item)
                 return this.form.post("/api/admin/providers/" + this.item.id)
                         .then(response => {

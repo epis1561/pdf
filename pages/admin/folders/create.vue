@@ -29,9 +29,11 @@
 
                             <input-address @change="(data) => form[data.name] = data.value" :form="form" />
 
-                            <error :form="form" name="address" />
-                            <error :form="form" name="address_detail" />
-                            <error :form="form" name="address_zipcode" />
+                            <div style="width: 100%;">
+                                <error :form="form" name="address" />
+                                <error :form="form" name="address_detail" />
+                                <error :form="form" name="address_zipcode" />
+                            </div>
                         </li>
                         <li>
                             <div class="list-title">

@@ -5,7 +5,7 @@
                 <div class="sca-box">
                     <ul>
                         <li><p>회원 관리</p></li>
-                        <li class="active"><p>대리점</p></li>
+                        <li class="active"><p>실사파트너</p></li>
                     </ul>
                 </div>
 
@@ -33,7 +33,7 @@
                     <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="">검색 조건</option>
-                            <option value="title">대리점명</option>
+                            <option value="title">실사파트너명</option>
                             <option value="business_number">사업자번호</option>
                             <option value="contact">연락처</option>
                             <option value="president">담당자명</option>
@@ -59,7 +59,7 @@
                     <tr>
                         <th>번호</th>
 
-                        <th>대리점명</th>
+                        <th>실사파트너명</th>
                         <th>사업자번호</th>
                         <th>연락처</th>
                         <th>담당자명</th>
@@ -81,7 +81,7 @@
                         <td>
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/agencies/create?id=${item.id}`" class="active">조회</nuxt-link>
-                                <a href="#" @click.prevent="remove(item)">삭제</a>
+<!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
                     </tr>

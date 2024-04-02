@@ -5,7 +5,7 @@
                 <div class="sca-box">
                     <ul>
                         <li><p>회원 관리</p></li>
-                        <li class="active"><p>공급사</p></li>
+                        <li class="active"><p>클라이언트</p></li>
                     </ul>
                 </div>
             </div>
@@ -56,7 +56,9 @@
                     <tr>
                         <th>번호</th>
 
+                        <th>이미지</th>
                         <th>기업명</th>
+                        <th>관련 캠페인 (최근 3개)</th>
                         <th>사업자번호</th>
                         <th>활성여부</th>
 
@@ -67,7 +69,12 @@
                     <tr v-for="item in items.data" :key="item.id">
                         <td>{{ item.id }}</td>
 
+                        <td>
+                            <img :src="item.img.url" alt="" v-if="item.img" class="table-img">
+                        </td>
+
                         <td>{{ item.title }}</td>
+                        <td>{{ item.format_campaigns }}</td>
                         <td>{{ item.business_number }}</td>
                         <td>{{ item.active ? '활성' : '비활성' }}</td>
 

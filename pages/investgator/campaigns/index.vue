@@ -33,7 +33,7 @@
                     <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="">검색 조건</option>
-                            <option value="provider">공급사</option>
+                            <option value="provider">클라이언트</option>
                             <option value="title">캠페인명</option>
                         </select>
                     </div>
@@ -57,7 +57,7 @@
                     <tr>
                         <th>번호</th>
 
-                        <th>공급사</th>
+                        <th>클라이언트</th>
                         <th>캠페인명</th>
                         <th>시작일</th>
                         <th>종료일</th>

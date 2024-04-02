@@ -16,7 +16,7 @@
                                 <strong>질의 제목</strong>
                             </div>
                             <div class="list-content flex flex-vc">
-                                <div class="input-box no-border">
+                                <div class="input-box no-border" style="width:100%;">
                                     <input type="text" class="f18" placeholder="내용을 입력해주세요." v-model="form.title">
                                 </div>
 
@@ -386,6 +386,7 @@
 
             <div class="button-box flex-tr mt32">
                 <a href="#" class="btn btn-lightgray px45 mr10" @click.prevent="() => {$router.back();}">취소</a>
+                <a href="" class="btn btn-red px45 mr10" @click.prevent="remove">삭제</a>
                 <a href="#" class="btn btn-blue px45" @click.prevent="store">등록</a>
             </div>
         </div>
@@ -472,6 +473,16 @@ export default {
     },
 
     methods: {
+        remove(){
+            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+            if(confirmed)
+                this.form.delete("/api/admin/questions/" + this.item.id)
+                        .then(response => {
+                            this.$router.back();
+                        });
+        },
+
         store(){
             this.$store.commit("setLoading", true);
 

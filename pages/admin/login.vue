@@ -11,8 +11,8 @@
 
                 <div class="inputs">
                     <div class="input-text">
-                        <input type="text" placeholder="이메일 아이디를 입력해주세요." v-model="form.email">
-                        <error :form="form" name="email" />
+                        <input type="text" placeholder="아이디를 입력해주세요." v-model="form.ids">
+                        <error :form="form" name="ids" />
                     </div>
                     <div class="input-text">
                         <input type="password" placeholder="비밀번호를 입력해주세요." v-model="form.password">
@@ -36,7 +36,7 @@ export default {
     data(){
         return {
             form : new Form(this.$axios, {
-                email:"",
+                ids:"",
                 password:"",
             })
         }

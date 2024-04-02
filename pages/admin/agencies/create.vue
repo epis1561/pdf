@@ -4,7 +4,7 @@
             <div class="sca-box">
                 <ul>
                     <li><p>회원 관리</p></li>
-                    <li class="active"><p>대리점</p></li>
+                    <li class="active"><p>실사파트너</p></li>
                 </ul>
             </div>
             <div class="mt30">
@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <div class="list-title">
-                                <strong>대리점명</strong>
+                                <strong>실사파트너명</strong>
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
@@ -83,9 +83,11 @@
 
                             <input-address @change="(data) => form[data.name] = data.value" :form="form" />
 
-                            <error :form="form" name="address" />
-                            <error :form="form" name="address_detail" />
-                            <error :form="form" name="address_zipcode" />
+                            <div style="width: 100%;">
+                                <error :form="form" name="address" />
+                                <error :form="form" name="address_detail" />
+                                <error :form="form" name="address_zipcode" />
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -93,6 +95,7 @@
 
             <div class="button-box flex-tr mt32">
                 <a href="" class="btn btn-lightgray px45 mr10" @click.prevent="() => $router.back()">취소</a>
+                <a href="" class="btn btn-red px45 mr10" @click.prevent="remove">삭제</a>
                 <a href="" class="btn btn-blue px45" @click.prevent="store">등록</a>
             </div>
 
@@ -285,7 +288,7 @@ export default {
                 address_detail: "",
                 address_zipcode: "",
                 expired_at: "",
-                active: "",
+                active: 1,
 
                 files: [],
                 files_mobile: [],
@@ -299,6 +302,16 @@ export default {
     },
 
     methods: {
+        remove(){
+            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+            if(confirmed)
+                this.form.delete("/api/admin/agencies/" + this.item.id)
+                        .then(response => {
+                            this.$router.back();
+                        });
+        },
+
         store(){
             if(this.item)
                 return this.form.post("/api/admin/agencies/" + this.item.id)

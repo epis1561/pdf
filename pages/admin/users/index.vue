@@ -43,7 +43,7 @@
                     <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="">검색 조건</option>
-                            <option value="email">이메일</option>
+                            <option value="ids">아이디</option>
                             <option value="contact">연락처</option>
                             <option value="name">담당자명</option>
                         </select>
@@ -71,7 +71,7 @@
                         <th>권한 유형</th>
                         <th>소속 유형</th>
                         <th>기업명</th>
-                        <th>이메일</th>
+                        <th>아이디</th>
                         <th>연락처</th>
                         <th>담당자명</th>
                         <th>가입일</th>
@@ -87,13 +87,13 @@
                         <td>{{ item.format_type }}</td>
                         <td>{{ item.role }}</td>
                         <td>{{ item.company ? item.company.title : "" }}</td>
-                        <td>{{ item.email }}</td>
+                        <td>{{ item.ids }}</td>
                         <td>{{ item.contact }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.format_created_at }}</td>
                         <td>{{ item.active ? '활성' : '비활성' }}</td>
 
-                        <td>
+                        <td style="white-space: nowrap;">
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/users/create?id=${item.id}`" class="active">조회</nuxt-link>
                                 <a href="#" @click.prevent="remove(item)">삭제</a>

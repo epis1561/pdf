@@ -30,6 +30,8 @@ export default {
 
         if(this.$route.path !== "/admin/login" && (!this.$auth.user || this.$auth.user.data.type === 'COMMON'))
             return this.$router.push("/admin/login");
+
+        this.$store.dispatch("getCategories");
     }
 }
 </script>

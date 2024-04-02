@@ -25,7 +25,7 @@
 
                         <li>
                             <div class="list-title">
-                                <strong>공급사</strong>
+                                <strong>클라이언트</strong>
                             </div>
                             <div class="list-content">
                                 <div class="select-box no-border">
@@ -58,7 +58,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="date-box no-border">
-                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.survey_started_at">
+                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.survey_started_at" @change="clearDate('survey_started_at')">
 
                                     <error :form="form" name="survey_started_at" />
                                 </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="date-box no-border">
-                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.survey_finished_at">
+                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.survey_finished_at" :min="form.survey_started_at" @change="clearDate('survey_finished_at')">
 
                                     <error :form="form" name="survey_finished_at" />
                                 </div>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="date-box no-border">
-                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.improve_started_at">
+                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.improve_started_at" :min="form.survey_finished_at" @change="clearDate('improve_started_at')">
 
                                     <error :form="form" name="improve_started_at" />
                                 </div>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="date-box no-border">
-                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.improve_finished_at">
+                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.improve_finished_at" :min="form.improve_started_at">
 
                                     <error :form="form" name="improve_finished_at" />
                                 </div>
@@ -254,6 +254,7 @@
 
             <div class="button-box flex-tr mt32">
                 <a href="" class="btn btn-lightgray px45 mr10" @click.prevent="() => $router.back()">취소</a>
+                <a href="" class="btn btn-red px45 mr10" @click.prevent="remove">삭제</a>
                 <a href="" class="btn btn-blue px45" @click.prevent="store">등록</a>
 
                 <template v-if="item">
@@ -292,7 +293,7 @@
                             <th>사업자번호</th>
                             <th>연락처</th>
                             <th>대표자명</th>
-                            <th>대리점</th>
+                            <th>실사파트너</th>
 
                             <th></th>
                         </tr>
@@ -310,7 +311,7 @@
                             <td>
                                 <div class="table-button-box">
 <!--                                    <nuxt-link :to="`/admin/users/create?id=${user.id}`" class="active">조회</nuxt-link>-->
-                                    <a href="#" class="accent" @click.prevent="targetCompany = company">대리점 배정</a>
+                                    <a href="#" class="accent" @click.prevent="targetCompany = company">실사파트너 배정</a>
                                     <a href="#" @click.prevent="detachCompany(company)">제외</a>
                                 </div>
                             </td>
@@ -411,7 +412,7 @@
                     <div class="box active" data-name="popup01">
                         <div class="popup-head">
                             <div class="title-box">
-                                <h2>대리점</h2>
+                                <h2>실사파트너</h2>
                             </div>
                             <a href="#" class="close" @click.prevent="targetCompany = null">닫기</a>
                         </div>
@@ -422,7 +423,7 @@
                                     <div class="select-box mr10">
                                         <select v-model="agenciesForm.column">
                                             <option value="">검색 조건</option>
-                                            <option value="title">대리점명</option>
+                                            <option value="title">실사파트너사</option>
                                             <option value="name">담당자명</option>
                                             <option value="contact">연락처</option>
                                             <option value="business_number">사업자등록번호</option>
@@ -445,7 +446,7 @@
                                     <tr>
                                         <th>번호</th>
 
-                                        <th>대리점명</th>
+                                        <th>실사파트너명</th>
                                         <th>담당자명</th>
                                         <th>연락처</th>
                                         <th>사업자등록번호</th>
@@ -564,7 +565,7 @@ export default {
                 company_id: "",
                 agency_id: "",
 
-                active: "",
+                active: 1,
                 title: "",
                 provider_id: "",
                 description: "",
@@ -595,7 +596,19 @@ export default {
     },
 
     methods: {
+        remove(){
+            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+            if(confirmed)
+                this.form.delete("/api/admin/campaigns/" + this.item.id)
+                        .then(response => {
+                            this.$router.replace("/admin/campaigns");
+                        });
+        },
+
         store(){
+            this.$store.commit("setLoading", true);
+
             if(this.item)
                 return this.form.post("/api/admin/campaigns/" + this.item.id)
                     .then(response => {
@@ -715,6 +728,27 @@ export default {
                         }
                     })
         },
+
+        clearDate(column){
+            if(column === 'survey_started_at'){
+                this.form.survey_finished_at = "";
+                this.form.improve_started_at = "";
+                this.form.improve_finished_at = "";
+            }
+
+            if(column === 'survey_finished_at'){
+                this.form.improve_started_at = "";
+                this.form.improve_finished_at = "";
+            }
+
+            if(column === 'improve_started_at'){
+                this.form.improve_finished_at = "";
+            }
+        }
+    },
+
+    computed: {
+
     },
 
 

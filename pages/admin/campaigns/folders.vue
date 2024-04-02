@@ -445,7 +445,7 @@
                                 <select v-model="campaignsForm.column" @change="() => {campaignsForm.page = 1; getCampaigns();}">
                                     <option value="">검색조건</option>
                                     <option value="title">제목</option>
-                                    <option value="provider">공급사명</option>
+                                    <option value="provider">클라이언트명</option>
                                 </select>
                             </div>
 
@@ -466,7 +466,7 @@
                             <thead>
                             <tr>
                                 <th width="65">번호</th>
-                                <th>공급사</th>
+                                <th>클라이언트</th>
                                 <th>캠페인명</th>
                                 <th>상태</th>
                                 <th></th>

@@ -1,7 +1,7 @@
 <template>
     <div class="subpage">
         <div class="subpage-header">
-            OK로지웰은 전국 어디든 고객맞춤 서비스를 제공합니다.
+
         </div>
 
         <div class="subpage-container">
@@ -264,6 +264,8 @@
 import Form from "~/utils/Form";
 
 export default {
+    middleware: ["admin"],
+
     data(){
         return {
             step: 1,

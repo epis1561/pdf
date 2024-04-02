@@ -120,9 +120,11 @@
 
                             <input-address @change="(data) => form[data.name] = data.value" :form="form" />
 
-                            <error :form="form" name="address" />
-                            <error :form="form" name="address_detail" />
-                            <error :form="form" name="address_zipcode" />
+                            <div style="width: 100%;">
+                                <error :form="form" name="address" />
+                                <error :form="form" name="address_detail" />
+                                <error :form="form" name="address_zipcode" />
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -147,7 +149,9 @@
                         <label for="excel" class="btn btn-active mr10">엑셀 업로드</label>
 
                         <a href="#" style="opacity:0; position:absolute; left:-10000px;" id="download"></a>
-                        <a href="#" class="btn btn-active-2" @click.prevent="exportExcel">엑셀 다운로드</a>
+                        <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>
+
+                        <nuxt-link :to="`/admin/users/create?company_id=${item.id}`" class="btn btn-blue">사용자 추가</nuxt-link>
                     </div>
                 </div>
                 <div class="table-box mt24">
@@ -155,7 +159,7 @@
                         <thead>
                         <tr>
                             <th>번호</th>
-                            <th>이메일</th>
+                            <th>아이디</th>
                             <th>연락처</th>
                             <th>이름</th>
                             <th>활성여부</th>
@@ -165,7 +169,7 @@
                         <tbody>
                         <tr v-for="user in users.data" :key="user.id">
                             <td>{{ user.id }}</td>
-                            <td>{{ user.email }}</td>
+                            <td>{{ user.ids }}</td>
                             <td>{{ user.contact }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.active ? '활성' : '비활성' }}</td>
@@ -242,7 +246,7 @@ export default {
                 address_detail: "",
                 address_zipcode: "",
                 expired_at: "",
-                active: "",
+                active: 1,
 
                 files: [],
                 files_mobile: [],
@@ -257,6 +261,8 @@ export default {
 
     methods: {
         store(){
+            this.$store.commit("setLoading", true);
+
             if(this.item)
                 return this.form.post("/api/admin/companies/" + this.item.id)
                     .then(response => {

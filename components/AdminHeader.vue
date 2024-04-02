@@ -20,8 +20,8 @@
                     <dl>
                         <dd :class="activeClass('/admin/companies')"><nuxt-link to="/admin/companies">회사</nuxt-link></dd>
                         <dd :class="activeClass('/admin/users')"><nuxt-link to="/admin/users">회원</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/providers')"><nuxt-link to="/admin/providers">공급사</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/agencies')"><nuxt-link to="/admin/agencies">대리점</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/providers')"><nuxt-link to="/admin/providers">클라이언트</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/agencies')"><nuxt-link to="/admin/agencies">실사파트너</nuxt-link></dd>
                     </dl>
                 </li>
                 <li class="active">
