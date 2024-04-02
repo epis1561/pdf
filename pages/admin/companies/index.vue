@@ -15,7 +15,9 @@
                     <label for="excel" class="btn btn-active mr10">엑셀 업로드</label>
 
                     <a href="#" style="opacity:0; position:absolute; left:-10000px;" id="download"></a>
-                    <a href="#" class="btn btn-active-2" @click.prevent="exportExcel">엑셀 다운로드</a>
+                    <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>
+
+                    <a href="#" class="btn btn-red" @click.prevent="removeAll">삭제</a>
                 </div>
             </div>
             <div class="line-box mt32"></div>
@@ -65,6 +67,14 @@
                 <table>
                     <thead>
                     <tr>
+                        <th>
+                            <div class="m-input-checkbox type01" @click="toggle">
+                                <input type="checkbox" id="" name="" checked
+                                       v-if="form.selected_ids.length === items.data.length">
+                                <input type="checkbox" id="" name="" v-else>
+                                <label for=""></label>
+                            </div>
+                        </th>
                         <th>번호</th>
                         <th>기업명</th>
                         <th>사업자번호</th>
@@ -77,6 +87,12 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in items.data" :key="item.id">
+                        <td>
+                            <div class="m-input-checkbox type01">
+                                <input type="checkbox" :id="item.id" :value="item.id" v-model="form.selected_ids">
+                                <label :for="item.id"></label>
+                            </div>
+                        </td>
                         <td>{{ item.id }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.business_number }}</td>
@@ -87,7 +103,7 @@
                         <td>
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/companies/create?id=${item.id}`" class="active">조회</nuxt-link>
-                                <a href="#" @click.prevent="remove(item)">삭제</a>
+<!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
                     </tr>
@@ -131,6 +147,9 @@ export default {
             },
 
             form: new Form(this.$axios, {
+                selected_ids: [],
+                password: "",
+
                 page: 1,
                 take: "",
                 word: "",
@@ -143,6 +162,13 @@ export default {
     },
 
     methods: {
+        toggle(){
+            if(this.form.selected_ids.length === this.items.data.length)
+                return this.form.selected_ids = [];
+
+            return this.form.selected_ids = this.items.data.map(item => item.id);
+        },
+
         filter(){
             this.$store.commit("setLoading", true);
 
@@ -153,13 +179,14 @@ export default {
             });
         },
 
-        remove(item){
-            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+        removeAll(){
+            this.form.password = prompt("비밀번호를 입력해주세요.");
 
-            if(confirmed)
-                this.form.delete("/api/admin/companies/" + item.id)
+            this.form.delete("/api/admin/companies/removeAll")
                     .then(response => {
-                        this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
+                        this.items.data = this.items.data.filter(itemData => !this.form.selected_ids.includes(itemData.id));
+
+                        this.form.selected_ids = [];
                     });
         },
 

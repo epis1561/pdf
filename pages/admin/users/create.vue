@@ -38,7 +38,12 @@
                             </div>
                             <div class="list-content">
                                 <div class="select-box no-border">
-                                    <select class="f18" v-model="form.type">
+                                    <select class="f18" v-model="form.type" v-if="form.company_id || form.provider_id">
+                                        <option value="" disabled>선택</option>
+                                        <option value="COMMON">회원</option>
+                                    </select>
+
+                                    <select class="f18" v-model="form.type" v-else>
                                         <option value="" disabled>선택</option>
                                         <option :value="type.value" v-for="type in types.data" :key="type.value">{{ type.label }}</option>
                                     </select>

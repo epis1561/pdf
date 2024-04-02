@@ -334,3 +334,29 @@ label {
     color:#1C70AE !important;
 
 }
+
+.m-input-checkbox.type01 {
+    position:relative;
+}
+.m-input-checkbox.type01 input {
+    display: none;
+}
+.m-input-checkbox.type01 label {
+    display: flex; align-items: center;
+    position: relative;
+    transition:all .3s;
+}
+.m-input-checkbox.type01 label:after {
+    content:"";
+    display:inline-block; width:16px; height:16px;
+    background-image:url("../images/icon_admin_check.png");
+    background-size:100%;
+}
+.m-input-checkbox.type01 label .text {
+    margin-left:8px;
+    color:rgb(75,86,117);
+}
+
+.m-input-checkbox.type01 input:checked + label:after {
+    background-image:url("../images/icon_admin_check_on.png");
+}

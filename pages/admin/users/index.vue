@@ -37,6 +37,16 @@
                         <select v-model="form.type" @change="() => {form.page=1; filter();}">
                             <option value="">권한 유형</option>
                             <option :value="type.value" v-for="type in types" :key="type.value">{{ type.label }}</option>
+                            <option value="COMPANY_ADMIN">회사 관리자</option>
+                        </select>
+                    </div>
+
+                    <div class="select-box mr10">
+                        <select v-model="form.role" @change="() => {form.page=1; filter();}">
+                            <option value="">소속 유형</option>
+                            <option value="PROVIDER">클라이언트</option>
+                            <option value="COMPANY">회사</option>
+                            <option value="INVESTIGATOR">실사파트너</option>
                         </select>
                     </div>
 
@@ -148,6 +158,7 @@ export default {
                 type: "",
                 take: "",
                 word: "",
+                role: "",
                 column: "",
                 file: "",
 

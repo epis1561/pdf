@@ -143,13 +143,13 @@
                         <h2>소속 사용자</h2>
                     </div>
                     <div class="button-box">
-                        <a href="/asset/files/사용자업로드양식.xlsx" class="btn btn-active mr10">엑셀 업로드 양식</a>
+<!--                        <a href="/asset/files/사용자업로드양식.xlsx" class="btn btn-active mr10">엑셀 업로드 양식</a>
 
                         <input type="file" id="excel" style="position: absolute; z-index:-1; left:-100000px;" @change="importExcel">
                         <label for="excel" class="btn btn-active mr10">엑셀 업로드</label>
 
                         <a href="#" style="opacity:0; position:absolute; left:-10000px;" id="download"></a>
-                        <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>
+                        <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>-->
 
                         <nuxt-link :to="`/admin/users/create?company_id=${item.id}`" class="btn btn-blue">사용자 추가</nuxt-link>
                     </div>
