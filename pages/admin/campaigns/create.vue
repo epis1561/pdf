@@ -258,9 +258,7 @@
                 <a href="" class="btn btn-blue px45" @click.prevent="store">등록</a>
 
                 <template v-if="item">
-                    <!--
-                    <nuxt-link :to="``" class="btn btn-active-2 px45 ml10">기본 정보 등록</nuxt-link>
-                    -->
+                    <nuxt-link :to="`/admin/campaigns/folders?campaign_id=${item.id}&basic=1`" href="" class="btn btn-active px45 ml10">기본 정보 등록</nuxt-link>
                     <nuxt-link :to="`/admin/campaigns/folders?campaign_id=${item.id}&basic=0`" href="" class="btn btn-active-2 px45 ml10">설문 정보 등록</nuxt-link>
                 </template>
             </div>

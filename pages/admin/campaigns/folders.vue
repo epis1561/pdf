@@ -11,7 +11,10 @@
             <div class="toggle-button-box">
                 <a href="" class="open" @click.prevent="openAll">전체 펼침</a>
                 <a href="" class="close" @click.prevent="closeAll">전체 닫기</a>
+                <a href="" class="open" @click.prevent="activeRatioPop = true">가중치 설정</a>
             </div>
+
+
             <div class="flex mt24">
                 <div class="flex-1 mr40">
                     <div class="menu-list-box" style="height:700px;">
@@ -33,7 +36,7 @@
                         </ul>
                     </div>
                     <div class="button-box mt32 flex-tc">
-                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="!targetFolder || !targetFolder.folder_id">하위분류생성</a>
+                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="!form.basic && (!targetFolder || !targetFolder.folder_id)">하위분류생성</a>
                     </div>
                 </div>
                 <div class="flex-1">
@@ -53,7 +56,7 @@
                                 </div>
                                 <div class="list-content flex flex-vc">
                                     <p class="flex-1 active">{{ campaign.title }}</p>
-                                    <a href="" class="link" @click.prevent="activeCampaigns = true">다른캠페인 불러오기</a>
+                                    <a href="" class="link" @click.prevent="activeCampaigns = true" v-if="!form.basic">다른캠페인 불러오기</a>
                                 </div>
                             </li>
 <!--                            <li class="full">
@@ -84,7 +87,20 @@
                                     </p>
                                 </div>
                             </li>
-                            <li class="full">
+                            <li class="full" v-if="targetFolder && !targetFolder.basic && !targetFolder.folder_id">
+                                <div class="list-title">
+                                    <strong>영역</strong>
+                                </div>
+                                <div class="list-content flex flex-vc">
+                                    <div class="radio-box w120" v-for="domain in domains.data" :key="domain.value">
+                                        <input type="radio" name="" :id="`radio_${domain.value}`" :value="domain.value" v-model="form.domain">
+                                        <label :for="`radio_${domain.value}`">{{ domain.label }}</label>
+                                    </div>
+
+                                    <error :form="form" name="domain" />
+                                </div>
+                            </li>
+                            <li class="full" v-if="!form.basic">
                                 <div class="list-title">
                                     <strong>분류 명</strong>
                                 </div>
@@ -96,7 +112,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="full" v-if="targetFolder && !targetFolder.folder_id">
+<!--                            <li class="full" v-if="targetFolder && !targetFolder.folder_id">
                                 <div class="list-title">
                                     <strong>가중치</strong>
                                 </div>
@@ -107,7 +123,7 @@
                                         <error :form="form" name="ratio" />
                                     </div>
                                 </div>
-                            </li>
+                            </li>-->
 <!--                            <li class="full">
                                 <div class="list-title">
                                     <strong>분류 번호</strong>
@@ -118,7 +134,7 @@
                                     </div>
                                 </div>
                             </li>-->
-                            <li class="full">
+                            <li class="full" v-if="!form.basic">
                                 <div class="list-title">
                                     <strong>사용 여부</strong>
                                 </div>
@@ -148,7 +164,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="button-box mt32 flex-tr">
+
+                    <div class="button-box mt32 flex-tr" v-if="!form.basic">
                         <a href="" class="btn btn-red w120 mr10" v-if="form.id" @click.prevent="remove">삭제</a>
                         <a href="" class="btn btn-blue px25" v-if="form.id" @click.prevent="update">분류 수정</a>
                         <a href="" class="btn btn-blue px25" v-else @click.prevent="store">분류 생성</a>
@@ -156,7 +173,7 @@
                 </div>
             </div>
 
-            <template v-if="targetFolder && targetFolder.folder_id">
+            <template v-if="targetFolder && (targetFolder.basic || targetFolder.folder_id)">
                 <div class="line-box black mt80"></div>
                 <div class="title-box mt40">
                     <h2>[{{targetFolder.title}}] 질의 목록</h2>
@@ -202,6 +219,37 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            <!-- show options 참고
+                                            <li class="full">
+                                                <div class="list-title">
+                                                    <strong>특정 조건 <br/>만족시에만 노출</strong>
+                                                </div>
+                                                <div class="list-content flex flex-vc">
+                                                    <div class="radio-box w120">
+                                                        <input type="radio" :id="`${index}-radio_show_01`" :value="1" v-model="form.questions[index].use_move_condition">
+                                                        <label :id="`${index}-radio_show_01`">예</label>
+                                                    </div>
+                                                    <div class="radio-box w120">
+                                                        <input type="radio" :id="`${index}-radio_show_02`" :value="0" v-model="form.questions[index].use_move_condition">
+                                                        <label :id="`${index}-radio_show_02`">아니오</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="full" v-if="form.questions[index].show_options">
+                                                <div class="list-title">
+                                                    <strong>조건 선택</strong>
+                                                </div>
+                                                <div class="list-content flex flex-vc">
+                                                    <div class="radio-box w120">
+                                                        <input type="radio" :id="`${index}-radio_show_01`" :value="1" v-model="form.questions[index].show_options">
+                                                        <label :id="`${index}-radio_show_01`">예</label>
+                                                    </div>
+                                                    <div class="radio-box w120">
+                                                        <input type="radio" :id="`${index}-radio_show_02`" :value="0" v-model="form.questions[index].use_move_condition">
+                                                        <label :id="`${index}-radio_show_02`">아니오</label>
+                                                    </div>
+                                                </div>
+                                            </li>-->
 
                                             <template v-if="form.questions[index].type === 'CHECKBOX' || form.questions[index].type === 'RADIO' || form.questions[index].type === 'SELECT'">
                                                 <li class="full">
@@ -227,13 +275,13 @@
                                                                     <td>
                                                                         <div class="flex flex-vc flex-tj">
                                                                             <p class="f18">{{option.title}}</p>
-                                                                            <div class="select-box" v-if="form.questions[index].use_move_condition">
+<!--                                                                            <div class="select-box" v-if="form.questions[index].use_move_condition">
                                                                                 <select>
                                                                                     <option value="">질문선택</option>
                                                                                     <option :value="question.id" v-for="(question, questionIndex) in form.questions" v-if="question.id && questionIndex > index" v-model="form.questions[index]['options'][optionIndex].move_question_id">{{questionIndex + 1}}.
                                                                                         {{ question.title }}</option>
                                                                                 </select>
-                                                                            </div>
+                                                                            </div>-->
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -243,7 +291,7 @@
                                                         <div class="line-box black"></div>
                                                     </div>
                                                 </li>
-                                                <li class="full">
+<!--                                                <li class="full">
                                                     <div class="list-title">
                                                         <strong>조건 사용</strong>
                                                     </div>
@@ -256,7 +304,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                </li>
+                                                </li>-->
                                             </template>
 
                                             <template v-if="form.questions[index].type === 'TEXT'">
@@ -494,6 +542,55 @@
                 </div>
             </div>
         </div>
+
+        <div class="popup-box fixed" v-if="activeRatioPop">
+            <div class="box lg active" data-name="popup01">
+                <div class="popup-head">
+                    <div class="title-box">
+                        <h2>가중치 설정</h2>
+                    </div>
+                    <a href="#" class="close" @click.prevent="activeRatioPop = false">닫기</a>
+                </div>
+                <div class="popup-body">
+                    <div class="line-box"></div>
+                    <div class="flex flex-vc flex-tj mt15">
+
+                    </div>
+
+                    <div class="table-box mt25">
+                        <table>
+                            <colgroup>
+                                <col>
+                                <col style="width:20%;">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>카테고리명</th>
+                                <th>가중치</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item, index) in ratioForm.folders" :key="item.id" v-if="!item.folder_id">
+                                <td>{{ item.title }}</td>
+                                <td>
+                                    <div class="input-box">
+                                        <input type="number" placeholder="" class="tc" v-model="ratioForm.folders[index].ratio">
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt24"></div>
+
+                    <div class="button-box" style="justify-content: center">
+                        <button type="button" class="btn btn-active-2" @click.prevent="storeRatio">설정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
@@ -515,6 +612,11 @@ export default {
 
             activePop : false,
             activeCampaigns: false,
+            activeRatioPop: false,
+
+            domains : {
+                data: []
+            },
 
             items: {
                 data: [],
@@ -549,12 +651,13 @@ export default {
 
             form: new Form(this.$axios, {
                 id: "",
+                domain: "",
                 folder_id: this.targetFolder ? this.targetFolder.id : "",
                 campaign_id: this.$route.query.campaign_id,
 
                 title:"",
                 use:"",
-                basic: 0,
+                basic: this.$route.query.basic,
 
                 ratio: "",
                 description: "",
@@ -565,6 +668,10 @@ export default {
                 files_remove_ids: [],
 
                 questions: [],
+            }),
+
+            ratioForm: new Form(this.$axios, {
+                folders: [],
             }),
 
             questions: {
@@ -598,7 +705,7 @@ export default {
 
             question: {
                 id: "",
-                open_reporter : "",
+                open_reporter : 1,
                 use_move_condition: "",
                 use_excel: "",
             }
@@ -618,6 +725,13 @@ export default {
             this.activeIds = this.activeIds.includes(item.id)
                     ? this.activeIds.filter(id => id != item.id)
                     : [...this.activeIds, item.id];
+        },
+
+        getDomains(){
+            this.$axios.get("/api/domains")
+                    .then(response => {
+                        this.domains = response.data;
+                    });
         },
 
         getCampaign(){
@@ -663,6 +777,12 @@ export default {
                 params: this.form.data()
             }).then(response => {
                 this.items = response.data;
+
+                this.ratioForm.folders = [];
+
+                this.items.data.filter((item) => !item.folder_id).map(item => {
+                    this.ratioForm.folders.push(item);
+                })
             });
         },
 
@@ -790,7 +910,6 @@ export default {
 
             this.form.questions = this.form.questions.map(question => question);
 
-            console.log(this.form.questions);
             this.form.post("/api/admin/folders/" + this.targetFolder.id + "/syncQuestions")
                     .then(response => {
                         this.$store.commit("setPop", {});
@@ -816,13 +935,34 @@ export default {
             });
 
             this.activePop = false;
+        },
+
+        storeRatio(){
+            let total = 0;
+
+            this.ratioForm.folders.map(folder => {
+                if(folder.ratio)
+                    total += parseInt(folder.ratio);
+            });
+
+            if(total !== 100)
+                return this.$store.commit("setPop", {
+                    description: "가중치의 총 합이 100이 되어야합니다."
+                });
+
+            this.$store.commit("setLoading", true);
+
+            this.ratioForm.post("/api/admin/folders/syncRatio")
+                    .then(response => {
+                        this.activeRatioPop = false;
+                    });
         }
     },
 
     watch: {
         targetFolder: {
             handler(){
-                if(this.targetFolder && this.targetFolder.folder_id)
+                if(this.targetFolder && (this.targetFolder.basic || this.targetFolder.folder_id))
                     this.getFolderQuestions();
             }
         },
@@ -840,6 +980,7 @@ export default {
 
         this.getCampaigns();
 
+        this.getDomains();
     }
 
 }

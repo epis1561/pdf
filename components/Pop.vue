@@ -9,7 +9,7 @@
             <p class="txt" v-html="pop.description ? pop.description : '성공적으로 처리되었습니다.'"></p>
 
             <div class="btn-wrap">
-                <button class="m-btn type01 bg-primary type-middle" @click.prevent="close">
+                <button type="button" class="m-btn type01 bg-primary type-middle" @click.prevent.stop="close">
                     확인
                 </button>
             </div>
@@ -25,7 +25,7 @@
     width: 100%; max-width: 560px;
     background: #fff; padding: 30px 30px;
     padding-bottom:24px; text-align: center; border-radius: 24px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
-    z-index:3;
+    z-index:10000;
 }
 .m-pop.type01 .modal-wrap .title-wrap { padding-bottom: 32px; border-bottom: 1px solid #ccc; margin-bottom: 32px; }
 .m-pop.type01 .modal-wrap .title-wrap i { font-size: 40px; color: #2B9F97; display: inline-block; margin-bottom: 16px; }

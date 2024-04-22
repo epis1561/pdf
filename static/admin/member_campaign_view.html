@@ -1,0 +1,668 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="generator" content="">
+	<meta name="robots" content="">
+	<meta property="og:type" content="">
+	<meta property="og:title" content="">
+	<meta property="og:url" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">  
+	<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover">
+	<link href="" rel="icon" type="image/jpg">
+	<link href="" rel="shortcut icon" type="image/jpg">
+	<link href="" rel="apple-touch-icon" type="image/jpg">				
+	<link rel="stylesheet" type="text/css" href="../asset/css/swiper.min.css"> 
+	<link rel="stylesheet" type="text/css" href="../asset/css/base.css"> 
+	<link rel="stylesheet" type="text/css" href="../asset/css/grid.css"> 
+	<link rel="stylesheet" type="text/css" href="../asset/css/admin.css"> 
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="../asset/js/swiper.min.js"></script>	
+	<script src="../asset/js/common.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="admin-container-box">
+			<div class="admin-left">
+				<div class="admin-left-category">
+					<ul>
+						<li>
+							<a href="javascript:;">회원관리</a>
+							<dl>
+								<dd><a href="">회사</a></dd>
+								<dd><a href="">회원</a></dd>
+								<dd><a href="">제공사</a></dd>
+								<dd><a href="">대리점</a></dd>
+								<dd><a href="">관리자</a></dd>
+							</dl>
+						</li>
+						<li>
+							<a href="javascript:;">캠페인 관리</a>
+							<dl>
+								<dd class="active"><a href="">질의</a></dd>
+								<dd><a href="">캠페인</a></dd>
+							</dl>
+						</li>
+						<li>
+							<a href="javascript:;">시스템 관리</a>
+							<dl>
+								<dd><a href="">서버로그</a></dd>
+								<dd><a href="">메모리 현황</a></dd>
+							</dl>
+						</li>
+						<li>
+							<a href="javascript:;">로그 관리</a>
+							<dl>
+								<dd><a href="">회원접속로그</a></dd>
+								<dd><a href="">관리자로그</a></dd>
+								<dd><a href="">로그</a></dd>
+							</dl>
+						</li>
+						<li>
+							<a href="javascript:;">게시판 관리</a>
+							<dl>
+								<dd><a href="">ㅇㅇㅇ</a></dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="admin-right">
+				<div class="admin-right-container">
+					<div class="sca-box">
+						<ul>
+							<li><a href="">캠페인 관리</a></li>
+							<li class="active"><a href="">질의</a></li>
+						</ul>
+					</div>
+					<div class="mt30">
+						<div class="write-box">
+							<ul>
+								<li class="flex-vt">
+									<div class="list-title pt25">
+										<strong>카테고리 설정</strong>
+										<small>필수</small>
+									</div>
+									<div class="list-content">
+										<div class="select-box no-border bb1">
+											<select class="h70 f18">
+												<option>대 카테고리</option>
+											</select>
+										</div>
+										<div class="select-box no-border bb1">
+											<select class="h70 f18">
+												<option>중 카테고리</option>
+											</select>
+										</div>
+										<div class="select-box no-border bb1">
+											<select class="h70 f18">
+												<option>분류</option>
+											</select>
+										</div>
+										<div class="select-box no-border bb1">
+											<select class="h70 f18">
+												<option>일반/심화</option>
+											</select>
+										</div>
+										<div class="select-box no-border">
+											<select class="h70 f18">
+												<option>산업분류</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li class="flex-vt">
+									<ul class="col-12">
+										<li class="full">
+											<div class="list-title">
+												<strong>요약 메모</strong>
+											</div>
+											<div class="list-content">
+												<div class="input-box no-border">
+													<input type="text" class="f18" placeholder="요약 메모 사항을 작성해주세요.">
+												</div>
+											</div>
+										</li>
+										<li class="full">
+											<div class="list-title">
+												<strong>필수 여부</strong>
+											</div>
+											<div class="list-content flex flex-vc">
+												<div class="radio-box w120">
+													<input type="radio" name="radio01" id="radio01_01">
+													<label for="radio01_01" class="f18">예</label>
+												</div>
+												<div class="radio-box w120">
+													<input type="radio" name="radio01" id="radio01_02">
+													<label for="radio01_02" class="f18">아니오</label>
+												</div>
+											</div>
+										</li>
+										<li class="full">
+											<div class="list-title">
+												<strong>해당없음 여부</strong>
+											</div>
+											<div class="list-content flex flex-vc">
+												<div class="radio-box w120">
+													<input type="radio" name="radio02" id="radio02_01">
+													<label for="radio02_01" class="f18">예</label>
+												</div>
+												<div class="radio-box w120">
+													<input type="radio" name="radio02" id="radio02_02">
+													<label for="radio02_02" class="f18">아니오</label>
+												</div>
+											</div>
+										</li>
+										<li class="full">
+											<div class="list-title">
+												<strong>&nbsp;</strong>
+											</div>
+											<div class="list-content">
+												<p>예 선택시 대체문구 입력 필수</p>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>첨부파일 여부</strong>
+									</div>
+									<div class="list-content flex flex-vc">
+										<div class="radio-box w120">
+											<input type="radio" name="radio03" id="radio03_01">
+											<label for="radio03_01" class="f18">예</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio03" id="radio03_02">
+											<label for="radio03_02" class="f18">아니오</label>
+										</div>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>첨부파일 여부</strong>
+									</div>
+									<div class="list-content flex flex-vc">
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_01">
+											<label for="radio04_01" class="f18">라디오</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_02">
+											<label for="radio04_02" class="f18">체크박스</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_03">
+											<label for="radio04_03" class="f18">드롭다운</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_04">
+											<label for="radio04_04" class="f18">텍스트 상자</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_05">
+											<label for="radio04_05" class="f18">텍스트 그룹</label>
+										</div>
+										<div class="radio-box w120">
+											<input type="radio" name="radio04" id="radio04_06">
+											<label for="radio04_06" class="f18">정량 데이터</label>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>라디오</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full flex-vt">
+									<div class="list-title pt25">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<ul class="col-12">
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<b class="mr24">01.</b>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="답변 제목을 작성해주세요.">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<div class="select-box no-border flex-1 mr45">
+														<select class="f18">
+															<option>충족 여부</option>
+														</select>
+													</div>
+													<div class="select-box no-border flex-1 mr45">
+														<select class="f18">
+															<option>추가 필드</option>
+														</select>
+													</div>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="설정">
+													</div>	
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="충족 시 멘트">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="비충족 시 멘트">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="법규 정보 등록">
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-content">
+										<a href="" class="write">문항 등록 추가</a>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>체크박스</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full flex-vt">
+									<div class="list-title pt25">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<ul class="col-12">
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<b class="mr24">01.</b>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="답변 제목을 작성해주세요.">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<div class="select-box no-border flex-1 mr45">
+														<select class="f18">
+															<option>충족 여부</option>
+														</select>
+													</div>
+													<div class="select-box no-border flex-1 mr45">
+														<select class="f18">
+															<option>추가 필드</option>
+														</select>
+													</div>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="설정">
+													</div>	
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="충족 시 멘트">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="비충족 시 멘트">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="법규 정보 등록">
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-content">
+										<a href="" class="write">문항 등록 추가</a>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>드롭다운</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full flex-vt">
+									<div class="list-title pt25">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<ul class="col-12">
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<b class="mr24">01.</b>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="답변 제목을 작성해주세요.">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content flex flex-vc">
+													<div class="select-box no-border flex-1 mr45">
+														<select class="f18">
+															<option>충족 여부</option>
+														</select>
+													</div>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="설정">
+													</div>	
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="충족 시 멘트">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border col-12">
+														<input type="text" class="f18" placeholder="비충족 시 멘트">
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-content">
+										<a href="" class="write">문항 등록 추가</a>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>텍스트 상자</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="내용을 입력해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>텍스트 그룹</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full flex-vt">
+									<div class="list-title pt25">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<ul class="col-12">
+											<li>
+												<div class="list-content flex flex-vc">
+													<b class="mr24">01.</b>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="라벨 제목(before)을 입력해주세요.">
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="list-content">
+													<div class="input-box no-border">
+														<input type="text" class="f18" placeholder="라벨 제목(after)을 입력해주세요.">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border">
+														<input type="text" class="f18" placeholder="설정">
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-content">
+										<a href="" class="write">문항 등록 추가</a>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mt60">
+						<div class="line-box black mb40"></div>
+						<div class="title-box">
+							<h2>질의 상세 설정</h2>
+							<small>정량 데이터</small>
+						</div>
+						<div class="write-box mt32">
+							<ul>
+								<li class="full">
+									<div class="list-title">
+										<strong>제목</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="제목을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+								<li class="full flex-vt">
+									<div class="list-title pt25">
+										<strong>문항등록</strong>
+									</div>
+									<div class="list-content">
+										<ul class="col-12">
+											<li>
+												<div class="list-content flex flex-vc">
+													<b class="mr24">01.</b>
+													<div class="input-box no-border flex-1">
+														<input type="text" class="f18" placeholder="데이터의 이름을 입력해주세요.">
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="list-content">
+													<div class="input-box no-border">
+														<input type="text" class="f18" placeholder="데이터의 단위를 입력해주세요.">
+													</div>
+												</div>
+											</li>
+											<li class="full">
+												<div class="list-content">
+													<div class="input-box no-border">
+														<input type="text" class="f18" placeholder="설정">
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-content">
+										<a href="" class="write">문항 등록 추가</a>
+									</div>
+								</li>
+								<li class="full">
+									<div class="list-title">
+										<strong>도움말</strong>
+									</div>
+									<div class="list-content">
+										<div class="input-box no-border">
+											<input type="text" class="f18" placeholder="도움말을 작성해주세요.">
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="button-box flex-tr mt32">
+						<a href="" class="btn btn-lightgray px45 mr10">취소</a>
+						<a href="" class="btn btn-blue px45">등록</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../asset/js/swiper.js"></script>
+</body>
+</html>
