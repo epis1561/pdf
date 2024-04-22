@@ -1,5 +1,5 @@
 <template>
-    <div id="wrap">
+    <div id="wrapper">
         <loading v-if="$store.state.loading" />
 
         <pops />
@@ -49,8 +49,9 @@ export default {
             ],
 
             link: [
+                {rel: 'stylesheet', type: 'text/css', href: '/asset/css/user.css'},
+                {rel: 'stylesheet', type: 'text/css', href: '/asset/css/developer.css'},
                 {rel: 'stylesheet', type: 'text/css', href: '//cdn.quilljs.com/1.3.4/quill.snow.css'},
-                {rel: 'stylesheet', type: 'text/css', href: '/css/style.css'},
                 {rel: 'stylesheet', type: 'text/css', href: '//cdn.quilljs.com/1.3.4/quill.snow.css'},
 
             ],

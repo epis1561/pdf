@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="container">
-            <div class="sub-box" v-if="survey">
+            <div class="sub-box" v-if="!loading">
                 <div class="sub-left-box">
                     <div class="sub-left-head">
                         <img src="/asset/images/logo.png">
@@ -19,13 +19,15 @@
                         </div>
                         <div class="sub-left-category">
                             <ul>
-                                <li :class="`cate04 ${tabClass(1)}`"><a href="#" @click.prevent="step = 1"><p>평가 안내</p></a></li>
-                                <li :class="`cate05 ${tabClass(2)}`"><a href="#" @click.prevent="step = 2"><p>기본 정보</p></a></li>
+                                <li :class="`cate04 ${tabClass(1)}`"><a href="#" @click.prevent="changeStep(1)"><p>평가 안내</p></a></li>
+                                <li :class="`cate05 ${tabClass(2)}`"><a href="#" @click.prevent="changeStep(2)">
+                                    <p>기본 정보</p></a>
+                                </li>
                                 <li :class="`cate06 ${tabClass(3)}`">
-                                    <button type="button"><p>답변 작성</p></button>
+                                    <button type="button" @click.prevent="(e) => changeStep(3,e)"><p>답변 작성</p></button>
                                     <div>
                                         <ul>
-                                            <li v-for="(folder, index) in folders.data" :key="folder.id" v-if="!folder.basic && !folder.folder_id">
+                                            <li v-for="(folder, index) in folders.data" :key="folder.id" v-if="folder.basic == 0 && !folder.folder_id">
                                                 <button type="button" data-type="depth">
                                                     <p><b>{{index + 1}}</b>{{ folder.title }}</p>
                                                     <div class="graph">
@@ -34,7 +36,9 @@
                                                     </div>
                                                 </button>
                                                 <ul>
-                                                    <li :class="activeFolder && activeFolder.id == subFolder.id ? 'active' : ''"><a href="#" @click.prevent="changeFolder(subFolder)" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">{{ subFolder.title }}</a></li>
+                                                    <li :class="activeFolder && activeFolder.id == subFolder.id ? 'active' : ''" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
+                                                        <a href="#" @click.prevent="changeFolder(subFolder)">{{ subFolder.title }}</a>
+                                                    </li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -45,253 +49,96 @@
                     </div>
                 </div>
 
-                <div class="sub-right-box">
+                <div class="sub-right-box" v-if="step === 1">
                     <div class="title-box border">
-                        <h2>기본 정보</h2>
+                        <h2>{{ survey.campaign.title }}</h2>
+                        <time>{{ survey.campaign.survey_started_at }} ~ {{ survey.campaign.survey_finished_at }}</time>
+                    </div>
+                    <div class="agree-list-box">
+                        <div class="list-body">
+                            <ul>
+                                <li>
+                                    <div class="list-head">
+                                        <p v-text="survey.campaign.privacy_title"></p>
+                                        <div>
+                                            <input type="checkbox" name="" id="check01" v-model="agree_privacy">
+                                            <label for="check01">동의함</label>
+                                        </div>
+                                    </div>
+                                    <div class="list-body">
+                                        <p style="white-space: pre-line;" v-text="survey.campaign.privacy_description"></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-head">
+                                        <p v-text="survey.campaign.give_information_title"></p>
+                                        <div>
+                                            <input type="checkbox" name="" id="check02" v-model="agree_give_information">
+                                            <label for="check02">동의함</label>
+                                        </div>
+                                    </div>
+                                    <div class="list-body">
+                                        <p style="white-space:pre-line;" v-text="survey.campaign.give_information_description"></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-foot">
+                            <div class="list-foot-space">
+                                <p>위 개인정보 처리방침 및 제3자 정보제공 동의에 모두 동의합니다.</p>
+                                <div>
+                                    <input type="checkbox" name="" id="" checked disabled v-if="agree_privacy && agree_give_information" style="display: none;">
+                                    <input type="checkbox" name="" id="" disabled v-else style="display: none;">
+                                    <label for="" @click.prevent="agreeAll">전체 동의</label>
+                                </div>
+                            </div>
+                            <div class="list-foot-button">
+                                <a href="#" @click.prevent="agree">진단 시작</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-right-box" v-if="step !== 1 && activeFolder">
+                    <div class="title-box border">
+                        <h2>{{ step === 2 ? '기본 정보' : '' }}</h2>
                         <div class="button-box">
-                            <a href="" class="btn btn-blue md px60 px-lg-30">저장</a>
+                            <a href="" class="btn btn-blue md px60 px-lg-30" @click.prevent="storeAnswers">저장</a>
                         </div>
                     </div>
                     <div class="check-write-box">
                         <ul>
-                            <li>
+                            <li v-for="(folderQuestion, folderQuestionIndex) in activeFolder.folderQuestions" :key="folderQuestion.id">
                                 <div class="write-left">
-                                    <b>01</b>
+                                    <b>{{folderQuestionIndex < 10 ? "0" + (folderQuestionIndex + 1) : folderQuestionIndex}}</b>
                                     <div>
-                                        <p>귀사의 전체/정규직/비정규직(계약별 구분) 수를 기입하여 주십시오.</p>
-                                        <small>
-                                            매년 12월 31일 기준으로 입력해 주십시오.<br>
-                                            정규직수와 비정규직수의 합계는 문항1. 전 임직원 수와 일치해야 합니다.
-                                        </small>
+                                        <p>{{ folderQuestion.question.title }}</p>
+                                        <small v-text="folderQuestion.question.description" style="white-space: pre-line;"></small>
                                     </div>
                                 </div>
                                 <div class="write-right">
-                                    <dl>
+                                    <dl v-if="folderQuestion.question.type === 'TEXTGROUP'">
                                         <dd>
                                             <div class="write-head">
-                                                <strong>전체 임직원</strong>
+                                                <strong>{{ folderQuestion.question.title }}</strong>
                                             </div>
                                             <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
+                                                <div v-for="(year, index) in years" :key="year">
+                                                    <b>{{ year }}년</b>
+                                                    <input type="number" :placeholder="`해당 연도의 ${folderQuestion.question.options[0].label_before}(을)를 입력해주세요.`" v-model="answersForm.answers[folderQuestionIndex].value[index]">
+                                                    <em>{{folderQuestion.question.options[0].label_after}}</em>
                                                 </div>
                                             </div>
-                                        </dd>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>정규직</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>비정규직</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 비정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 비정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 비정규직 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="write-left">
-                                    <b>02</b>
-                                    <div>
-                                        <p>귀사의 남성/여성 임직원(성별 구분) 수를 기입하여 주십시오.</p>
-                                        <small>
-                                            매년 12월 31일 기준으로 입력해 주십시오.<br>
-                                            남성 임직원수와 여성 임직원수의 합계는 총 임직원 수와 일치해야 합니다.
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="write-right">
-                                    <dl>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>남성 임직원</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 남성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 남성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 남성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>여성 임직원</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 여성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 여성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 여성 임직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="write-left">
-                                    <b>03</b>
-                                    <div>
-                                        <p>귀사의 외국인 수를 기입하여 주십시오.</p>
-                                        <small>매년 12월 31일 기준으로 입력해 주십시오.</small>
-                                    </div>
-                                </div>
-                                <div class="write-right">
-                                    <dl>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>외국인 직원</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 외국인 직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 외국인 직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 외국인 직원 수를 작성해주세요.">
-                                                    <em>명</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="write-left">
-                                    <b>04</b>
-                                    <div>
-                                        <p>귀사의 전체 및 모비스 품목 관련 매출액을 기입하여 주십시오.</p>
-                                    </div>
-                                </div>
-                                <div class="write-right">
-                                    <dl>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>전체 매출액</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 전체 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                            </div>
-                                        </dd>
-                                        <dd>
-                                            <div class="write-head">
-                                                <strong>모비스 품목 관리 매출액</strong>
-                                            </div>
-                                            <div class="write-body">
-                                                <div>
-                                                    <b>2020년</b>
-                                                    <input type="text" placeholder="해당 연도의 모비스 품목 관련 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                                <div>
-                                                    <b>2021년</b>
-                                                    <input type="text" placeholder="해당 연도의 모비스 품목 관련 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                                <div>
-                                                    <b>2022년</b>
-                                                    <input type="text" placeholder="해당 연도의 모비스 품목 관련 매출액을 작성해주세요.">
-                                                    <em>억원</em>
-                                                </div>
-                                            </div>
+                                            <error :form="answersForm" :name="`answers.${folderQuestionIndex}.value`" />
                                         </dd>
                                     </dl>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="button-box mt40">
+<!--                    <div class="button-box mt40">
                         <a href="" class="btn btn-blue lg more">저장 후 답변작성</a>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -318,7 +165,8 @@ export default {
                     total: 0,
                 }
             },
-
+            agree_give_information: "",
+            agree_privacy: "",
             form: new Form(this.$axios, {
                 page: 1,
                 word: "",
@@ -329,13 +177,46 @@ export default {
                 survey_id: "",
             }),
 
+            answersForm: new Form(this.$axios, {
+                survey_id: this.$route.query.survey_id,
+                answers: [],
+            }),
+
             activeFolder: "",
+
+            loading: true,
         }
     },
 
     methods: {
+        agree(){
+            if(!this.agree_give_information || !this.agree_give_information)
+                return this.$store.commit("setPop", {
+                    description: "필수항목에 동의해주세요."
+                })
+
+            this.$store.commit("setLoading", true);
+
+            this.form.patch("/api/surveys/agree/" + this.survey.id)
+                    .then(response => {
+                        this.survey.check_agree = 1;
+                        this.step = 2;
+
+                        $("html, body").scrollTop(0);
+                    });
+        },
+
+        agreeAll(){
+            this.agree_privacy = true;
+            this.agree_give_information = true;
+        },
+
         ready(){
             return alert("준비중입니다.");
+        },
+
+        next(){
+
         },
 
         changeFolder(folder){
@@ -344,39 +225,137 @@ export default {
             this.activeFolder = folder;
         },
 
-        getFolders(){
+        changeStep(step, event){
+            if(step === 1)
+                return this.step = 1;
+
+            if(step === 2) {
+                if(this.survey.check_agree != 1)
+                    return this.$store.commit("setPop", {
+                        description: "필수항목에 먼저 동의해주세요."
+                    });
+
+                this.activeFolder = this.folders.data.find(folder => folder.basic == 1);
+
+                this.step = 2;
+            }
+
+            if(step === 3) {
+                if(this.survey.check_agree != 1) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return this.$store.commit("setPop", {
+                        description: "필수항목에 먼저 동의해주세요."
+                    });
+                }
+
+                if(this.survey.check_basic != 1) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return this.$store.commit("setPop", {
+                        description: "기본 정보를 먼저 입력해주세요."
+                    });
+                }
+
+                this.step = 3;
+            }
+        },
+
+        getFolders(onSuccess = () => {}){
+            let answer = null;
+
             this.$axios.get("/api/folders", {
                 params: {
                     campaign_id: this.$route.query.campaign_id,
+                    survey_id: this.$route.query.survey_id,
                 },
             }).then(response => {
                 this.folders = response.data;
+
+                this.folders.data.map(folder => {
+                    folder.folderQuestions.map(folderQuestion => {
+                        answer = folderQuestion.answer;
+
+                        console.log(folderQuestion);
+                        if(!folderQuestion.answer)
+                            answer = {
+                                folder_question_id: folderQuestion.id,
+                                option_id: "",
+                                option_ids: [],
+                                value: folderQuestion.question.type === "TEXTGROUP" ? [0,0,0] : "",
+                                value_additional: "",
+                                files: [],
+                                files_remove_ids: [],
+                            }
+
+                        this.answersForm.answers.push(answer)
+                    })
+                });
+
+                onSuccess();
             });
         },
 
-        tabClass(state){
-            return state === this.form.surveyState ? 'active' : '';
+        storeAnswers(){
+            this.$store.commit("setLoading", true);
+
+            console.log(this.answersForm.data());
+            this.answersForm.post("/api/answers")
+                    .then(response => {
+
+                    });
+        },
+
+        tabClass(step){
+            return step === this.step ? 'active' : '';
         },
 
         getSurvey(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/surveys/" + this.$route,query.survey_id)
+            this.$axios.get("/api/surveys/" + this.$route.query.survey_id)
                 .then(response => {
                     this.survey = response.data.data;
+
+                    this.getFolders(() => {
+                        if(this.survey.check_agree){
+                            this.agree_privacy = true;
+                            this.agree_give_information = true;
+
+                            this.step = 2;
+
+                            this.activeFolder = this.folders.data.find(folder => folder.basic == 1);
+
+                            if(this.survey.check_basic == 1) {
+                                this.step = 3;
+
+                                this.activeFolder = null;
+                            }
+                        }
+
+                        this.loading = false;
+                    })
                 })
         },
     },
 
     computed: {
+        years(){
+            let years = [];
 
+            if(this.survey.campaign){
+                for(let i = this.survey.campaign.year - 2; i<=this.survey.campaign.year; i++){
+                    years.push(i);
+                }
+            }
+
+            return years;
+        },
 
     },
 
     mounted() {
         this.getSurvey();
-
-        this.getFolders();
     }
 }
 </script>

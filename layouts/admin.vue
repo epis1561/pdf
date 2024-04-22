@@ -15,7 +15,29 @@
 export default {
     head() {
         return {
+            script: [
+                {
+                    src: '//cdn.quilljs.com/1.3.6/quill.min.js',
+                    defer: true
+                },
+                /*       {
+                           hid: 'google-analytics',
+                           src: 'https://www.googletagmanager.com/gtag/js?id=GTM-NNSD2QJX',
+                           defer: true
+                       },
+                       {
+                           hid: 'gtm-script',
+                           src: 'https://www.googletagmanager.com/gtm.js?id=GTM-NNSD2QJX',
+                           defer: true
+                       }*/
+            ],
 
+            link: [
+                {rel: 'stylesheet', type: 'text/css', href: '/asset/css/admin.css'},
+                {rel: 'stylesheet', type: 'text/css', href: '//cdn.quilljs.com/1.3.4/quill.snow.css'},
+                {rel: 'stylesheet', type: 'text/css', href: '//cdn.quilljs.com/1.3.4/quill.snow.css'},
+
+            ],
         }
     },
 

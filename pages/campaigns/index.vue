@@ -49,8 +49,8 @@
                         <div class="list-top-filter">
                             <ul>
                                 <li :class="tabClass('')"><a href="#" @click.prevent="() => {changeState('')}">전체</a></li>
-                                <li :class="tabClass('WAIT')"><a href="#" @click.prevent="() => {changeState('ONGOING')}">진행대기</a></li>
-                                <li :class="tabClass('FINISH')"><a href="#" @click.prevent="() => {changeState('FINISH')}">진행중</a></li>
+                                <li :class="tabClass('WAIT')"><a href="#" @click.prevent="() => {changeState('WAIT')}">진행대기</a></li>
+                                <li :class="tabClass('ONGOING')"><a href="#" @click.prevent="() => {changeState('ONGOING')}">진행중</a></li>
                                 <li :class="tabClass('FINISH')"><a href="#" @click.prevent="() => {changeState('FINISH')}">진행완료</a></li>
                             </ul>
                         </div>
@@ -86,7 +86,7 @@
 <script>
 import Form from "@/utils/Form";
 export default {
-    middleware: ["auth"],
+    middleware: ["user"],
 
     components: {},
 
@@ -115,10 +115,13 @@ export default {
             return alert("준비중입니다.");
         },
         filter(){
-            this.$axios.get("/api/campaigns")
-                .then(response => {
-                    this.items = response.data;
-                });
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/campaigns", {
+                params: this.form.data(),
+            }).then(response => {
+                this.items = response.data;
+            });
         },
         tabClass(state){
             return state === this.form.surveyState ? 'active' : '';
@@ -141,7 +144,7 @@ export default {
 
             this.form.post("/api/surveys")
                 .then(response => {
-                    this.$router.push(`/answers/create?survey_id=${campaign.survey.id}&campaign_id=${campaign.id}`);
+                    this.$router.push(`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`);
                 })
         },
     },

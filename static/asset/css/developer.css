@@ -1,0 +1,19 @@
+/* paging-box */
+.paging-box {
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    margin-top:20px;
+}
+.paging-box ul {display:flex; flex-wrap:wrap; align-items:center; justify-content:center;}
+.paging-box ul li a {display:flex; flex-wrap:wrap; align-items:center; justify-content:center; width:24px; height:32px; font-size:15px; color:#A8A8A8;}
+.paging-box ul li a:hover {color:#2B9F97;}
+.paging-box ul li.active a {color:#2B9F97;}
+.paging-box ul li.prev a {font-size:0; background:url('../images/icon_admin_paging_prev.png') no-repeat center / 15px;}
+.paging-box ul li.next a {font-size:0; background:url('../images/icon_admin_paging_next.png') no-repeat center / 15px;}
+
+section {
+    min-height:calc(100vh - 300px);
+}
+
+label {
+    cursor:pointer;
+}

@@ -54,7 +54,6 @@ export default {
             {rel: 'stylesheet', type: 'text/css', href: '/asset/css/swiper.min.css'},
             {rel: 'stylesheet', type: 'text/css', href: '/asset/css/base.css'},
             {rel: 'stylesheet', type: 'text/css', href: '/asset/css/grid.css'},
-            {rel: 'stylesheet', type: 'text/css', href: '/asset/css/admin.css'},
 
             {
                 rel: 'stylesheet',

@@ -228,7 +228,7 @@
 
                                                         <error :form="form" :name="`options.${index}.type_satisfaction`" />
                                                     </div>
-                                                    <div class="select-box no-border flex-1 mr45">
+                                                    <div class="select-box no-border flex-1 mr45" v-if="form.type !== 'CHECKBOX'">
                                                         <select class="f18" v-model="form.options[index].add_field">
                                                             <option value="">추가 필드</option>
                                                             <option :value="1">예</option>
@@ -321,11 +321,11 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="full">
+<!--                            <li class="full">
                                 <div class="list-content">
                                     <a href="#" class="write" @click.prevent="addOption">문항 등록 추가</a>
                                 </div>
-                            </li>
+                            </li>-->
                         </template>
 
                         <template v-if="form.type === 'NUMBER'">
@@ -456,7 +456,7 @@ export default {
                 order: "",
                 question_id:"",
                 title: "",
-                add_field: "",
+                add_field: 0,
                 type_satisfaction: "",
                 comment_satisfy: "",
                 comment_unsatisfy: "",

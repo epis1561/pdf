@@ -23,10 +23,10 @@ export default function ({ $axios, redirect, store, app }) {
                 app.$auth.logout();
             }
 
-            return store.commit("setPop", {
+            /*return store.commit("setPop", {
                 title: "로그인 필요",
                 description: "로그인 후 이용해주세요."
-            });
+            });*/
         }
 
 

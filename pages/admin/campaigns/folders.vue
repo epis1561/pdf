@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                     <div class="button-box mt32 flex-tc">
-                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="!form.basic && (!targetFolder || !targetFolder.folder_id)">하위분류생성</a>
+                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="form.basic == 0 && (!targetFolder || !targetFolder.folder_id)">하위분류생성</a>
                     </div>
                 </div>
                 <div class="flex-1">
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="list-content flex flex-vc">
                                     <p class="flex-1 active">{{ campaign.title }}</p>
-                                    <a href="" class="link" @click.prevent="activeCampaigns = true" v-if="!form.basic">다른캠페인 불러오기</a>
+                                    <a href="" class="link" @click.prevent="activeCampaigns = true" v-if="form.basic == 0">다른캠페인 불러오기</a>
                                 </div>
                             </li>
 <!--                            <li class="full">
@@ -100,7 +100,7 @@
                                     <error :form="form" name="domain" />
                                 </div>
                             </li>
-                            <li class="full" v-if="!form.basic">
+                            <li class="full" v-if="form.basic == 0">
                                 <div class="list-title">
                                     <strong>분류 명</strong>
                                 </div>
@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                             </li>-->
-                            <li class="full" v-if="!form.basic">
+                            <li class="full" v-if="form.basic == 0">
                                 <div class="list-title">
                                     <strong>사용 여부</strong>
                                 </div>
@@ -165,7 +165,7 @@
                         </ul>
                     </div>
 
-                    <div class="button-box mt32 flex-tr" v-if="!form.basic">
+                    <div class="button-box mt32 flex-tr" v-if="form.basic == 0">
                         <a href="" class="btn btn-red w120 mr10" v-if="form.id" @click.prevent="remove">삭제</a>
                         <a href="" class="btn btn-blue px25" v-if="form.id" @click.prevent="update">분류 수정</a>
                         <a href="" class="btn btn-blue px25" v-else @click.prevent="store">분류 생성</a>
@@ -879,6 +879,7 @@ export default {
                         })
                     }
                 });
+                console.log(this.form.questions);
                 // this.form.questions = response.data.data;
             });
         },
@@ -920,7 +921,7 @@ export default {
 
         addQuestion(question){
             this.form.questions.push({
-                open_reporter: "",
+                open_reporter: 1,
                 use_move_condition: "",
                 use_excel: "",
 
