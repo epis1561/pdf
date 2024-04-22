@@ -27,9 +27,9 @@ $(document).mouseup(function (e){
 	var popupBox = $(".popup-box");	 
 	var menuBox = $(".sub-box");
 
-	if(popupBox.has(e.target).length === 0){
+/*	if(popupBox.has(e.target).length === 0){
 		$("html , body , .popup-box").removeClass("fixed");
-	}	
+	}	*/
 	if(menuBox.has(e.target).length === 0){
 		$("html , body , .sub-box").removeClass("fixed");
 	}	

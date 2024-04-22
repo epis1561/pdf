@@ -35,6 +35,7 @@ export default {
             {src: "//code.jquery.com/jquery-1.12.4.min.js"},
             {src: "/asset/js/swiper.min.js"},
             {src: "/asset/js/common.js"},
+            {src: "/asset/js/user.js"},
             {src: "//cdn.iamport.kr/v1/iamport.js"},
             {src: "//unpkg.com/aos@2.3.1/dist/aos.js"},
             {src: "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"},

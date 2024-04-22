@@ -87,7 +87,7 @@
                         <i class="xi-minus active"></i>
                     </a>
                     <dl>
-                        <dd><nuxt-link to="/investgator/campaigns">캠페인</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/investgator/campaigns">캠페인</nuxt-link></dd>
                     </dl>
                 </li>
 

@@ -47,7 +47,7 @@ export default {
                 data: this.form.data(),
             }).then(response => {
                 if(this.$auth.user.data.type === "AGENCY_ADMIN")
-                    return this.$router.push("/investgator/campaigns");
+                    return this.$router.push("/admin/investgator/campaigns");
 
                 return this.$router.push("/admin/companies");
             }).catch(error => {
