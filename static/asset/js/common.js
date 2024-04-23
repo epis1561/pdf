@@ -22,19 +22,6 @@ function menuClose(){
 	$("html , body , header").removeClass("fixed");
 }
 
-// 외부영역 클릭 시 특정요소 닫기
-$(document).mouseup(function (e){
-	var popupBox = $(".popup-box");	 
-	var menuBox = $(".header-mobile");
-
-/*	if(popupBox.has(e.target).length === 0){
-		$("html , body , .popup-box").removeClass("fixed");
-	}	*/
-	if(menuBox.has(e.target).length === 0){
-		$("html , body , header").removeClass("fixed");
-	}	
-});
-
 /* 셀렉박스 옵션선택 포커스 */
 $(document).on("change",".select-box select",function(){
 	var box = $(this).closest(".select-box");

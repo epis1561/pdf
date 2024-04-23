@@ -27,7 +27,7 @@
                                     <button type="button" @click.prevent="(e) => changeStep(3,e)"><p>답변 작성</p></button>
                                     <div>
                                         <ul>
-                                            <li v-for="(folder, index) in folders.data" :key="folder.id" v-if="folder.basic == 0 && !folder.folder_id">
+                                            <li v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id">
                                                 <button type="button" data-type="depth">
                                                     <p><b>{{index + 1}}</b>{{ folder.title }}</p>
                                                     <div class="graph">
@@ -37,7 +37,7 @@
                                                 </button>
                                                 <ul>
                                                     <li :class="activeFolder && activeFolder.id == subFolder.id ? 'active' : ''" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
-                                                        <a href="#" @click.prevent="changeFolder(subFolder)">{{ subFolder.title }}</a>
+                                                        <a href="#" @click.prevent="changeFolder(subFolder)">{{index+1}}.{{subFolderIndex + 1}}. {{ subFolder.title }}</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -100,8 +100,8 @@
                 </div>
 
                 <div class="sub-right-box" v-if="step !== 1 && activeFolder">
-                    <div class="title-box border">
-                        <h2>{{ step === 2 ? '기본 정보' : '' }}</h2>
+                    <div class="title-box border sticky">
+                        <h2>{{ step === 2 ? '기본 정보' : activeFolder.title }}</h2>
                         <div class="button-box">
                             <a href="" class="btn btn-blue md px60 px-lg-30" @click.prevent="storeAnswers">저장</a>
                         </div>
@@ -262,8 +262,6 @@ export default {
         },
 
         getFolders(onSuccess = () => {}){
-            let answer = null;
-
             this.$axios.get("/api/folders", {
                 params: {
                     campaign_id: this.$route.query.campaign_id,
@@ -272,26 +270,6 @@ export default {
             }).then(response => {
                 this.folders = response.data;
 
-                this.folders.data.map(folder => {
-                    folder.folderQuestions.map(folderQuestion => {
-                        answer = folderQuestion.answer;
-
-                        console.log(folderQuestion);
-                        if(!folderQuestion.answer)
-                            answer = {
-                                folder_question_id: folderQuestion.id,
-                                option_id: "",
-                                option_ids: [],
-                                value: folderQuestion.question.type === "TEXTGROUP" ? [0,0,0] : "",
-                                value_additional: "",
-                                files: [],
-                                files_remove_ids: [],
-                            }
-
-                        this.answersForm.answers.push(answer)
-                    })
-                });
-
                 onSuccess();
             });
         },
@@ -299,10 +277,13 @@ export default {
         storeAnswers(){
             this.$store.commit("setLoading", true);
 
-            console.log(this.answersForm.data());
             this.answersForm.post("/api/answers")
                     .then(response => {
+                        if(this.step === 2){
+                            this.survey.check_basic = 1;
 
+                            this.step = 3;
+                        }
                     });
         },
 
@@ -351,7 +332,34 @@ export default {
 
             return years;
         },
+    },
 
+    watch: {
+        activeFolder: {
+            deep: true,
+            handler(){
+                let answer = null;
+
+                if(this.activeFolder) {
+                    this.activeFolder.folderQuestions.map(folderQuestion => {
+                        answer = folderQuestion.answer;
+
+                        if (!folderQuestion.answer)
+                            answer = {
+                                folder_question_id: folderQuestion.id,
+                                option_id: "",
+                                option_ids: [],
+                                value: folderQuestion.question.type === "TEXTGROUP" ? [0, 0, 0] : "",
+                                value_additional: "",
+                                files: [],
+                                files_remove_ids: [],
+                            }
+
+                        this.answersForm.answers.push(answer)
+                    })
+                }
+            }
+        }
     },
 
     mounted() {
