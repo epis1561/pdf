@@ -113,21 +113,42 @@
                                     <b>{{folderQuestionIndex < 10 ? "0" + (folderQuestionIndex + 1) : folderQuestionIndex}}</b>
                                     <div>
                                         <p>{{ folderQuestion.question.title }}</p>
-                                        <small v-text="folderQuestion.question.description" style="white-space: pre-line;"></small>
+                                        <small>
+                                            <editor-content :description="folderQuestion.question.help" />
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="write-right">
-                                    <dl v-if="folderQuestion.question.type === 'TEXTGROUP'">
+                                    <dl>
                                         <dd>
                                             <div class="write-head">
                                                 <strong>{{ folderQuestion.question.title }}</strong>
                                             </div>
                                             <div class="write-body">
-                                                <div v-for="(year, index) in years" :key="year">
-                                                    <b>{{ year }}년</b>
-                                                    <input type="number" :placeholder="`해당 연도의 ${folderQuestion.question.options[0].label_before}(을)를 입력해주세요.`" v-model="answersForm.answers[folderQuestionIndex].value[index]">
-                                                    <em>{{folderQuestion.question.options[0].label_after}}</em>
+                                                <template v-if="folderQuestion.question.type === 'NUMBER'">
+                                                    <div v-for="(year, index) in years" :key="year">
+                                                        <b>{{ year }}년</b>
+                                                        <input type="number" :placeholder="`해당 연도의 ${folderQuestion.question.options[0].data_title}(을)를 입력해주세요.`" v-model="answersForm.answers[folderQuestionIndex].value[index]">
+                                                        <em>{{folderQuestion.question.options[0].data_unit}}</em>
+                                                    </div>
+                                                </template>
+
+                                                <div v-if="needValueAdditional(folderQuestion, folderQuestionIndex)">
+                                                    <input type="text" placeholder="필요 시, 관련 설명 작성 또는 URL 링크를 입력해주세요." v-model="answersForm.answers[folderQuestionIndex].value_additional">
                                                 </div>
+
+                                                <div v-if="folderQuestion.question.can_file">
+                                                    <input-files :default="folderQuestion.question.answer ? folderQuestion.question.answer.files : []" @change="data => answersForm.answers[folderQuestionIndex].files = data" @removed="data => answersForm.answers[folderQuestionIndex].files_remove_ids = data"/>
+                                                    <div class="file-box">
+                                                        <strong>첨부파일</strong>
+                                                        <div>
+                                                            <p>부패 및 이해상충 채널.jpg</p>
+                                                            <a href="" class="delete">삭제</a>
+                                                        </div>
+                                                        <label for="file">찾기<input type="file" name="file" id="file"></label>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <error :form="answersForm" :name="`answers.${folderQuestionIndex}.value`" />
                                         </dd>
@@ -189,6 +210,9 @@ export default {
     },
 
     methods: {
+        needValueAdditional(folderQuestion, index){
+            return folderQuestion.question.options.find(option => option.id == this.answersForm.answers[index].option_id);
+        },
         agree(){
             if(!this.agree_give_information || !this.agree_give_information)
                 return this.$store.commit("setPop", {
@@ -200,6 +224,9 @@ export default {
             this.form.patch("/api/surveys/agree/" + this.survey.id)
                     .then(response => {
                         this.survey.check_agree = 1;
+
+                        this.activeFolder = this.folders.data.find(folder => folder.basic == 1);
+
                         this.step = 2;
 
                         $("html, body").scrollTop(0);
@@ -340,6 +367,8 @@ export default {
             handler(){
                 let answer = null;
 
+                console.log(this.activeFolder);
+
                 if(this.activeFolder) {
                     this.activeFolder.folderQuestions.map(folderQuestion => {
                         answer = folderQuestion.answer;
@@ -349,7 +378,7 @@ export default {
                                 folder_question_id: folderQuestion.id,
                                 option_id: "",
                                 option_ids: [],
-                                value: folderQuestion.question.type === "TEXTGROUP" ? [0, 0, 0] : "",
+                                value: folderQuestion.question.type === "NUMBER" ? [0, 0, 0] : "",
                                 value_additional: "",
                                 files: [],
                                 files_remove_ids: [],

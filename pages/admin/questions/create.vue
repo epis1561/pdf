@@ -338,7 +338,7 @@
                                         <ul class="col-12">
                                             <li>
                                                 <div class="list-content flex flex-vc">
-                                                    <b class="mr24">{{index + 1}}.</b>
+<!--                                                    <b class="mr24">{{index + 1}}.</b>-->
                                                     <div class="input-box no-border flex-1">
                                                         <input type="text" class="f18" placeholder="데이터의 이름을 입력해주세요." v-model="form.options[index].data_title">
 
@@ -361,11 +361,11 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="full">
+<!--                            <li class="full">
                                 <div class="list-content">
                                     <a href="#" class="write" @click.prevent="addOption">문항 등록 추가</a>
                                 </div>
-                            </li>
+                            </li>-->
                         </template>
 
                         <li class="full">

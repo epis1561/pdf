@@ -17,3 +17,17 @@ section {
 label {
     cursor:pointer;
 }
+
+.check-write-box > ul > li .write-left .ql-snow {
+    margin:0; padding:0; top:0;
+}
+.check-write-box > ul > li .write-left .ql-editor {
+    height:auto;
+    margin:0; padding:0; top:0; overflow:visible;
+}
+.check-write-box > ul > li .write-left .ql-snow div {
+    top:0;
+}
+.check-write-box > ul > li .write-left .ql-editor .editor-wrap {
+    margin-left:0;
+}
