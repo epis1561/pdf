@@ -284,10 +284,11 @@ export default {
                     .then(response => {
                         this.survey = response.data;
 
-                        //this.step = 2;
                         let folder = this.folders.data.filter(data => data.basic == 0)[0];
 
                         this.activeFolder = folder.folders[0];
+
+                        this.step = 2;
                     });
         },
 
