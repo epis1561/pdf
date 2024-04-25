@@ -172,7 +172,7 @@
                                         <template v-if="survey.invest_at">
                                             <li>
                                                 <div class="write-head">
-                                                    <strong>문단(현장)진단 사항</strong>
+                                                    <strong>실사(현장)진단 사항</strong>
                                                 </div>
                                                 <div class="write-body">
                                                     <p v-text="survey.comment_invest || '-'" style="white-space: pre-line"></p>
@@ -284,7 +284,10 @@ export default {
                     .then(response => {
                         this.survey = response.data;
 
-                        this.step = 2;
+                        //this.step = 2;
+                        let folder = this.folders.data.filter(data => data.basic == 0)[0];
+
+                        this.activeFolder = folder.folders[0];
                     });
         },
 
