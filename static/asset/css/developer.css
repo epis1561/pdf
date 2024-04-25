@@ -72,3 +72,9 @@ label {
 .write-reply-box > div.reply-right input:disabled {
     background-color:#fff;
 }
+
+.m-input-error {
+    margin-top:4px;
+    font-size:14px;
+    color:#fff;
+}
