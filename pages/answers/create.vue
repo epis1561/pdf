@@ -27,16 +27,16 @@
                                     <button type="button" @click.prevent="(e) => changeStep(3,e)"><p>답변 작성</p></button>
                                     <div>
                                         <ul>
-                                            <li v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id">
+                                            <li :class="`folder folder${folder.id} ${activeFolder && activeFolder.folder_id == folder.id ? 'active' : ''}`" v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id">
                                                 <button type="button" data-type="depth">
                                                     <p><b>{{index + 1}}</b>{{ folder.title }}</p>
-                                                    <div class="graph">
-                                                        <em>100%</em>
-                                                        <div><span style="width:100%;"></span></div>
-                                                    </div>
+<!--                                                    <div class="graph">
+                                                        <em>{{folder.progress}}%</em>
+                                                        <div><span :style="`width:${folder.progress}%;`"></span></div>
+                                                    </div>-->
                                                 </button>
                                                 <ul>
-                                                    <li :class="activeFolder && activeFolder.id == subFolder.id ? 'active' : ''" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
+                                                    <li :class="activeFolder && activeFolder.id == subFolder.id ? `subFolder subFolder${subFolder.id} active` : `subFolder subFolder${subFolder.id}`" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
                                                         <a href="#" @click.prevent="changeFolder(subFolder)">{{index+1}}.{{subFolderIndex + 1}}. {{ subFolder.title }}</a>
                                                     </li>
                                                 </ul>
@@ -102,7 +102,13 @@
                 <div class="sub-right-box" v-if="step !== 1 && activeFolder">
                     <div class="title-box border sticky">
                         <h2>{{ step === 2 ? '기본 정보' : activeFolder.title }}</h2>
-                        <div class="button-box">
+
+                        <div class="button-box col-lg-12 flex-lg-tr mt-lg-15">
+                            <template v-if="step === 3">
+                                <a href="" class="btn btn-lightgray md mr10 mr-lg-5" @click.prevent="prevFolder">이전</a>
+                                <a href="" class="btn btn-black md mr10 mr-lg-5" @click.prevent="nextFolder">다음</a>
+                            </template>
+
                             <a href="" class="btn btn-blue md px60 px-lg-30" @click.prevent="storeAnswers">저장</a>
                         </div>
                     </div>
@@ -124,33 +130,12 @@
                                             <div class="write-head">
                                                 <strong>{{ folderQuestion.question.title }}</strong>
                                             </div>
-                                            <div class="write-body">
-                                                <template v-if="folderQuestion.question.type === 'NUMBER'">
-                                                    <div v-for="(year, index) in years" :key="year">
-                                                        <b>{{ year }}년</b>
-                                                        <input type="number" :placeholder="`해당 연도의 ${folderQuestion.question.options[0].data_title}(을)를 입력해주세요.`" v-model="answersForm.answers[folderQuestionIndex].value[index]">
-                                                        <em>{{folderQuestion.question.options[0].data_unit}}</em>
-                                                    </div>
-                                                </template>
 
-                                                <div v-if="needValueAdditional(folderQuestion, folderQuestionIndex)">
-                                                    <input type="text" placeholder="필요 시, 관련 설명 작성 또는 URL 링크를 입력해주세요." v-model="answersForm.answers[folderQuestionIndex].value_additional">
-                                                </div>
+                                            <folder-question :survey="survey" :folder-question-index="folderQuestionIndex" :folder-question="folderQuestion" :form="answersForm" />
 
-                                                <div v-if="folderQuestion.question.can_file">
-                                                    <input-files :default="folderQuestion.question.answer ? folderQuestion.question.answer.files : []" @change="data => answersForm.answers[folderQuestionIndex].files = data" @removed="data => answersForm.answers[folderQuestionIndex].files_remove_ids = data"/>
-                                                    <div class="file-box">
-                                                        <strong>첨부파일</strong>
-                                                        <div>
-                                                            <p>부패 및 이해상충 채널.jpg</p>
-                                                            <a href="" class="delete">삭제</a>
-                                                        </div>
-                                                        <label for="file">찾기<input type="file" name="file" id="file"></label>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <error :form="answersForm" :name="`answers.${folderQuestionIndex}.value`" />
+                                            <template v-if="problemFolderQuestions[folderQuestionIndex]">
+                                                <div class="m-input-error" v-for="error in problemFolderQuestions[folderQuestionIndex]">{{error}}</div>
+                                            </template>
                                         </dd>
                                     </dl>
                                 </div>
@@ -203,6 +188,8 @@ export default {
                 answers: [],
             }),
 
+            problemFolderQuestions: [],
+
             activeFolder: "",
 
             loading: true,
@@ -210,9 +197,6 @@ export default {
     },
 
     methods: {
-        needValueAdditional(folderQuestion, index){
-            return folderQuestion.question.options.find(option => option.id == this.answersForm.answers[index].option_id);
-        },
         agree(){
             if(!this.agree_give_information || !this.agree_give_information)
                 return this.$store.commit("setPop", {
@@ -240,10 +224,6 @@ export default {
 
         ready(){
             return alert("준비중입니다.");
-        },
-
-        next(){
-
         },
 
         changeFolder(folder){
@@ -284,6 +264,8 @@ export default {
                     });
                 }
 
+                this.setLatestFolder();
+
                 this.step = 3;
             }
         },
@@ -301,21 +283,237 @@ export default {
             });
         },
 
-        storeAnswers(){
+        prevFolder(){
+            let folderIndex = 0;
+
+            let targetFolder;
+
+            let subFolderIndex = 0;
+
+            targetFolder = this.folders.data.find(folder => {
+                if(folder.id == this.activeFolder.folder_id)
+                    return true;
+
+                folderIndex += 1;
+            });
+
+            targetFolder.folders.some(subFolder => {
+                if(subFolder.id == this.activeFolder.id)
+                    return true;
+
+                subFolderIndex += 1;
+            });
+
+            // 이전 서브폴더가 없다면
+            if(subFolderIndex <= 0){
+                // 이전 폴더가 없다면
+                if(folderIndex <= 0)
+                    return null;
+
+                // 이전 폴더로 이동
+
+                // 기본 정보라면 넘어가지 않기
+                if(this.folders.data[folderIndex - 1].basic == 1)
+                    return null;
+
+                return this.activeFolder = this.folders.data[folderIndex - 1].folders[0];
+            }
+
+            // 이전 서브폴더로 이동
+            return this.activeFolder = targetFolder.folders[subFolderIndex - 1];
+        },
+
+        nextFolder(){
+            let folderIndex = 0;
+
+            let targetFolder;
+
+            let subFolderIndex = 0;
+
+            targetFolder = this.folders.data.find(folder => {
+                if(folder.id == this.activeFolder.folder_id)
+                    return true;
+
+                folderIndex += 1;
+            });
+
+            targetFolder.folders.some(subFolder => {
+                if(subFolder.id == this.activeFolder.id)
+                    return true;
+
+                subFolderIndex += 1;
+            });
+
+            // 다음 서브폴더가 없다면
+            if(subFolderIndex >= targetFolder.folders.length - 1){
+                // 다음 폴더가 없다면
+                if(folderIndex >= this.folders.data.length - 1)
+                    return this.storeAnswers(false, () => {this.finish()});
+
+                // 다음 폴더로 이동
+                return this.activeFolder = this.folders.data[folderIndex + 1].folders[0];
+            }
+
+            // 다음 서브폴더로 이동
+            return this.activeFolder = targetFolder.folders[subFolderIndex + 1];
+        },
+
+        finish(){
+            this.$store.commit("setLoading", true);
+
+            this.form.patch("/api/surveys/finish/" + this.survey.id)
+                    .then(response => {
+                        this.$store.commit("setPop", {
+                            description: "성공적으로 처리되었습니다."
+                        });
+
+                        this.$router.push("/campaigns");
+                    })
+        },
+
+        setLatestFolder(){
+            let lastFolder = null;
+            let targetSubFolder = null;
+
+            this.folders.data.filter(folder => folder.basic == 0).some(folder => {
+                lastFolder = folder.folders.find(subFolder => {
+                    subFolder.folderQuestions.some(folderQuestion => {
+                        if(!folderQuestion.answer) {
+                            targetSubFolder = subFolder;
+
+                            return true;
+                        }
+
+                        return false;
+                    });
+
+                    if(targetSubFolder)
+                        return true;
+
+                    return false;
+                });
+
+                if(lastFolder)
+                    return true;
+
+                return false;
+            });
+
+            if(!targetSubFolder){
+                lastFolder = this.folders.data[this.folders.data.length - 1];
+                targetSubFolder = lastFolder.folders[lastFolder.folders.length - 1];
+            }
+
+            this.activeFolder = targetSubFolder;
+        },
+
+        storeAnswers(needNext = true, onSuccess = () => {}){
+            if(!this.checkValidation()) {
+                return this.$store.commit("setPop", {
+                    description: "입력 내용을 롹인해주세요."
+                });
+            }
+
             this.$store.commit("setLoading", true);
 
             this.answersForm.post("/api/answers")
                     .then(response => {
+                        onSuccess();
+
+                        this.getFolders();
+
                         if(this.step === 2){
                             this.survey.check_basic = 1;
 
-                            this.step = 3;
+                            this.setLatestFolder();
+
+                            return this.step = 3;
                         }
+
+                        if(this.step === 3 && needNext)
+                            this.nextFolder();
                     });
         },
 
+        checkValidation(){
+            this.problemFolderQuestions = [];
+
+            let targetFolderQuestion;
+            let problemFolderQuestion;
+            let validate = true;
+
+            this.answersForm.answers.map(answer => {
+                let errors = [];
+
+                targetFolderQuestion = this.activeFolder.folderQuestions.find(folderQuestion => folderQuestion.id == answer.folder_question_id);
+
+                if(targetFolderQuestion.question.type === "RADIO"){
+                    if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
+                        problemFolderQuestion = targetFolderQuestion;
+                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                    }
+                }
+
+                if(targetFolderQuestion.question.type === "SELECT"){
+                    if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
+                        problemFolderQuestion = targetFolderQuestion;
+                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                    }
+                }
+
+                if(targetFolderQuestion.question.type === "CHECKBOX"){
+                    console.log(answer);
+                    if(targetFolderQuestion.question.required == 1 && (!answer.folder_question_option_ids || answer.folder_question_option_ids.length === 0)){
+                        problemFolderQuestion = targetFolderQuestion;
+                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                    }
+                }
+
+                if(targetFolderQuestion.question.type === "TEXT"){
+                    if(targetFolderQuestion.question.required == 1 && answer.value === ""){
+                        problemFolderQuestion = targetFolderQuestion;
+                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                    }
+                }
+
+                if(targetFolderQuestion.question.type === "TEXTGROUP"){
+                    if(targetFolderQuestion.question.required == 1){
+                        if(answer.value.some(value => value === "")) {
+                            problemFolderQuestion = targetFolderQuestion;
+                            errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                        }
+                    }
+                }
+
+                if(targetFolderQuestion.question.type === "NUMBER"){
+                    if(targetFolderQuestion.question.required == 1){
+                        if(answer.value.some(value => value === "")) {
+                            problemFolderQuestion = targetFolderQuestion;
+                            errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                        }
+                    }
+                }
+
+                // 추후에는 삭제하는 file_remove_ids 개수가 기존거 다 지울만한 개수인지 확인해야돼(그럼 사실상 파일첨부가 0개니까)
+                if(targetFolderQuestion.question.can_file && targetFolderQuestion.question.required_file && answer.files.length === 0 && (!targetFolderQuestion.answer.files || targetFolderQuestion.answer.files.length === 0)){
+                    problemFolderQuestion = targetFolderQuestion;
+
+                    errors.push("파일을 업로드해주세요.");
+                }
+
+                if(errors.length > 0)
+                    validate = false;
+
+                this.problemFolderQuestions.push(errors);
+            });
+
+
+            console.log(this.problemFolderQuestions);
+            return validate;
+        },
+
         tabClass(step){
-            return step === this.step ? 'active' : '';
+            return step == this.step ? 'active' : '';
         },
 
         getSurvey(){
@@ -330,61 +528,76 @@ export default {
                             this.agree_privacy = true;
                             this.agree_give_information = true;
 
-                            this.step = 2;
 
-                            this.activeFolder = this.folders.data.find(folder => folder.basic == 1);
+                            if(this.survey.check_basic == 0){
+                                this.step = 2;
+                                this.activeFolder = this.folders.data.find(folder => folder.basic == 1);
+                            }
 
                             if(this.survey.check_basic == 1) {
                                 this.step = 3;
 
-                                this.activeFolder = null;
+                                this.setLatestFolder();
                             }
                         }
 
                         this.loading = false;
+
+                        this.$nextTick(() => {
+                            $(".folder > ul, .folder ul *").unbind("click").bind("click", function(e){
+                                e.stopPropagation();
+                                e.preventDefault();
+                            });
+
+                            $(".folder > button").unbind("click").bind("click", function(){
+                                $(this).parent("li").toggleClass("active");
+                            });
+                        });
                     })
                 })
         },
     },
 
     computed: {
-        years(){
-            let years = [];
 
-            if(this.survey.campaign){
-                for(let i = this.survey.campaign.year - 2; i<=this.survey.campaign.year; i++){
-                    years.push(i);
-                }
-            }
-
-            return years;
-        },
     },
 
     watch: {
         activeFolder: {
-            deep: true,
             handler(){
                 let answer = null;
 
-                console.log(this.activeFolder);
+                this.problemFolderQuestions = [];
 
                 if(this.activeFolder) {
-                    this.activeFolder.folderQuestions.map(folderQuestion => {
-                        answer = folderQuestion.answer;
+                    this.answersForm.answers = [];
 
-                        if (!folderQuestion.answer)
+                    this.activeFolder.folderQuestions.map(folderQuestion => {
+                        answer = folderQuestion.answer ? {
+                            ...folderQuestion.answer,
+                            files: [],
+                            files_remove_ids: [],
+                        } : null;
+
+                        if (!folderQuestion.answer) {
                             answer = {
                                 folder_question_id: folderQuestion.id,
-                                option_id: "",
-                                option_ids: [],
-                                value: folderQuestion.question.type === "NUMBER" ? [0, 0, 0] : "",
+                                folder_question_option_id: "",
+                                folder_question_option_ids: [],
+                                value: "",
                                 value_additional: "",
                                 files: [],
                                 files_remove_ids: [],
                             }
 
-                        this.answersForm.answers.push(answer)
+                            if(folderQuestion.question.type === 'NUMBER')
+                                answer.value = [0,0,0];
+
+                            if(folderQuestion.question.type === 'TEXTGROUP')
+                                answer.value = folderQuestion.folderQuestionOptions.map(folderQuestionOption => "");
+                        }
+
+                        this.answersForm.answers.push(answer);
                     })
                 }
             }

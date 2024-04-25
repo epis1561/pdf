@@ -1,0 +1,137 @@
+<template>
+    <div class="write-body">
+        <template v-if="folderQuestion.question.type === 'RADIO'">
+            <div v-for="folderQuestionOption in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
+                <div class="check-box">
+                    <input ref="input" type="radio" name="" :id="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id" :value="folderQuestionOption.id" v-model="form.answers[folderQuestionIndex].folder_question_option_id">
+                    <label :for="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id"><p>{{ folderQuestionOption.option.title }}</p></label>
+                </div>
+            </div>
+        </template>
+
+        <template v-if="folderQuestion.question.type === 'SELECT'">
+            <div>
+                <select ref="input" name="" id="" v-model="form.answers[folderQuestionIndex].folder_question_option_id">
+                    <option value="" disabled selected>선택해주세요.</option>
+                    <option v-for="folderQuestionOption in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id" :value="folderQuestionOption.id">{{folderQuestionOption.option.title}}</option>
+                </select>
+            </div>
+        </template>
+
+        <template v-if="folderQuestion.question.type === 'TEXT'">
+            <div>
+                <input ref="input" type="text" placeholder="내용을 입력해주세요."  v-model="form.answers[folderQuestionIndex].value">
+            </div>
+        </template>
+
+        <template v-if="folderQuestion.question.type === 'TEXTGROUP'">
+            <div v-for="(folderQuestionOption, index) in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
+                <b>{{ folderQuestionOption.option.label_before }}</b>
+                <input ref="input" type="number" :placeholder="`내용을 입력해주세요.`" v-model="form.answers[folderQuestionIndex].value[index]">
+                <em>{{folderQuestionOption.option.label_after}}</em>
+            </div>
+        </template>
+
+        <template v-if="folderQuestion.question.type === 'NUMBER'">
+            <div v-for="(year, index) in years" :key="year">
+                <b>{{ year }}년</b>
+                <input ref="input" type="number" :placeholder="`해당 연도의 ${folderQuestion.folderQuestionOptions[0].option.data_title}(을)를 입력해주세요.`" v-model="form.answers[folderQuestionIndex].value[index]">
+                <em>{{folderQuestion.folderQuestionOptions[0].option.data_unit}}</em>
+            </div>
+        </template>
+
+        <template v-if="folderQuestion.question.type === 'CHECKBOX'">
+            <div v-for="folderQuestionOption in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
+                <div class="check-box">
+                    <input ref="input" type="checkbox" name="" :id="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id" :value="folderQuestionOption.id" v-model="form.answers[folderQuestionIndex].folder_question_option_ids">
+                    <label :for="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id"><p>{{ folderQuestionOption.option.title }}</p></label>
+                </div>
+            </div>
+        </template>
+
+
+        <!-- 추가필드 -->
+        <dl v-if="needValueAdditional(folderQuestion, folderQuestionIndex)" class="add-field">
+            <input ref="input" type="text" placeholder="추가내용을 입력해주세요." v-model="form.answers[folderQuestionIndex].value_additional">
+        </dl>
+
+        <!-- 첨부파일 -->
+        <div v-if="!invest && folderQuestion.question.can_file">
+            <input-user-files :only-show="onlyShow" :multiple="true" :default="folderQuestion.answer ? folderQuestion.answer.files : []" @change="data => form.answers[folderQuestionIndex].files = data" @removed="removed"/>
+        </div>
+    </div>
+</template>
+<script>
+import NuxtLogo from "./NuxtLogo";
+export default {
+    props: {
+        survey: {
+            required: true
+        },
+        invest: {
+            default: false,
+        },
+        folderQuestion: {
+            required: true,
+        },
+        folderQuestionIndex: {
+            required: true,
+        },
+        form: {
+            required: true,
+        },
+        onlyShow: {
+            default: false
+        },
+    },
+
+    data(){
+        return {
+
+        }
+    },
+
+    methods: {
+        needValueAdditional(folderQuestion, index){
+            let folderQuestionOption = folderQuestion.folderQuestionOptions.find(folderQuestionOption => folderQuestionOption.id == this.form.answers[index].folder_question_option_id);
+
+            if(folderQuestionOption && folderQuestionOption.option.add_field == 1)
+                return true;
+
+            return false;
+        },
+
+        removed(data){
+            this.form.answers[this.folderQuestionIndex].files_remove_ids = data;
+        }
+    },
+
+    watch: {
+        '$route'(to, from) {
+``
+        }
+    },
+
+    computed:{
+        years(){
+            let years = [];
+
+            if(this.survey.campaign){
+                for(let i = this.survey.campaign.year - 2; i<=this.survey.campaign.year; i++){
+                    years.push(i);
+                }
+            }
+
+            return years;
+        },
+    },
+
+    mounted() {
+        if(this.onlyShow && this.$refs.input) {
+            Array.isArray(this.$refs.input)
+                ? this.$refs.input.map(input => input.disabled = true)
+                : this.$refs.input.disabled = true;
+        }
+    }
+}
+</script>

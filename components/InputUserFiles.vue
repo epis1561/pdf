@@ -1,42 +1,26 @@
 <template>
     <div class="m-input-files type01">
-        <div class="file-box">
-            <strong>첨부 파일</strong>
+        <div class="file-box" :class="onlyShow ? 'onlyShow' : ''">
+            <strong>{{title}}</strong>
             <div>
-                <p>제목</p>
-                <a href="#" class="delete">삭제</a>
-            </div>
-        </div>
-        <div class="m-input" v-if="!onlyShow">
-            <input type="file" :id="id" @change="changeFile" accept="image/*" :multiple="multiple">
-
-            <label class="m-btn" :for="id">파일 등록</label>
-
-            <p class="m-input-comment">{{comment}}</p>
-        </div>
-
-        <div class="m-files-wrap" v-if="defaultFiles.length > 0 || files.length > 0">
-            <div class="m-files">
-                <div class="m-file-wrap" v-for="(file, index) in defaultFiles" :key="index">
-                    <a :href="file.url" class="m-file">
-                        <h3 class="m-file-title">{{file.name}}</h3>
-
-                        <button v-if="!onlyShow" class="m-btn-remove" @click.prevent="remove(file, index)" type="button">
-                            <i class="xi-close"></i>
-                        </button>
+                <div v-for="(file, index) in defaultFiles" :key="index">
+                    <a :href="file.url" download="">{{ file.name }}</a>
+                    <a href="#" class="delete" v-if="!onlyShow" @click.prevent="remove(file, index)" >삭제</a>
+                    <a :href="file.url" class="download" download="" v-else>
+                        <i class="xi-download"></i>
                     </a>
                 </div>
 
-                <div class="m-file-wrap" v-for="(file, index) in files" :key="index">
-                    <div class="m-file">
-                        <h3 class="m-file-title">{{file.name}}</h3>
-
-                        <button v-if="!onlyShow" class="m-btn-remove" @click.prevent="remove(file, index)" type="button">
-                            <i class="xi-close"></i>
-                        </button>
-                    </div>
+                <div v-for="(file, index) in files" :key="index">
+                    <a :href="file.url" download="">{{ file.name }}</a>
+                    <a href="#" class="delete" v-if="!onlyShow" @click.prevent="remove(file, index)" >삭제</a>
+                    <a :href="file.url" class="download" download="" v-else>
+                        <i class="xi-download"></i>
+                    </a>
                 </div>
             </div>
+
+            <label :for="id" v-if="!onlyShow">첨부<input style="cursor:pointer;" type="file" name="file" :id="id" @change="changeFile" :multiple="multiple"></label>
         </div>
     </div>
 </template>
@@ -113,6 +97,9 @@ export default {
         },
         comment: {
             default: ""
+        },
+        title: {
+            default: "첨부 파일"
         }
     },
 
