@@ -224,7 +224,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-<!--                                            <li class="full">
+                                            <li class="full">
                                                 <div class="list-content">
                                                     <div class="input-box no-border col-12">
                                                         <input type="text" class="f18" placeholder="충족 시 멘트" v-model="form.options[index].comment_satisfy">
@@ -240,6 +240,7 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            <!--
                                             <li class="full">
                                                 <div class="list-content">
                                                     <div class="input-box no-border col-12">
