@@ -104,6 +104,55 @@
                             </div>
                         </li>
 
+                        <li>
+                            <div class="list-title">
+                                <strong>E 가중치</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="no-border">
+                                    <input type="number" class="f18" placeholder="0 ~ 100 (미입력 시 0)" v-model="form.ratio_e">
+
+                                    <error :form="form" name="ratio_e" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-title">
+                                <strong>S1 가중치</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="no-border">
+                                    <input type="number" class="f18" placeholder="0 ~ 100 (미입력 시 0)" v-model="form.ratio_s1">
+
+                                    <error :form="form" name="ratio_s1" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-title">
+                                <strong>S2 가중치</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="no-border">
+                                    <input type="number" class="f18" placeholder="0 ~ 100 (미입력 시 0)" v-model="form.ratio_s2">
+
+                                    <error :form="form" name="ratio_s2" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-title">
+                                <strong>G 가중치</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="no-border">
+                                    <input type="number" class="f18" placeholder="0 ~ 100 (미입력 시 0)" v-model="form.ratio_g">
+
+                                    <error :form="form" name="ratio_g" />
+                                </div>
+                            </div>
+                        </li>
+
                         <li class="full">
                             <div class="list-title">
                                 <strong>개인정보처리방침 제목</strong>
@@ -571,6 +620,11 @@ export default {
                 privacy_description: "",
                 give_information_title: "",
                 give_information_description: "",
+
+                ratio_e: "",
+                ratio_s1: "",
+                ratio_s2: "",
+                ratio_g: "",
 
                 survey_started_at: "",
                 survey_finished_at: "",

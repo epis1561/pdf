@@ -30,9 +30,18 @@
                             </div>
                             <div class="list-content">
                                 <div class="select-box no-border bb1">
+                                    <select class="h70 f18" v-model="domain" @change="category_id = ''; form.category_id = '';">
+                                        <option value="">분류</option>
+                                        <option :value="domain.value" v-for="domain in domains.data" :key="domain.value">{{domain.label}}</option>
+                                    </select>
+
+                                    <error :form="form" name="classification_id" />
+                                </div>
+
+                                <div class="select-box no-border bb1">
                                     <select class="h70 f18" v-model="category_id" @change="() => {form.category_id = '';}">
                                         <option value="">1차 카테고리</option>
-                                        <option :value="category.id" v-for="category in categories.data" v-if="!category.category" :key="category.id">{{category.title}}</option>
+                                        <option :value="category.id" v-for="category in categories.data" v-if="!category.category && category.domain === domain" :key="category.id">{{category.title}}</option>
                                     </select>
                                 </div>
                                 <div class="select-box no-border bb1">
@@ -42,29 +51,6 @@
                                     </select>
 
                                     <error :form="form" name="category_id" />
-                                </div>
-                                <div class="select-box no-border bb1">
-                                    <select class="h70 f18" v-model="form.classification_id">
-                                        <option value="">분류</option>
-                                        <option :value="classification.id" v-for="classification in classifications.data" :key="classification.id">{{classification.title}}</option>
-                                    </select>
-
-                                    <error :form="form" name="classification_id" />
-                                </div>
-                                <div class="select-box no-border bb1">
-                                    <select class="h70 f18" v-model="form.level">
-                                        <option value="">일반/심화</option>
-                                        <option value="NORMAL">일반</option>
-                                        <option value="DEEP">심화</option>
-                                    </select>
-                                    <error :form="form" name="level" />
-                                </div>
-                                <div class="select-box no-border">
-                                    <select class="h70 f18" v-model="form.industry_id">
-                                        <option value="">산업분류</option>
-                                        <option :value="industry.id" v-for="industry in industries.data" :key="industry.id">{{industry.title}}</option>
-                                    </select>
-                                    <error :form="form" name="industry_id" />
                                 </div>
                             </div>
                         </li>
@@ -238,7 +224,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="full">
+<!--                                            <li class="full">
                                                 <div class="list-content">
                                                     <div class="input-box no-border col-12">
                                                         <input type="text" class="f18" placeholder="충족 시 멘트" v-model="form.options[index].comment_satisfy">
@@ -261,7 +247,7 @@
                                                         <error :form="form" :name="`options.${index}.comment_law`" />
                                                     </div>
                                                 </div>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>
@@ -432,7 +418,8 @@ export default {
                 files_mobile: [],
                 files_remove_ids: [],
             }),
-            
+
+            domain: "",
             category_id: "",
 
             categories: {
@@ -449,6 +436,10 @@ export default {
 
             types: {
                 data: [],
+            },
+
+            domains: {
+                data: []
             },
 
             option: {
@@ -497,7 +488,14 @@ export default {
                         this.$router.push("/admin/questions");
                     }).catch(() => {});
         },
-        
+
+        getDomains(){
+            this.$axios.get("/api/domains")
+                    .then(response => {
+                        this.domains = response.data;
+                    });
+        },
+
         getCategories(){
             this.$axios.get("/api/admin/categories")
                     .then(response => {
@@ -509,20 +507,6 @@ export default {
             this.$axios.get("/api/admin/questions/types")
                     .then(response => {
                         this.types = response.data;
-                    });
-        },
-
-        getClassifications(){
-            this.$axios.get("/api/admin/classifications")
-                    .then(response => {
-                        this.classifications = response.data;
-                    });
-        },
-
-        getIndustries(){
-            this.$axios.get("/api/admin/industries")
-                    .then(response => {
-                        this.industries = response.data;
                     });
         },
 
@@ -539,14 +523,13 @@ export default {
     mounted() {
         this.form.options = [{...this.option}];
 
+        this.getDomains();
+
         this.getTypes();
 
         this.getCategories();
 
-        this.getClassifications();
 
-        this.getIndustries();
-        
         if(this.$route.query.id){
             this.$store.commit("setLoading", true);
 
