@@ -366,8 +366,9 @@ export default {
             return this.activeFolder = targetFolder.folders[subFolderIndex - 1];
         },
 
-        nextFolder(){
-            this.storeAnswers(false);
+        nextFolder(needStore = true){
+            if(needStore)
+                this.storeAnswers(false);
 
             let folderIndex = 0;
 
@@ -392,11 +393,8 @@ export default {
             // 다음 서브폴더가 없다면
             if(subFolderIndex >= targetFolder.folders.length - 1){
                 // 다음 폴더가 없다면
-                if(folderIndex >= this.folders.data.length - 1) {
-                    this.storeAnswers(false);
-
+                if(folderIndex >= this.folders.data.length - 1)
                     return this.finish();
-                }
 
                 // 다음 폴더로 이동
                 return this.activeFolder = this.folders.data[folderIndex + 1].folders[0];
@@ -409,7 +407,9 @@ export default {
         finish(){
             this.$store.commit("setLoading", true);
 
-            this.form.patch("/api/investgator/surveys/finishImprove/" + this.survey.id)
+            let url = this.survey.invest_at ? "/api/investgator/surveys/finishImprove/" : "/api/investgator/surveys/finishInvest/";
+
+            this.form.patch(url + this.survey.id)
                     .then(response => {
                         this.$store.commit("setPop", {
                             description: "성공적으로 처리되었습니다."
@@ -453,7 +453,7 @@ export default {
                         this.getFolders();
 
                         if(needNext)
-                            this.nextFolder();
+                            this.nextFolder(false);
                     });
         },
 

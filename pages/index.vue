@@ -1,7 +1,26 @@
 <template>
-
+  <section>
+      <div class="tests">
+          <nuxt-link to="/login" class="text">로그인</nuxt-link>
+          <nuxt-link to="/campaigns" class="text">일반사용자 캠페인 목록 테스트</nuxt-link>
+          <nuxt-link to="/investgator/campaigns" class="text">실사자 캠페인 목록 테스트</nuxt-link>
+      </div>
+  </section>
 </template>
 
+<style>
+.tests {
+    display: flex; gap:12px; height:100%; flex-direction: column; justify-content: center; align-content: center;
+    padding:40px;
+}
+.tests .text {
+    display: inline-block;
+    padding:12px;
+    font-size:24px;
+    border:2px solid black; color:black; font-weight:bold;
+    text-align: center;
+}
+</style>
 <script>
 import Form from "@/utils/Form";
 
