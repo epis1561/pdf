@@ -87,7 +87,7 @@
                                     </p>
                                 </div>
                             </li>
-                            <li class="full" v-if="targetFolder && !targetFolder.basic && !targetFolder.folder_id">
+                            <!--<li class="full" v-if="targetFolder && !targetFolder.basic && !targetFolder.folder_id">
                                 <div class="list-title">
                                     <strong>영역</strong>
                                 </div>
@@ -99,7 +99,7 @@
 
                                     <error :form="form" name="domain" />
                                 </div>
-                            </li>
+                            </li>-->
                             <li class="full" v-if="form.basic == 0">
                                 <div class="list-title">
                                     <strong>분류 명</strong>
@@ -268,9 +268,10 @@
                                                                 <tr v-for="(option, optionIndex) in form.questions[index]['options']">
                                                                     <td>{{optionIndex + 1}}</td>
                                                                     <td>
-                                                                        <div class="input-box">
-                                                                            <input type="number" placeholder="" class="tc" v-model="form.questions[index]['options'][optionIndex].score">
-                                                                        </div>
+                                                                        <p class="f18">{{form.questions[index]['options'][optionIndex].score}}</p>
+                                                                        <!--<div class="input-box">
+                                                                            <input type="number" placeholder="" class="tc" v-model="form.questions[index]['options'][optionIndex].score" disabled>
+                                                                        </div>-->
                                                                     </td>
                                                                     <td>
                                                                         <div class="flex flex-vc flex-tj">
@@ -449,7 +450,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="question in questions.data" :key="question.id">
+                            <tr v-for="question in questions.data.filter(question => !form.questions.find(questionData => questionData.id == question.id))" :key="question.id"">
                                 <td>{{ question.id }}</td>
                                 <td>{{ question.label_search }}</td>
                                 <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
@@ -651,7 +652,7 @@ export default {
 
             form: new Form(this.$axios, {
                 id: "",
-                domain: "",
+                // domain: "",
                 folder_id: this.targetFolder ? this.targetFolder.id : "",
                 campaign_id: this.$route.query.campaign_id,
 
@@ -727,12 +728,12 @@ export default {
                     : [...this.activeIds, item.id];
         },
 
-        getDomains(){
+        /*getDomains(){
             this.$axios.get("/api/domains")
                     .then(response => {
                         this.domains = response.data;
                     });
-        },
+        },*/
 
         getCampaign(){
             this.$store.commit("setLoading", true);
@@ -868,6 +869,8 @@ export default {
                 this.folderQuestions = response.data;
 
                 this.form.questions = this.folderQuestions.data.map(folderQuestion => {
+                    console.log(folderQuestion.folderQuestionOptions);
+
                     return {
                         ...folderQuestion,
                         ...folderQuestion.question,
@@ -879,7 +882,6 @@ export default {
                         })
                     }
                 });
-                console.log(this.form.questions);
                 // this.form.questions = response.data.data;
             });
         },
@@ -930,7 +932,7 @@ export default {
                     return {
                         ...option,
                         move_question_id: "",
-                        score: "",
+                        score: question.options.length > 0 ? (1 / question.options.length).toFixed(2) : "",
                     }
                 })
             });
@@ -981,7 +983,7 @@ export default {
 
         this.getCampaigns();
 
-        this.getDomains();
+        // this.getDomains();
     }
 
 }

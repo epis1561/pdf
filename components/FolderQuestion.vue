@@ -1,5 +1,5 @@
 <template>
-    <div class="write-body">
+    <div class="write-body" ref="answer">
         <template v-if="folderQuestion.question.type === 'RADIO'">
             <div v-for="folderQuestionOption in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
                 <div class="check-box">
@@ -14,6 +14,8 @@
                 <select ref="input" name="" id="" v-model="form.answers[folderQuestionIndex].folder_question_option_id">
                     <option value="" disabled selected>선택해주세요.</option>
                     <option v-for="folderQuestionOption in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id" :value="folderQuestionOption.id">{{folderQuestionOption.option.title}}</option>
+
+                    <option value="" v-if="folderQuestion.question.give_exception == 1" v-model="form.answers[folderQuestionIndex].exception" @change="(data) => syncException(data)">해당없음</option>
                 </select>
             </div>
         </template>
@@ -49,6 +51,12 @@
             </div>
         </template>
 
+        <div v-if="folderQuestion.question.give_exception == 1">
+            <div class="check-box">
+                <input data-type="empty" type="checkbox" name="" :id="`${invest ? 'empty invest' : 'empty'}FolderQuestion-` + folderQuestion.id" v-model="form.answers[folderQuestionIndex].exception" @change="event => syncException(event.target.checked)">
+                <label :for="`${invest ? 'empty invest' : 'empty'}FolderQuestion-` + folderQuestion.id"><p>해당 없음</p></label>
+            </div>
+        </div>
 
         <!-- 추가필드 -->
         <dl v-if="needValueAdditional(folderQuestion, folderQuestionIndex)" class="add-field">
@@ -103,6 +111,30 @@ export default {
 
         removed(data){
             this.form.answers[this.folderQuestionIndex].files_remove_ids = data;
+        },
+
+        syncException(exception = false){
+            let answer = this.$refs.answer;
+            let inputs = answer.querySelectorAll('input:not([data-type="empty"]), select, textarea');
+
+            if(exception){
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+
+                this.form.answers[this.folderQuestionIndex].folder_question_option_id = "";
+                this.form.answers[this.folderQuestionIndex].folder_question_option_ids = [];
+
+                // "true"로 넘어가서 boolean으로 바꿔줘야함
+                this.form.answers[this.folderQuestionIndex].exception = 1;
+            }else{
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+
+                // "false"로 넘어가서 boolean으로 바꿔줘야함
+                this.form.answers[this.folderQuestionIndex].exception = 0;
+             }
         }
     },
 
@@ -127,6 +159,9 @@ export default {
     },
 
     mounted() {
+        if(this.form.answers[this.folderQuestionIndex].exception == 1)
+            this.syncException(1);
+
         if(this.onlyShow && this.$refs.input) {
             Array.isArray(this.$refs.input)
                 ? this.$refs.input.map(input => input.disabled = true)

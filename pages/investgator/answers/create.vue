@@ -54,6 +54,7 @@
 
                         <div class="button-box col-lg-12 flex-lg-tr mt-lg-15">
                             <a href="#" class="btn btn-blue md px60 px-lg-30" @click.prevent="storeInvest">저장</a>
+                            <a href="#" class="btn btn-black md ml10 ml-lg-5" @click.prevent="finish">{{survey.invest_at ? '개선과제 작성완료' : '실사 완료'}}</a>
                         </div>
                     </div>
                     <div class="company-write-box">
@@ -74,12 +75,13 @@
                                         <strong>1. 환경</strong>
                                     </div>
                                     <div class="write-body">
-                                        <input type="text" placeholder="제목을 입력해주세요." v-model="form.title_e">
-                                        <div class="line"></div>
-                                        <textarea placeholder="내용을 입력해주세요." v-model="form.comment_e"></textarea>
+                                        <textarea placeholder="의견을 입력해주세요." v-model="form.comment_e"></textarea>
+                                        <textarea placeholder="우수사항 입력해주세요." v-model="form.good_e" style="margin-top:12px;"></textarea>
+                                        <textarea placeholder="미흡사항을 입력해주세요." v-model="form.bad_e" style="margin-top:12px;"></textarea>
 
-                                        <error :form="form" name="title_e" />
                                         <error :form="form" name="comment_e" />
+                                        <error :form="form" name="good_e" />
+                                        <error :form="form" name="bad_e" />
                                     </div>
                                 </li>
                                 <li>
@@ -87,25 +89,41 @@
                                         <strong>2. 노동 및 인권</strong>
                                     </div>
                                     <div class="write-body">
-                                        <input type="text" placeholder="제목을 입력해주세요." v-model="form.title_s">
-                                        <div class="line"></div>
-                                        <textarea placeholder="내용을 입력해주세요." v-model="form.comment_s"></textarea>
+                                        <textarea placeholder="의견을 입력해주세요." v-model="form.comment_s1"></textarea>
+                                        <textarea placeholder="우수사항 입력해주세요." v-model="form.good_s1" style="margin-top:12px;"></textarea>
+                                        <textarea placeholder="미흡사항을 입력해주세요." v-model="form.bad_s1" style="margin-top:12px;"></textarea>
 
-                                        <error :form="form" name="title_s" />
-                                        <error :form="form" name="comment_s" />
+                                        <error :form="form" name="comment_s1" />
+                                        <error :form="form" name="good_s1" />
+                                        <error :form="form" name="bad_s1" />
                                     </div>
                                 </li>
                                 <li>
                                     <div class="write-head">
-                                        <strong>3. 사회 및 윤리</strong>
+                                        <strong>3. 안전 및 보건</strong>
                                     </div>
                                     <div class="write-body">
-                                        <input type="text" placeholder="제목을 입력해주세요." v-model="form.title_g">
-                                        <div class="line"></div>
-                                        <textarea placeholder="내용을 입력해주세요." v-model="form.comment_g"></textarea>
+                                        <textarea placeholder="의견을 입력해주세요." v-model="form.comment_s2"></textarea>
+                                        <textarea placeholder="우수사항 입력해주세요." v-model="form.good_s2" style="margin-top:12px;"></textarea>
+                                        <textarea placeholder="미흡사항을 입력해주세요." v-model="form.bad_s2" style="margin-top:12px;"></textarea>
 
-                                        <error :form="form" name="title_g" />
+                                        <error :form="form" name="comment_s2" />
+                                        <error :form="form" name="good_s2" />
+                                        <error :form="form" name="bad_s2" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="write-head">
+                                        <strong>4. 사회 및 윤리</strong>
+                                    </div>
+                                    <div class="write-body">
+                                        <textarea placeholder="의견을 입력해주세요." v-model="form.comment_g"></textarea>
+                                        <textarea placeholder="우수사항 입력해주세요." v-model="form.good_g" style="margin-top:12px;"></textarea>
+                                        <textarea placeholder="미흡사항을 입력해주세요." v-model="form.bad_g" style="margin-top:12px;"></textarea>
+
                                         <error :form="form" name="comment_g" />
+                                        <error :form="form" name="good_g" />
+                                        <error :form="form" name="bad_g" />
                                     </div>
                                 </li>
                             </ul>
@@ -240,12 +258,23 @@ export default {
             form: new Form(this.$axios, {
                 page: 1,
                 comment_total: "",
-                title_e: "",
+
                 comment_e: "",
-                title_s: "",
-                comment_s: "",
-                title_g: "",
+                good_e: "",
+                bad_e: "",
+
+                comment_s1: "",
+                good_s1: "",
+                bad_s1: "",
+
+                comment_s2: "",
+                good_s2: "",
+                bad_s2: "",
+
                 comment_g: "",
+                good_g: "",
+                bad_g: "",
+
                 files: [],
             }),
 
@@ -393,8 +422,15 @@ export default {
             // 다음 서브폴더가 없다면
             if(subFolderIndex >= targetFolder.folders.length - 1){
                 // 다음 폴더가 없다면
-                if(folderIndex >= this.folders.data.length - 1)
-                    return this.finish();
+                if(folderIndex >= this.folders.data.length - 1) {
+                    this.step = 1;
+
+                    return this.$store.commit("setPop", {
+                        description: `평가가 완료되었습니다. 의견 작성 후 ${this.survey.invest_at ? '"개선과제 작성완료"' : '"실사 완료"'} 버튼을 눌러주세요.`
+                    });
+                }
+
+                    // return this.finish();
 
                 // 다음 폴더로 이동
                 return this.activeFolder = this.folders.data[folderIndex + 1].folders[0];
@@ -405,6 +441,21 @@ export default {
         },
 
         finish(){
+            // 서브폴더들 중 실사답변 작성하지 않은 폴더 찾아내기
+            let notInvestFolder = this.folders.data.filter(folder => folder.basic == 0).find(folder => {
+                return folder.folders.find(subFolder => {
+                   return subFolder.folderQuestions.find(folderQuestion => {
+                       if(folderQuestion.answer && !folderQuestion.answer.comment_invest)
+                           return true;
+                   });
+                });
+            });
+
+            if(notInvestFolder)
+                return this.$store.commit("setPop", {
+                    description: `${notInvestFolder.title}의 개선과제 작성을 완료해주세요.`
+                });
+
             this.$store.commit("setLoading", true);
 
             let url = this.survey.invest_at ? "/api/investgator/surveys/finishImprove/" : "/api/investgator/surveys/finishInvest/";
@@ -497,6 +548,9 @@ export default {
 
             if(folderQuestion.answer){
                 if(formName === "investForm"){
+                    console.log(folderQuestion.answer.invest_exception);
+
+                    folderQuestion.answer.exception = folderQuestion.answer.invest_exception; // 얘는 boolean이라 || 쓰면 안됨
                     folderQuestion.answer.value = folderQuestion.answer.invest_value || folderQuestion.answer.value;
                     folderQuestion.answer.value_additional = folderQuestion.answer.invest_value_additional || folderQuestion.answer.value_additional;
                     folderQuestion.answer.folder_question_option_id = folderQuestion.answer.invest_folder_question_option_id || folderQuestion.answer.folder_question_option_id;
@@ -522,6 +576,7 @@ export default {
                     value: "",
                     value_additional: "",
                     comment_invest: "",
+                    exception: 0,
                     files: [],
                     files_remove_ids: [],
                 }
@@ -547,6 +602,8 @@ export default {
         activeFolder: {
             handler(newFolder, oldFolder){
                 if(newFolder) {
+                    this.form.errors.clear();
+
                     this.answersForm.answers = [];
                     this.investForm.answers = [];
 

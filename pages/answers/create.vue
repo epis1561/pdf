@@ -447,59 +447,63 @@ export default {
 
                 targetFolderQuestion = this.activeFolder.folderQuestions.find(folderQuestion => folderQuestion.id == answer.folder_question_id);
 
-                if(targetFolderQuestion.question.type === "RADIO"){
-                    if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
-                        problemFolderQuestion = targetFolderQuestion;
-                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
-                    }
-                }
-
-                if(targetFolderQuestion.question.type === "SELECT"){
-                    if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
-                        problemFolderQuestion = targetFolderQuestion;
-                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
-                    }
-                }
-
-                if(targetFolderQuestion.question.type === "CHECKBOX"){
-                    console.log(answer);
-                    if(targetFolderQuestion.question.required == 1 && (!answer.folder_question_option_ids || answer.folder_question_option_ids.length === 0)){
-                        problemFolderQuestion = targetFolderQuestion;
-                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
-                    }
-                }
-
-                if(targetFolderQuestion.question.type === "TEXT"){
-                    if(targetFolderQuestion.question.required == 1 && answer.value === ""){
-                        problemFolderQuestion = targetFolderQuestion;
-                        errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
-                    }
-                }
-
-                if(targetFolderQuestion.question.type === "TEXTGROUP"){
-                    if(targetFolderQuestion.question.required == 1){
-                        if(answer.value.some(value => value === "")) {
+                // 해당없음이면 검사 안함
+                if(answer.exception != 1) {
+                    if(targetFolderQuestion.question.type === "RADIO"){
+                        if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
                             problemFolderQuestion = targetFolderQuestion;
                             errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
                         }
                     }
-                }
 
-                if(targetFolderQuestion.question.type === "NUMBER"){
-                    if(targetFolderQuestion.question.required == 1){
-                        if(answer.value.some(value => value === "")) {
+                    if(targetFolderQuestion.question.type === "SELECT"){
+                        if(targetFolderQuestion.question.required == 1 && answer.folder_question_option_id === ""){
                             problemFolderQuestion = targetFolderQuestion;
                             errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
                         }
                     }
+
+                    if(targetFolderQuestion.question.type === "CHECKBOX"){
+                        console.log(answer);
+                        if(targetFolderQuestion.question.required == 1 && (!answer.folder_question_option_ids || answer.folder_question_option_ids.length === 0)){
+                            problemFolderQuestion = targetFolderQuestion;
+                            errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                        }
+                    }
+
+                    if(targetFolderQuestion.question.type === "TEXT"){
+                        if(targetFolderQuestion.question.required == 1 && answer.value === ""){
+                            problemFolderQuestion = targetFolderQuestion;
+                            errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                        }
+                    }
+
+                    if(targetFolderQuestion.question.type === "TEXTGROUP"){
+                        if(targetFolderQuestion.question.required == 1){
+                            if(answer.value.some(value => value === "")) {
+                                problemFolderQuestion = targetFolderQuestion;
+                                errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                            }
+                        }
+                    }
+
+                    if(targetFolderQuestion.question.type === "NUMBER"){
+                        if(targetFolderQuestion.question.required == 1){
+                            if(answer.value.some(value => value === "")) {
+                                problemFolderQuestion = targetFolderQuestion;
+                                errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
+                            }
+                        }
+                    }
+
+                    // 추후에는 삭제하는 file_remove_ids 개수가 기존거 다 지울만한 개수인지 확인해야돼(그럼 사실상 파일첨부가 0개니까)
+                    if(targetFolderQuestion.question.can_file && targetFolderQuestion.question.required_file && answer.files.length === 0 && (!targetFolderQuestion.answer.files || targetFolderQuestion.answer.files.length === 0)){
+                        problemFolderQuestion = targetFolderQuestion;
+
+                        errors.push("파일을 업로드해주세요.");
+                    }
                 }
 
-                // 추후에는 삭제하는 file_remove_ids 개수가 기존거 다 지울만한 개수인지 확인해야돼(그럼 사실상 파일첨부가 0개니까)
-                if(targetFolderQuestion.question.can_file && targetFolderQuestion.question.required_file && answer.files.length === 0 && (!targetFolderQuestion.answer.files || targetFolderQuestion.answer.files.length === 0)){
-                    problemFolderQuestion = targetFolderQuestion;
-
-                    errors.push("파일을 업로드해주세요.");
-                }
 
                 if(errors.length > 0)
                     validate = false;
@@ -586,6 +590,7 @@ export default {
                                 folder_question_option_ids: [],
                                 value: "",
                                 value_additional: "",
+                                exception: 0,
                                 files: [],
                                 files_remove_ids: [],
                             }

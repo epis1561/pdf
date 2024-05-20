@@ -307,8 +307,8 @@
                 <a href="" class="btn btn-blue px45" @click.prevent="store">등록</a>
 
                 <template v-if="item">
-                    <nuxt-link :to="`/admin/campaigns/folders?campaign_id=${item.id}&basic=1`" href="" class="btn btn-active px45 ml10">기본 정보 등록</nuxt-link>
-                    <nuxt-link :to="`/admin/campaigns/folders?campaign_id=${item.id}&basic=0`" href="" class="btn btn-active-2 px45 ml10">설문 정보 등록</nuxt-link>
+                    <a href="#" class="btn btn-active px45 ml10" @click="() => moveFolders(1)">기본 정보 등록</a>
+                    <a href="#" class="btn btn-active-2 px45 ml10" @click="() => moveFolders(0)">설문 정보 등록</a>
                 </template>
             </div>
 
@@ -656,6 +656,15 @@ export default {
                         .then(response => {
                             this.$router.replace("/admin/campaigns");
                         });
+        },
+
+        moveFolders(basic = 0){
+            if(this.item.state !== "BEFORE")
+                return this.$store.commit("setPop", {
+                    description: "이미 시작된 캠페인은 수정할 수 없습니다."
+                });
+
+            return this.$router.push(`/admin/campaigns/folders?campaign_id=${this.item.id}&basic=${basic}`);
         },
 
         store(){

@@ -78,3 +78,7 @@ label {
     font-size:14px;
     color:#fff;
 }
+
+.check-write-box > ul > li .write-right > dl > dd .write-body > div input:disabled + label p {
+    color:#ccc !important;
+}
