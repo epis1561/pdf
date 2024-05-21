@@ -450,7 +450,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="question in questions.data.filter(question => !form.questions.find(questionData => questionData.id == question.id))" :key="question.id"">
+                            <tr v-for="question in filteredQuestions" :key="question.id">
                                 <td>{{ question.id }}</td>
                                 <td>{{ question.label_search }}</td>
                                 <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
@@ -959,6 +959,20 @@ export default {
                     .then(response => {
                         this.activeRatioPop = false;
                     });
+        },
+    },
+
+    computed: {
+        filteredQuestions(){
+            return this.questions.data.filter(question => {
+                if(this.form.questions.find(questionData => questionData.id == question.id))
+                   return false;
+
+                if(this.$route.query.basic && question.type !== 'TEXTGROUP')
+                    return false;
+
+                return true;
+            })
         }
     },
 

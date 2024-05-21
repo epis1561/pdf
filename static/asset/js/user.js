@@ -50,8 +50,7 @@ $(document).on("change",".select-box select",function(){
 	}
 });
 
-/*
-/!* 체크박스 전체동의 *!/
+/* 체크박스 전체동의 */
 $(document).on("change",".agree-list-box .list-foot input",function(){
 	var type = $(this).attr("data-name");
 	$(".agree-list-box > .list-body input").prop("checked" , $(this).prop("checked"));
@@ -65,7 +64,7 @@ $(document).on("change",".agree-list-box > .list-body input",function(){
 	if(len == checklen) $(".agree-list-box > .list-foot input").prop("checked",true);
 });
 
-/!* 답변작성 버튼 *!/
+/* 답변작성 버튼 */
 $(document).on("click", ".sub-left-category button", function(){
 	var parents = $(this).closest("li");
 
@@ -74,4 +73,4 @@ $(document).on("click", ".sub-left-category button", function(){
 	if( $(this).attr("data-type") == "depth" ){
 		parents.siblings().removeClass("active");
 	}
-});*/
+});

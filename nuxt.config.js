@@ -31,6 +31,7 @@ export default {
              */
         ],
         script: [
+            {src: "/asset/js/jspdf.js"},
             {src: "//dapi.kakao.com/v2/maps/sdk.js?appkey=5e85237532da8edfc3cc9905f1abdd8c&libraries=services&autoload=false"},
             {src: "//code.jquery.com/jquery-1.12.4.min.js"},
             {src: "/asset/js/swiper.min.js"},
@@ -43,7 +44,6 @@ export default {
             {src: "//cdn.jsdelivr.net/npm/chart.js"},
             {src: "//cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.4.0/chartjs-plugin-annotation.min.js"},
             {src: "//cdn.quilljs.com/1.3.6/quill.min.js"},
-            {src: "//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"},
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/asset/images/favicon.ico'},
@@ -71,6 +71,10 @@ export default {
     plugins: [
         {
             src: "~plugins/axios.js",
+        },
+        {
+            src: "~plugins/vue-html2pdf.js",
+            mode: "client",
         },
     ],
 

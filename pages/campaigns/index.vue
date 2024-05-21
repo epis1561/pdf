@@ -30,7 +30,7 @@
                             <ul>
                                 <li class="cate01"><nuxt-link to="/campaigns/dashboard" @click.prevent="ready"><p>현황</p></nuxt-link></li>
                                 <li class="cate02 active"><nuxt-link to="/campaigns"><p>진단</p></nuxt-link></li>
-                                <li class="cate03"><a href="#" @click.prevent="ready"><p>이력</p></a></li>
+                                <!--<li class="cate03"><a href="#" @click.prevent="ready"><p>이력</p></a></li>-->
                             </ul>
                         </div>
                     </div>
@@ -69,8 +69,12 @@
                                 </div>
                                 <div class="list-body">
                                     <time>{{ item.format_survey_started_at }} ~ {{ item.format_survey_finished_at }}</time>
-                                    <a href="#" @click.prevent="() => {$router.push(`/answers/create?survey_id=${item.survey.id}&campaign_id=${item.id}`)}" v-if="item.survey && item.survey.state === 'FINISH'">이력 확인</a>
-                                    <a href="#" @click="start(item)" v-else>작성하기</a>
+
+                                    <div class="flex">
+                                        <nuxt-link :to="`/campaigns/reports?survey_id=${item.survey.id}`" v-if="item.survey && item.survey.invest_at" class="bg-active">결과리포트</nuxt-link>
+                                        <a href="#" @click.prevent="() => {$router.push(`/answers/create?survey_id=${item.survey.id}&campaign_id=${item.id}`)}" v-if="item.survey && item.survey.state === 'FINISH'">이력 확인</a>
+                                        <a href="#" @click="start(item)" v-else>작성하기</a>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

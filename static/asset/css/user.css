@@ -220,7 +220,6 @@ footer .footer-info .footer-info-text ul li span:after {height:10px; margin:0 10
 .file-box > div > a {font-size:0; display:inline-block; content:""; width:18px; height:18px; margin-left:5px; background:url('../images/icon_member_file_delete.png') no-repeat center / cover;}
 .file-box > label {width:80px; height:40px; border:1px solid #E4E4E4; font-size:18px; font-weight:600; color:#6E6E6E; position:relative; overflow:hidden; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; border-radius:50px;}
 .file-box > label input {position:absolute; left:0; top:0; width:100%; height:100%; opacity:0; cursor:pointer; overflow:hidden;}
-.file-box .delete {display:block; font-size:0; width:22px; height:22px; margin-left:8px; background:url('../images/icon_member_file_delete.png') no-repeat center / cover;}
 @media (max-width:991px){
 .file-box {min-height:50px;}
 .file-box > strong {width:auto; font-size:14px; margin-right:10px;}
