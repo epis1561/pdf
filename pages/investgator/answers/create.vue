@@ -453,7 +453,7 @@ export default {
 
             if(notInvestFolder)
                 return this.$store.commit("setPop", {
-                    description: `${notInvestFolder.title}의 개선과제 작성을 완료해주세요.`
+                    description: `${notInvestFolder.title}의 실사의견 작성을 완료해주세요.`
                 });
 
             this.$store.commit("setLoading", true);

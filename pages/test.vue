@@ -1,7 +1,72 @@
 <template>
-    <div class="bodies" style="padding:40px;">
-        <p class="body" v-for="error in errors">{{error[0]}}</p>
-    </div>
+    <li>
+        <div class="part-left">
+            <div class="part-left-title">
+                <h2>환경</h2>
+                <small>기준치 {{ report.survey.campaign.relative_ratio_e }}%</small>
+            </div>
+            <div class="part-left-info">
+                <dl>
+                    <dd v-for="category in report.domains['ENVIRONMENT'].categories" :key="category.id">
+                        <b>{{ category.title }}</b>
+                        <p>{{ category.result }}</p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="part-right">
+            <div class="flex">
+                <div class="border-box flex-1 mr16 px16 py16">
+                    <div class="graph-box">
+                        <div class="graph-body">
+                            <div class="graph-02 green">
+                                <div class="graph-title">
+                                    <h2><b>E</b>환경</h2>
+                                </div>
+                                <div class="graph-bar">
+                                    <div class="bar-unit">
+                                        <p>E-1</p>
+                                        <p>E-2</p>
+                                        <p>E-3</p>
+                                        <p>E-4</p>
+                                        <p>E-5</p>
+                                    </div>
+                                    <div class="bar-inner">
+                                        <div class="inner" :style="`width:${levelWidth(report.survey.level_e)}%;`"><em>{{report.survey.level_e}}</em></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-box mr16 px16 py16">
+                    <div class="graph-box">
+                        <div class="graph-body">
+                            <div class="graph-03 graph-03-02-01">
+                                <div class="inner">
+                                    <strong>{{ report.survey.score_e }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gray-box px16 py16">
+                    <div class="graph-box">
+                        <div class="graph-body">
+                            <div class="graph-03 graph-03-02-05">
+                                <div class="inner">
+                                    <strong>{{ report.survey.average_e }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="print-text-box mt12">
+                <p v-text="report.survey.comment_e"></p>
+            </div>
+        </div>
+    </li>
 </template>
 
 <script>

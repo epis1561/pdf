@@ -82,3 +82,35 @@ label {
 .check-write-box > ul > li .write-right > dl > dd .write-body > div input:disabled + label p {
     color:#ccc !important;
 }
+.wrapper {
+    position:relative;
+}
+.admin-print-box {
+    padding:0 80px !important;
+}
+.print-view-box {
+    padding-bottom:110px;
+}
+.print-view-box .view-foot {
+    width: 100%; max-width: 1050px;
+    position: absolute; bottom: 40px; left: 50%;
+    padding: 18px 0;
+    transform: translateX(-50%);
+    border-top: 1px solid #000;
+    background-color:#fff;
+}
+.print-view-box .view-body .view-body-list > ul > li .view-list-cont > dl > dd p {
+    word-break: keep-all;
+}
+.print-view-box .view-body .view-body-list > ul > li .view-list-tit div p {
+    word-break: keep-all;
+}
+.graph-box .graph-body .graph-03 {
+    width:80px !important; height:80px !important;
+}
+.graph-box .graph-body .graph-03.big {
+    width: 260px !important; height: 260px !important;
+}
+.print-step-box .print-step-list ul li p {
+    gap:4px;
+}

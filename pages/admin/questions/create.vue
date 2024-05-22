@@ -113,7 +113,7 @@
                                         <error :form="form" name="required" />
                                     </div>
                                 </li>
-                                <li class="full" v-if="form.give_exception == 1">
+<!--                                <li class="full" v-if="form.give_exception == 1">
                                     <div class="list-title">
                                         <strong>&nbsp;</strong>
                                     </div>
@@ -124,7 +124,7 @@
                                             <error :form="form" name="give_exception_comment" />
                                         </div>
                                     </div>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         <li class="full">
@@ -538,12 +538,15 @@ export default {
                     .then(response => {
                         this.item = response.data.data;
 
-                        console.log(this.item.options);
-
                         if(this.item.category && this.item.category.category)
                             this.category_id = this.item.category.category.id;
 
-                        this.form.set({...this.form, ...this.item});
+                        this.form.set({
+                            ...this.form,
+                            ...this.item
+                        });
+
+                        this.domain = this.item.category.domain;
 
                         this.loading = false;
 

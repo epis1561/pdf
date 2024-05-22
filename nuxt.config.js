@@ -72,10 +72,6 @@ export default {
         {
             src: "~plugins/axios.js",
         },
-        {
-            src: "~plugins/vue-html2pdf.js",
-            mode: "client",
-        },
     ],
 
     middlewares: [""],

@@ -676,6 +676,7 @@ export default {
                        this.$store.commit("setPop", {});
                         //  this.$router.push("/admin/campaigns");
 
+                        this.item = response.data;
                     }).catch(() => {});
 
             this.form.post("/api/admin/campaigns")

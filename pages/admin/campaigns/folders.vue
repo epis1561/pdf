@@ -968,7 +968,7 @@ export default {
                 if(this.form.questions.find(questionData => questionData.id == question.id))
                    return false;
 
-                if(this.$route.query.basic && question.type !== 'TEXTGROUP')
+                if(this.$route.query.basic == 1 && question.type !== 'TEXTGROUP')
                     return false;
 
                 return true;
