@@ -217,6 +217,18 @@ label {
     max-width:auto !important; width:auto !important; max-height:56px;
 }
 
+.board-graph-box .graph-02 .graph-inner .inner-title {
+    margin:0 0 24px;
+}
+
+.board-company-box > ul > li {
+    border:3px solid transparent;
+    transition: border-color .3s;
+    cursor:pointer;
+}
+.board-company-box > ul > li:hover {
+    border-color:#1592E6;
+}
 @media print {
     .m-viewer.type01 {
         background-color:#fff;

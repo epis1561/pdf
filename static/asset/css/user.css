@@ -743,3 +743,12 @@ footer .footer-info .footer-info-text ul li span:after {height:10px; margin:0 10
 .board-list-box .list-body .list-body-graph > ul > li .graph-right .graph-right-percent.purple > div {background:#AA83BB;}
 .board-list-box .list-foot {border-top:1px solid #E4E4E4; padding:24px 0 0; margin:24px 0 0; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;}
 .board-list-box .list-foot a {display:flex; flex-wrap:wrap; align-items:center; justify-content:center; border-radius:50px; height:48px; padding:0 55px; background:#F7F7F7; font-size:20px; font-weight:500;}
+
+
+.m-empty.type01 {
+    display: flex; align-items: center; justify-content: center;
+    height:calc(100vh - 270px);
+    font-size:24px;
+    background-color:#fff; border-radius:16px;
+
+}
