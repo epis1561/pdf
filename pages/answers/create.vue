@@ -556,6 +556,7 @@ export default {
                             $(".folder > button").unbind("click").bind("click", function(){
                                 $(this).parent("li").toggleClass("active");
                             });
+
                         });
                     })
                 })

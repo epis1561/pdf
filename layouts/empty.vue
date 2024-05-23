@@ -1,6 +1,8 @@
 <template>
     <div>
         <pop />
+        <loading v-if="$store.state.loading"/>
+
         <Nuxt />
     </div>
 </template>

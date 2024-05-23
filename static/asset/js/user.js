@@ -64,13 +64,3 @@ $(document).on("change",".agree-list-box > .list-body input",function(){
 	if(len == checklen) $(".agree-list-box > .list-foot input").prop("checked",true);
 });
 
-/* 답변작성 버튼 */
-$(document).on("click", ".sub-left-category button", function(){
-	var parents = $(this).closest("li");
-
-	parents.toggleClass("active");
-	
-	if( $(this).attr("data-type") == "depth" ){
-		parents.siblings().removeClass("active");
-	}
-});

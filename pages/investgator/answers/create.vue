@@ -26,7 +26,7 @@
                                     <button type="button" @click.prevent="(e) => changeStep(2,e)"><p>평가 진행</p></button>
                                     <div>
                                         <ul>
-                                            <li :class="`folder folder${folder.id} ${activeFolder && activeFolder.folder_id == folder.id ? 'active' : ''}`" v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id">
+                                            <li :class="`folder folder${folder.id} ${activeFolder && activeFolder.folder_id == folder.id ? 'active' : ''}`" v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id" @click.prevent="changeFolder(folder.folders[0])">
                                                 <button type="button" data-type="depth">
                                                     <p><b>{{index + 1}}</b>{{ folder.title }}</p>
 <!--                                                    <div class="graph">
@@ -193,7 +193,7 @@
                                                     <strong>실사(현장)진단 사항</strong>
                                                 </div>
                                                 <div class="write-body">
-                                                    <p v-text="survey.comment_invest || '-'" style="white-space: pre-line"></p>
+                                                    <p v-text="investForm.answers[folderQuestionIndex].comment_invest || '-'" style="white-space: pre-line"></p>
                                                 </div>
                                             </li>
                                             <li>
@@ -539,7 +539,11 @@ export default {
                                 $(this).parent("li").toggleClass("active");
                             });
                         });
-                    })
+                    });
+
+                    this.$nextTick(() => {
+                        $(".sub-left-category *").unbind("click");
+                    });
                 })
         },
 
@@ -548,8 +552,6 @@ export default {
 
             if(folderQuestion.answer){
                 if(formName === "investForm"){
-                    console.log(folderQuestion.answer.invest_exception);
-
                     folderQuestion.answer.exception = folderQuestion.answer.invest_exception; // 얘는 boolean이라 || 쓰면 안됨
                     folderQuestion.answer.value = folderQuestion.answer.invest_value || folderQuestion.answer.value;
                     folderQuestion.answer.value_additional = folderQuestion.answer.invest_value_additional || folderQuestion.answer.value_additional;
@@ -616,8 +618,21 @@ export default {
         }
     },
 
+    beforeDestroy(){
+        $(document).on("click", ".sub-left-category button", function(){
+            var parents = $(this).closest("li");
+
+            parents.toggleClass("active");
+
+            if( $(this).attr("data-type") == "depth" ){
+                parents.siblings().removeClass("active");
+            }
+        });
+    },
+
     mounted() {
         this.getSurvey();
+
     }
 }
 </script>
