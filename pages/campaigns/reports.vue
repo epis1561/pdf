@@ -1923,6 +1923,9 @@
                 </div>
 
                 <div class="btns">
+                    <button class="btn btn-expand" @click.prevent="ready">
+                        <i class="xi-download"></i>
+                    </button>
                     <button class="btn btn-expand">
                         <i class="xi-expand"></i>
                     </button>
@@ -2054,6 +2057,10 @@ export default {
     },
 
     methods: {
+        ready(){
+            return alert("준비중입니다.");
+        },
+
         getReport(){
             this.$store.commit("setLoading", true);
 

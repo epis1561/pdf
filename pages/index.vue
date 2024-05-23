@@ -8,7 +8,7 @@
   </section>
 </template>
 
-<style>
+<style>`
 .tests {
     display: flex; gap:12px; height:100%; flex-direction: column; justify-content: center; align-content: center;
     padding:40px;
