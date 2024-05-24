@@ -40,7 +40,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input-files :default="item && item.img ? [item.img] : ''" comment="320px * 135px 사이즈로 업로드해주세요." @change="(data) => form.files = data" @removed="data => form.files_remove_ids = data" />
+                                    <input-files :default="item && item.img ? [item.img] : ''" comment="높이 최대 135px 사이즈를 권장합니다" @change="(data) => form.files = data" @removed="data => form.files_remove_ids = data" />
 
                                     <error :form="form" name="img" />
                                 </div>

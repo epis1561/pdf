@@ -1,95 +1,81 @@
 <template>
-    <section>
-        <div class="container">
-            <div class="sub-box">
-                <div class="sub-left-box">
-                    <div class="sub-left-head">
-                        <img src="/asset/images/logo.png">
-                        <a href="javascript:;" class="close" onclick="menuClose();">닫기</a>
-                    </div>
-                    <div class="sub-left-body">
-                        <div class="sub-left-title">
-                            <h2><b>ESGi &</b>Sustainability<b>Center</b></h2>
-                            <p>
-                                기업이 의사결정(Governance) 시 재무적 가치만을 <br>
-                                고려하는 것이 아니라 비재무적 요소인 환경<br>
-                                (Environmental)과 사회(Social)적 가치도<br>
-                                균형 있게 고려하는 것을 말합니다.
-                            </p>
-                        </div>
-                        <div class="sub-left-main">
-                            <ul>
-                                <li><a href="">COMPANY</a></li>
-                                <li><a href="">SERVICES</a></li>
-                                <li><a href="">PORTFOLIO</a></li>
-                                <li><a href="">INSIGHTS</a></li>
-                                <li><a href="">CONTACT</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <div class="board-right">
+        <div class="board-right-head">
+            <div class="head-left">
+                <h2>캠페인 목록</h2>
+<!--                <div class="flex flex-vc">
+                    <select class="w160">
+                        <option>년도</option>
+                    </select>
+                    <select class="w260">
+                        <option>간접 에너지사용량</option>
+                    </select>
+                </div>-->
+            </div>
+            <div class="head-right">
+                <a href="#" class="logout" @click.prevent="logout">로그아웃</a>
+            </div>
+        </div>
 
-                <div class="sub-right-box">
-                    <div class="title-box">
-                        <h2>진단</h2>
-                    </div>
-                    <div class="list-top-box">
-                        <div class="list-top-search">
-                            <form @submit.prevent="filter">
-                                <input type="text" placeholder="검색어를 입력해주세요." v-model="form.word">
-                                <a href="#" class="submit" @click.prevent="filter">검색</a>
-                            </form>
+        <div class="board-right-body" v-if="campaigns.data.length === 0">
+            <div class="m-empty type01"></div>
+        </div>
+
+        <div class="board-right-body">
+            <div class="board-white-box grid-4">
+                <div class="board-white-inner" v-for="campaign in campaigns.data" :key="campaign.id">
+                    <div class="board-graph-box">
+                        <div :class="`graph-03 graph${campaign.id} middle`">
+                            <div class="graph-inner">
+                                <strong>{{ campaign.score }}</strong>
+                            </div>
                         </div>
-                        <div class="list-top-filter">
-                            <ul>
-                                <li :class="tabClass('')"><a href="#" @click.prevent="() => {changeState('')}">전체</a></li>
-                                <li :class="tabClass('BEFORE')"><a href="#" @click.prevent="() => {changeState('BEFORE')}">대기기간</a></li>
-                                <li :class="tabClass('ONGOING_SURVEY')"><a href="#" @click.prevent="() => {changeState('ONGOING_SURVEY')}">응답기간</a></li>
-                                <li :class="tabClass('ONGOING_INVESTGATE')"><a href="#" @click.prevent="() => {changeState('ONGOING_INVESTGATE')}">평가기간</a></li>
-                                <li :class="tabClass('FINISH')"><a href="#" @click.prevent="() => {changeState('FINISH')}">종료</a></li>
-                            </ul>
+                        <div class="graph-content">
+                            <strong>{{campaign.title}}</strong>
+                            <dl>
+                                <dd>
+                                    <b>E</b>
+                                    <p>{{ campaign.score_e }}</p>
+                                </dd>
+                                <dd>
+                                    <b>S1</b>
+                                    <p>{{ campaign.score_s1 }}</p>
+                                </dd>
+                                <dd>
+                                    <b>S2</b>
+                                    <p>{{campaign.score_s2}}</p>
+                                </dd>
+                                <dd>
+                                    <b>G</b>
+                                    <p>{{ campaign.score_g }}</p>
+                                </dd>
+                            </dl>
+                            <time>{{ campaign.format_survey_started_at }} ~ {{ campaign.format_improve_finished_at }}</time>
+                            <nuxt-link :to="`/provider/companies?campaign_id=${campaign.id}`">업체별 현황보기</nuxt-link>
                         </div>
                     </div>
-                    <div class="check-list-box">
-                        <empty v-if="items.data.length === 0" />
 
-                        <ul>
-                            <li :class="`${item && item.state === 'ONGOING_INVESTGATE' ? 'active' : ''}`" v-for="item in items.data" :key="item.id">
-                                <div class="list-head">
-                                    <p>{{ item.title }}</p>
-                                    <div>
-                                        <b>{{ item.format_state }}</b>
-                                    </div>
-                                </div>
-                                <div class="list-body">
-                                    <time>평가기간 : {{ item.format_improve_started_at }} ~ {{ item.format_improve_finished_at }}</time>
-                                    <div class="flex flex-vc">
-                                        <nuxt-link :to="`/investgator/surveys?campaign_id=${item.id}`" class="blue">평가대상 확인</nuxt-link>
-                                    </div>
-<!--                                    <a href="#" @click.prevent="() => {$router.push(`/answers/create?survey_id=${item.survey.id}&campaign_id=${item.id}`)}" v-if="item.survey && item.survey.state === 'FINISH'">이력 확인</a>
-                                    <a href="#" @click="start(item)" v-else>작성하기</a>-->
-                                </div>
-                            </li>
-                        </ul>
-
-                        <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
-
-                    </div>
+                    <pagination :meta="campaigns.meta" @paginate="(page) => {form.page = page; getCampaigns()}" />
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 <script>
 import Form from "@/utils/Form";
 export default {
-    middleware: ["user"],
+    layout: "provider",
+    middleware: ["provider"],
 
-    components: {},
+    data(){
 
-    data() {
         return {
-            items: {
+            form : new Form(this.$axios, {
+                page: 1,
+                campaign_id: "",
+            }),
+
+            campaigns: {
                 data: [],
                 meta: {
                     current_page:1,
@@ -97,62 +83,62 @@ export default {
                     total: 0,
                 }
             },
-
-            form: new Form(this.$axios, {
-                page: 1,
-                state: "",
-                word: "",
-                campaign_id: "",
-            }),
         }
     },
-
     methods: {
+        getCampaigns(){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/provider/campaigns")
+                .then(response => {
+                    this.campaigns = response.data;
+
+                    this.$nextTick(() => {
+                        this.campaigns.data.map(campaign => this.drawChart(campaign));
+                    })
+
+                })
+        },
+
         ready(){
             return alert("준비중입니다.");
         },
-        filter(){
-            this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/investgator/campaigns", {
-                params: this.form.data(),
-            }).then(response => {
-                this.items = response.data;
-            });
-        },
-        tabClass(state){
-            return state === this.form.state ? 'active' : '';
-        },
-        changeState(state){
-            this.form.state = state;
+        logout(){
+            this.$auth.logout();
 
-            this.form.page = 1;
-
-            this.filter();
+            this.$router.push("/provider/login");
         },
 
-        start(campaign){
-            if(campaign.survey)
-                return this.$router.push(`/answers/create?survey_id=${campaign.survey.id}&campaign_id=${campaign.id}`);
+        drawChart(campaign){
+            let chart = document.querySelector('.graph' + campaign.id);
 
-            this.form.campaign_id = campaign.id;
+            const makeChart = (percent, classname, color) => {
+                let i = 1;
+                let chartFn = setInterval(function() {
+                    if (i < percent) {
+                        colorFn(i, classname, color);
+                        i++;
+                    } else {
+                        clearInterval(chartFn);
+                    }
+                }, 10);
+            }
 
-            this.$store.commit("setLoading", true);
+            const colorFn = (i, classname, color) => {
+                classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #E4E4E4 " + i + "% 100%)";
+            }
 
-            this.form.post("/api/surveys")
-                .then(response => {
-                    this.$router.push(`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`);
-                })
+            makeChart(campaign.score, chart, '#1592E6');
         },
     },
 
-    computed: {
-
+    computed:{
 
     },
 
     mounted() {
-        this.filter();
+        this.getCampaigns();
     }
 }
 </script>

@@ -1905,9 +1905,9 @@
                     <img :src="report.survey.campaign.provider.img ? report.survey.campaign.provider.img.url : ''" alt="">
                 </div>
                 <h3 class="title">{{report.survey.campaign.title}}</h3>
-                <nuxt-link to="/campaigns" class="btn-close">
+                <button type="button" class="btn-close" @click.prevent="() => {$router.back()}">
                     <i class="xi-log-out"></i>
-                </nuxt-link>
+                </button>
             </div>
             <div class="controller-bottom active">
                 <div class="box-gage">

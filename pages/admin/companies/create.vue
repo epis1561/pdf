@@ -126,6 +126,19 @@
                                 <error :form="form" name="address_zipcode" />
                             </div>
                         </li>
+
+                        <li>
+                            <div class="list-title">
+                                <strong>로고 첨부파일</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="input-box no-border">
+                                    <input-files :default="item && item.img ? [item.img] : ''" comment="높이 최대 135px 사이즈를 권장합니다." @change="(data) => form.files = data" @removed="data => form.files_remove_ids = data" />
+
+                                    <error :form="form" name="img" />
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
