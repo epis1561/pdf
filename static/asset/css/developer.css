@@ -234,3 +234,22 @@ label {
         background-color:#fff;
     }
 }
+
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(1) a:before {background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(2) a:before {background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(3) a:before {background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(4) a:before {background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(1).active a:before {opacity:1; background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(2).active a:before {opacity:1; background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(3).active a:before {opacity:1; background-image:none;}
+.dashboard-box .board-left .board-left-category ul li:nth-of-type(4).active a:before {opacity:1; background-image:none;}
+
+.dashboard-box .board-left .board-left-category ul li.chart a:before {background-image:url('../images/icon_board_left_01.png');}
+.dashboard-box .board-left .board-left-category ul li.book a:before {background-image:url('../images/icon_board_left_02.png');}
+.dashboard-box .board-left .board-left-category ul li.people a:before {background-image:url('../images/icon_board_left_03.png');}
+.dashboard-box .board-left .board-left-category ul li.building a:before {background-image:url('../images/icon_board_left_04.png');}
+
+.dashboard-box .board-left .board-left-category ul li.chart.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_01.png');}
+.dashboard-box .board-left .board-left-category ul li.book.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_02.png');}
+.dashboard-box .board-left .board-left-category ul li.people.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_03.png');}
+.dashboard-box .board-left .board-left-category ul li.building.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_04.png');}
