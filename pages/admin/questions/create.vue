@@ -308,11 +308,11 @@
                                     </div>
                                 </div>
                             </li>
-<!--                            <li class="full">
+                            <li class="full">
                                 <div class="list-content">
                                     <a href="#" class="write" @click.prevent="addOption">문항 등록 추가</a>
                                 </div>
-                            </li>-->
+                            </li>
                         </template>
 
                         <template v-if="form.type === 'NUMBER'">

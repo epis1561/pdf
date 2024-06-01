@@ -39,194 +39,198 @@
                     <div class="title-box">
                         <h2><em>자가 진단</em>현황</h2>
                     </div>
-                    <div class="progress-box">
-                        <div class="pro-head">
-                            <p>
-                                {{survey.campaign.title}}
-                                <b>{{survey.progress}}% to complete</b>
-                            </p>
-                            <time>{{survey.finished_at}}</time>
-                        </div>
-                        <div class="pro-body">
-                            <div>
-                                <div class="bar" :style="`width:${survey.progress}%;`"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
+                    <empty v-if="!survey">데이터가 없습니다.</empty>
+                    <template v-else>
+                        <div class="progress-box">
+                            <div class="pro-head">
+                                <p>
+                                    {{survey.campaign.title}}
+                                    <b>{{survey.progress}}% to complete</b>
+                                </p>
+                                <time>{{survey.finished_at}}</time>
+                            </div>
+                            <div class="pro-body">
+                                <div>
+                                    <div class="bar" :style="`width:${survey.progress}%;`"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="graph-list-box">
-                        <div class="list-body">
-                            <ul>
-                                <li>
-                                    <div class="graph-image">
-                                        <div class="chart doughnut1"><span class="center">{{survey.score_e}}</span></div>
-                                        <em>환경 (%)</em>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <div class="chart doughnut2"><span class="center">{{survey.score_s1}}</span></div>
-                                        <em>노동 및 인권 (%)</em>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <div class="chart doughnut3"><span class="center">{{survey.score_s2}}</span></div>
-                                        <em>안전 및 보건 (%)</em>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <div class="chart doughnut4"><span class="center">{{survey.score_g}}</span></div>
-                                        <em>사회 및 윤리 (%)</em>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="graph-list-box">
+                            <div class="list-body">
+                                <ul>
+                                    <li>
+                                        <div class="graph-image">
+                                            <div class="chart doughnut1"><span class="center">{{survey.score_e}}</span></div>
+                                            <em>환경 (%)</em>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <div class="chart doughnut2"><span class="center">{{survey.score_s1}}</span></div>
+                                            <em>노동 및 인권 (%)</em>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <div class="chart doughnut3"><span class="center">{{survey.score_s2}}</span></div>
+                                            <em>안전 및 보건 (%)</em>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <div class="chart doughnut4"><span class="center">{{survey.score_g}}</span></div>
+                                            <em>사회 및 윤리 (%)</em>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="graph-list-box">
-                        <div class="list-head">
-                            <strong>환경</strong>
+                        <div class="graph-list-box">
+                            <div class="list-head">
+                                <strong>환경</strong>
+                            </div>
+                            <div class="list-body">
+                                <ul>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>에너지 소비량 (Kwh)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>온실가스 배출량</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>용수 사용량</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>지정 폐기물 발생량 (Ton)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>일반 폐기물 발생량 (Ton)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="list-body">
-                            <ul>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>에너지 소비량 (Kwh)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>온실가스 배출량</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>용수 사용량</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>지정 폐기물 발생량 (Ton)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>일반 폐기물 발생량 (Ton)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="graph-list-box">
+                            <div class="list-head">
+                                <strong>경제</strong>
+                            </div>
+                            <div class="list-body">
+                                <ul>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>매출액(단위 : 억원)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>영업이익(단위 : 억원)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="graph-list-box">
-                        <div class="list-head">
-                            <strong>경제</strong>
+                        <div class="graph-list-box">
+                            <div class="list-head">
+                                <strong>안전 및 보건</strong>
+                            </div>
+                            <div class="list-body">
+                                <ul>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>사망자수 (명)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>산업재해율 (%)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="list-body">
-                            <ul>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>매출액(단위 : 억원)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>영업이익(단위 : 억원)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="graph-list-box">
+                            <div class="list-head">
+                                <strong>규범준수</strong>
+                            </div>
+                            <div class="list-body">
+                                <ul>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>과태료 (원)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="graph-image">
+                                            <p class="py50 tc">그래프 영역</p>
+                                        </div>
+                                        <div class="graph-content">
+                                            <b>벌금 (원)</b>
+                                            <p>24,340 | 25,932 | 23,030</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="graph-list-box">
-                        <div class="list-head">
-                            <strong>안전 및 보건</strong>
-                        </div>
-                        <div class="list-body">
-                            <ul>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>사망자수 (명)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>산업재해율 (%)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="graph-list-box">
-                        <div class="list-head">
-                            <strong>규범준수</strong>
-                        </div>
-                        <div class="list-body">
-                            <ul>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>과태료 (원)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="graph-image">
-                                        <p class="py50 tc">그래프 영역</p>
-                                    </div>
-                                    <div class="graph-content">
-                                        <b>벌금 (원)</b>
-                                        <p>24,340 | 25,932 | 23,030</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    </template>
+
                 </div>
 
             </div>
@@ -242,14 +246,7 @@
 
         data() {
             return {
-                items: {
-                    data: [],
-                    meta: {
-                        current_page:1,
-                        last_page:1,
-                        total: 0,
-                    }
-                },
+                survey: null,
 
                 form: new Form(this.$axios, {
                     page: 1,
@@ -264,13 +261,13 @@
             ready(){
                 return alert("준비중입니다.");
             },
-            filter(){
+            getSurvey(){
                 this.$store.commit("setLoading", true);
 
-                this.$axios.get("/api/campaigns", {
+                this.$axios.get("/api/surveys/currentDashboard", {
                     params: this.form.data(),
                 }).then(response => {
-                    this.items = response.data;
+                    this.survey = response.data;
                 });
             },
 
@@ -282,7 +279,7 @@
         },
 
         mounted() {
-            this.filter();
+            this.getSurvey();
         }
     }
 </script>

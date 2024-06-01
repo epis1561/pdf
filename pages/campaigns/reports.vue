@@ -44,10 +44,13 @@
                                             </div>
                                             <div class="company-info-02">
                                                 <ul>
-                                                    <li v-for="basicAnswer in report.basicAnswers">
-                                                        <b class="tit">{{basicAnswer.question.options[0].label_before}}</b>
-                                                        <p class="cont">{{basicAnswer.value[0]}} {{basicAnswer.question.options[0].label_after}}</p>
-                                                    </li>
+                                                    <template v-for="basicAnswer in report.basicAnswers">
+                                                        <li v-for="(option,index) in basicAnswer.question.options" :key="option.id">
+                                                            <b class="tit">{{option.label_before}}</b>
+                                                            <p class="cont">{{basicAnswer.value[index]}} {{option.label_after}}</p>
+                                                        </li>
+                                                    </template>
+
                                                 </ul>
                                             </div>
                                         </div>
