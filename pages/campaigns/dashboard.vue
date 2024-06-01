@@ -28,8 +28,8 @@
                         </div>
                         <div class="sub-left-category">
                             <ul>
-                                <li class="cate01"><nuxt-link to="/campaigns/dashboard"><p>현황</p></nuxt-link></li>
-                                <li class="cate02 active"><nuxt-link to="/campaigns"><p>진단</p></nuxt-link></li>
+                                <li class="cate01 active"><nuxt-link to="/campaigns/dashboard"><p>현황</p></nuxt-link></li>
+                                <li class="cate02"><nuxt-link to="/campaigns"><p>진단</p></nuxt-link></li>
                                 <!--<li class="cate03"><a href="#" @click.prevent="ready"><p>이력</p></a></li>-->
                             </ul>
                         </div>
@@ -98,51 +98,17 @@
                             <div class="list-head">
                                 <strong>환경</strong>
                             </div>
+
                             <div class="list-body">
+                                <empty v-if="domains['ENVIRONMENT'].numbers.length === 0" />
                                 <ul>
-                                    <li>
+                                    <li v-for="number in domains['ENVIRONMENT'].numbers">
                                         <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['ENVIRONMENT'].numbers" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
-                                            <b>에너지 소비량 (Kwh)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>온실가스 배출량</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>용수 사용량</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>지정 폐기물 발생량 (Ton)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>일반 폐기물 발생량 (Ton)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
+                                            <b>{{ number.question.options[0].data_title }}</b>
+                                            <p>{{ number.format_invest_value.toLocaleString() }}</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -150,26 +116,18 @@
                         </div>
                         <div class="graph-list-box">
                             <div class="list-head">
-                                <strong>경제</strong>
+                                <strong>노동 및 인권</strong>
                             </div>
                             <div class="list-body">
+                                <empty v-if="domains['SOCIAL1'].numbers.length === 0" />
                                 <ul>
-                                    <li>
+                                    <li v-for="number in domains['SOCIAL1'].numbers">
                                         <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
-                                            <b>매출액(단위 : 억원)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>영업이익(단위 : 억원)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
+                                            <b>{{ number.question.options[0].data_title }}</b>
+                                            <p>{{ number.format_invest_value.toLocaleString() }}</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -180,23 +138,15 @@
                                 <strong>안전 및 보건</strong>
                             </div>
                             <div class="list-body">
+                                <empty v-if="domains['SOCIAL2'].numbers.length === 0" />
                                 <ul>
-                                    <li>
+                                    <li v-for="number in domains['SOCIAL2'].numbers">
                                         <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
-                                            <b>사망자수 (명)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>산업재해율 (%)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
+                                            <b>{{ number.question.options[0].data_title }}</b>
+                                            <p>{{ number.format_invest_value.toLocaleString() }}</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -204,26 +154,18 @@
                         </div>
                         <div class="graph-list-box">
                             <div class="list-head">
-                                <strong>규범준수</strong>
+                                <strong>사회 및 윤리</strong>
                             </div>
                             <div class="list-body">
+                                <empty v-if="domains['GOVERNANCE'].numbers.length === 0" />
                                 <ul>
-                                    <li>
+                                    <li v-for="number in domains['GOVERNANCE'].numbers">
                                         <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
-                                            <b>과태료 (원)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="graph-image">
-                                            <p class="py50 tc">그래프 영역</p>
-                                        </div>
-                                        <div class="graph-content">
-                                            <b>벌금 (원)</b>
-                                            <p>24,340 | 25,932 | 23,030</p>
+                                            <b>{{ number.question.options[0].data_title }}</b>
+                                            <p>{{ number.format_invest_value.toLocaleString() }}</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -247,6 +189,7 @@
         data() {
             return {
                 survey: null,
+                domains: [],
 
                 form: new Form(this.$axios, {
                     page: 1,
@@ -254,6 +197,9 @@
                     word: "",
                     campaign_id: "",
                 }),
+
+                years: [],
+
             }
         },
 
@@ -267,13 +213,49 @@
                 this.$axios.get("/api/surveys/currentDashboard", {
                     params: this.form.data(),
                 }).then(response => {
-                    this.survey = response.data;
+                    this.years = response.data.data.survey.campaign.years;
+                    this.survey = response.data.data.survey;
+                    this.domains = response.data.data.domains;
+
+                    this.$nextTick(() => {
+                        this.drawChart();
+                    })
                 });
             },
+            drawChart(){
+                const chart1 = document.querySelector('.doughnut1');
+                const chart2 = document.querySelector('.doughnut2');
+                const chart3 = document.querySelector('.doughnut3');
+                const chart4 = document.querySelector('.doughnut4');
+
+                const makeChart = (percent, classname, color) => {
+                    let i = 1;
+                    let chartFn = setInterval(function() {
+                        if (i < percent) {
+                            colorFn(i, classname, color);
+                            i++;
+                        } else {
+                            clearInterval(chartFn);
+                        }
+                    }, 10);
+                }
+
+                const colorFn = (i, classname, color) => {
+                    classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #F7F7F7 " + i + "% 100%)";
+                }
+
+                makeChart(this.survey.score_e, chart1, '#1C70AE');
+                makeChart(this.survey.score_s1, chart2, '#2B9F97');
+                makeChart(this.survey.score_s2, chart3, '#1C70AE');
+                makeChart(this.survey.score_g, chart4, '#2B9F97');
+
+
+            }
 
         },
 
         computed: {
+
 
 
         },

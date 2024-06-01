@@ -298,7 +298,6 @@ export default {
         },
 
         getPercent(value, values){
-            console.log(value);
             let total = 0;
 
             values.map(valueData => {
