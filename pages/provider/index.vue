@@ -182,7 +182,10 @@
                                         <small>{{ answer.format_invest_value }}</small>
                                     </div>
                                     <div class="graph-right">
-                                        <div class="bar03 h25" :style="`width:${getPercent(value, answer.invest_value)};`" v-for="value in answer.invest_value"></div>
+                                        <div v-for="value in answer.invest_value">
+
+                                            <div class="bar03 h25" :style="`width:${getPercent(value, answer.invest_value)}%; background-color:#1592E6;`"></div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -295,6 +298,7 @@ export default {
         },
 
         getPercent(value, values){
+            console.log(value);
             let total = 0;
 
             values.map(valueData => {

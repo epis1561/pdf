@@ -10,7 +10,7 @@
     </div>
 </template>
 <style>
-html, body {min-width:1903px; background:#F7F7F7;}
+.dashboard-box {min-width:1903px; background:#F7F7F7;}
 </style>
 <script>
 export default {
