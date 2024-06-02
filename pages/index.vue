@@ -1,6 +1,6 @@
 <template>
   <section>
-      <div class="tests">
+      <div class="tests" style="display: flex; justify-content: center; gap:10px;">
           <nuxt-link to="/login" class="text">로그인</nuxt-link>
           <nuxt-link to="/campaigns" class="text">일반사용자 캠페인 목록 테스트</nuxt-link>
           <nuxt-link to="/investgator/campaigns" class="text">실사자 캠페인 목록 테스트</nuxt-link>

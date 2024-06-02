@@ -16,7 +16,7 @@
         </div>
 
         <div class="board-right-body" v-if="companies.data.length === 0">
-            <div class="m-empty type01"></div>
+            <div class="m-empty type01">데이터가 없습니다.</div>
         </div>
 
         <div class="board-right-body">
@@ -43,6 +43,7 @@
                             </div>
                         </div>
                         <div class="list-body">
+
                             <div class="list-body-graph">
                                 <ul>
                                     <li>
@@ -227,12 +228,16 @@ export default {
         getCompanies(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/provider/campaigns")
+            this.$axios.get("/api/provider/companies", {
+                params: this.form.data()
+            })
                 .then(response => {
-                    this.campaigns = response.data;
+                    console.log(response.data);
+
+                    this.companies = response.data;
 
                     this.$nextTick(() => {
-                        this.campaigns.data.map(campaign => this.drawChart(campaign));
+                        this.companies.data.map(campaign => this.drawChart(campaign));
                     })
 
                 })

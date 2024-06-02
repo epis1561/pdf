@@ -552,7 +552,7 @@ export default {
 
             if(folderQuestion.answer){
                 if(formName === "investForm"){
-                    folderQuestion.answer.exception = folderQuestion.answer.invest_exception; // 얘는 boolean이라 || 쓰면 안됨
+                    folderQuestion.answer.exception = folderQuestion.answer.exception == 1 ? 1 : folderQuestion.answer.invest_exception; // 얘는 boolean이라 || 쓰면 안됨
                     folderQuestion.answer.value = folderQuestion.answer.invest_value || folderQuestion.answer.value;
                     folderQuestion.answer.value_additional = folderQuestion.answer.invest_value_additional || folderQuestion.answer.value_additional;
                     folderQuestion.answer.folder_question_option_id = folderQuestion.answer.invest_folder_question_option_id || folderQuestion.answer.folder_question_option_id;

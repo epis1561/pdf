@@ -253,3 +253,37 @@ label {
 .dashboard-box .board-left .board-left-category ul li.book.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_02.png');}
 .dashboard-box .board-left .board-left-category ul li.people.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_03.png');}
 .dashboard-box .board-left .board-left-category ul li.building.active a:before {opacity:1; background-image:url('../images/icon_board_left_on_04.png');}
+
+.menu-list-box > ul > li .btn-toggle {
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../images/icon_admin_menu_minus.png);
+}
+.menu-list-box > ul > li.active > a > .btn-toggle {
+    background-image: url(../images/icon_admin_menu_plus.png);
+}
+.menu-list-box > ul > li > div.active > a > .btn-toggle {
+    background-image: url(../images/icon_admin_menu_plus.png);
+}
+.menu-list-box > ul > li a p.active {
+    color:#000;
+}
+.menu-list-box > ul > li a:before {
+    display: none !important;
+}
+.check-write-box > ul > li .write-left div small p {
+    font-size:14px;
+}
+.board-graph-box .graph-04 > ul > li .graph-right > div {
+    overflow:hidden;
+}
+.board-graph-box .graph-content dl dd:after {
+    margin:0 16px !important;
+}
+.board-list-box .list-body .list-body-graph > ul > li .graph-right .graph-right-title strong {
+    font-size:18px;
+}

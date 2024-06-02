@@ -11,7 +11,7 @@
             <div class="toggle-button-box">
                 <a href="" class="open" @click.prevent="openAll">전체 펼침</a>
                 <a href="" class="close" @click.prevent="closeAll">전체 닫기</a>
-                <a href="" class="open" @click.prevent="activeRatioPop = true">가중치 설정</a>
+
             </div>
 
 
@@ -19,24 +19,39 @@
                 <div class="flex-1 mr40">
                     <div class="menu-list-box" style="height:700px;">
                         <ul>
-                            <li class="active">
-                                <a href="#" class="depth" @click.prevent="targetFolder = null; clearForm();"><p>Top</p></a>
+                            <li :class="activeAll ? 'active' : ''">
+                                <a href="#" class="depth" @click.prevent="">
+                                    <button class="btn-toggle" @click.prevent="activeAll = !activeAll;">
 
-                                <div :class="`${activeIds.includes(item.id) ? 'active' : ''}`" v-for="(item, index) in items.data" v-if="!item.folder_id" :key="item.id">
-                                    <a href="#" class="depth" @click.prevent="() => {toggle(item); targetFolder = item; clearForm();}"><p>{{index}}. {{item.title}}</p></a>
-                                    <dl v-if="item.folders && activeIds.includes(item.id)">
-                                        <dd :class="activeIds.includes(subItem.id) ? '' : ''" v-for="(subItem, subItemIndex) in item.folders" :key="subItem.id">
-                                            <a href="#" @click.prevent="() => {toggle(subItem); targetFolder = subItem; clearForm();}">
-                                                <p>{{subItemIndex + 1}}. {{ subItem.title }}</p>
-                                            </a>
-                                        </dd>
-                                    </dl>
-                                </div>
+                                    </button>
+                                    <p>Top</p>
+                                </a>
+
+                                <template v-if="activeAll">
+                                    <div :class="`${activeIds.includes(item.id) ? 'active' : ''}`" v-for="(item, index) in items.data" v-if="!item.folder_id" :key="item.id">
+                                        <a href="#" class="depth" @click.prevent="">
+                                            <button class="btn-toggle" @click.prevent="toggle(item);">
+
+                                            </button>
+                                            <p  @click.prevent="toggleFolder(item)" :class="targetFolder && targetFolder.id == item.id ? 'active' : ''">{{index}}. {{item.title}}</p>
+                                        </a>
+                                        <dl v-if="item.folders && activeIds.includes(item.id)">
+                                            <dd :class="activeIds.includes(subItem.id) ? '' : ''" v-for="(subItem, subItemIndex) in item.folders" :key="subItem.id">
+                                                <a href="#" @click.prevent="">
+<!--                                                    <button class="btn-toggle" @click.prevent="toggle(subItem);">
+
+                                                    </button>-->
+                                                    <p @click.prevent="toggleFolder(subItem)" :class="targetFolder && targetFolder.id == subItem.id ? 'active' : ''">{{subItemIndex + 1}}. {{ subItem.title }}</p>
+                                                </a>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </template>
                             </li>
                         </ul>
                     </div>
                     <div class="button-box mt32 flex-tc">
-                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="form.basic == 0 && (!targetFolder || !targetFolder.folder_id)">하위분류생성</a>
+                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="form.basic == 0 && (targetFolder && !targetFolder.folder_id)">하위분류생성</a>
                     </div>
                 </div>
                 <div class="flex-1">
@@ -112,28 +127,7 @@
                                     </div>
                                 </div>
                             </li>
-<!--                            <li class="full" v-if="targetFolder && !targetFolder.folder_id">
-                                <div class="list-title">
-                                    <strong>가중치</strong>
-                                </div>
-                                <div class="list-content">
-                                    <div class="input-box no-border">
-                                        <input type="number" class="f18" placeholder="가중치를 입력해주세요." v-model="form.ratio">
 
-                                        <error :form="form" name="ratio" />
-                                    </div>
-                                </div>
-                            </li>-->
-<!--                            <li class="full">
-                                <div class="list-title">
-                                    <strong>분류 번호</strong>
-                                </div>
-                                <div class="list-content">
-                                    <div class="input-box no-border">
-                                        <input type="text" class="f18" placeholder="분류 번호를 숫자로 입력해주세요.">
-                                    </div>
-                                </div>
-                            </li>-->
                             <li class="full" v-if="form.basic == 0">
                                 <div class="list-title">
                                     <strong>사용 여부</strong>
@@ -268,10 +262,10 @@
                                                                 <tr v-for="(option, optionIndex) in form.questions[index]['options']">
                                                                     <td>{{optionIndex + 1}}</td>
                                                                     <td>
-                                                                        <p class="f18">{{form.questions[index]['options'][optionIndex].score}}</p>
-                                                                        <!--<div class="input-box">
-                                                                            <input type="number" placeholder="" class="tc" v-model="form.questions[index]['options'][optionIndex].score" disabled>
-                                                                        </div>-->
+<!--                                                                        <p class="f18">{{form.questions[index]['options'][optionIndex].score}}</p>-->
+                                                                        <div class="input-box">
+                                                                            <input type="number" placeholder="" class="tc" v-model="form.questions[index]['options'][optionIndex].score">
+                                                                        </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="flex flex-vc flex-tj">
@@ -544,54 +538,6 @@
             </div>
         </div>
 
-        <div class="popup-box fixed" v-if="activeRatioPop">
-            <div class="box lg active" data-name="popup01">
-                <div class="popup-head">
-                    <div class="title-box">
-                        <h2>가중치 설정</h2>
-                    </div>
-                    <a href="#" class="close" @click.prevent="activeRatioPop = false">닫기</a>
-                </div>
-                <div class="popup-body">
-                    <div class="line-box"></div>
-                    <div class="flex flex-vc flex-tj mt15">
-
-                    </div>
-
-                    <div class="table-box mt25">
-                        <table>
-                            <colgroup>
-                                <col>
-                                <col style="width:20%;">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>카테고리명</th>
-                                <th>가중치</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(item, index) in ratioForm.folders" :key="item.id" v-if="!item.folder_id">
-                                <td>{{ item.title }}</td>
-                                <td>
-                                    <div class="input-box">
-                                        <input type="number" placeholder="" class="tc" v-model="ratioForm.folders[index].ratio">
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt24"></div>
-
-                    <div class="button-box" style="justify-content: center">
-                        <button type="button" class="btn btn-active-2" @click.prevent="storeRatio">설정</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </template>
 <script>
@@ -611,9 +557,10 @@ export default {
             keep: false,
             item: null,
 
+            activeAll: true,
             activePop : false,
             activeCampaigns: false,
-            activeRatioPop: false,
+
 
             domains : {
                 data: []
@@ -660,7 +607,6 @@ export default {
                 use:"",
                 basic: this.$route.query.basic,
 
-                ratio: "",
                 description: "",
                 use_dashboard: "",
 
@@ -669,10 +615,6 @@ export default {
                 files_remove_ids: [],
 
                 questions: [],
-            }),
-
-            ratioForm: new Form(this.$axios, {
-                folders: [],
             }),
 
             questions: {
@@ -727,6 +669,13 @@ export default {
                     ? this.activeIds.filter(id => id != item.id)
                     : [...this.activeIds, item.id];
         },
+        toggleFolder(item){
+            this.targetFolder = this.targetFolder == item
+                    ? null
+                    : item;
+
+            this.clearForm();
+        },
 
         /*getDomains(){
             this.$axios.get("/api/domains")
@@ -779,11 +728,7 @@ export default {
             }).then(response => {
                 this.items = response.data;
 
-                this.ratioForm.folders = [];
-
-                this.items.data.filter((item) => !item.folder_id).map(item => {
-                    this.ratioForm.folders.push(item);
-                })
+                this.openAll();
             });
         },
 
@@ -797,7 +742,6 @@ export default {
                 use:"",
                 basic: 0,
 
-                ratio: "",
                 description: "",
                 use_dashboard: "",
 
@@ -813,7 +757,6 @@ export default {
                     campaign_id: this.$route.query.campaign_id,
                     use:"",
 
-                    ratio: "",
                     description: "",
                     use_dashboard: "",
 
@@ -843,6 +786,7 @@ export default {
         store(){
             this.form.post("/api/admin/folders")
                     .then(response => {
+                        console.log(response);
                         this.$store.commit("setPop", {});
 
                         this.getItems();
@@ -940,26 +884,6 @@ export default {
             this.activePop = false;
         },
 
-        storeRatio(){
-            let total = 0;
-
-            this.ratioForm.folders.map(folder => {
-                if(folder.ratio)
-                    total += parseInt(folder.ratio);
-            });
-
-            if(total !== 100)
-                return this.$store.commit("setPop", {
-                    description: "가중치의 총 합이 100이 되어야합니다."
-                });
-
-            this.$store.commit("setLoading", true);
-
-            this.ratioForm.post("/api/admin/folders/syncRatio")
-                    .then(response => {
-                        this.activeRatioPop = false;
-                    });
-        },
     },
 
     computed: {

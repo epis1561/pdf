@@ -55,9 +55,11 @@
                         </div>
                     </div>
 
-                    <pagination :meta="campaigns.meta" @paginate="(page) => {form.page = page; getCampaigns()}" />
                 </div>
             </div>
+
+            <pagination :meta="campaigns.meta" @paginate="(page) => {form.page = page; getCampaigns()}" />
+
         </div>
     </div>
 </template>

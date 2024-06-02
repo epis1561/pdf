@@ -361,7 +361,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="도움말을 작성해주세요." v-model="form.help">
+                                    <input-editor :default="form.help" @change="data => form.help = data" />
                                 </div>
                             </div>
                         </li>

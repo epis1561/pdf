@@ -7,7 +7,7 @@
 
         <div class="board-left-category">
             <ul>
-                <li :class="className('chart-icon', '/provider')"><nuxt-link to="/provider/dashboard">대시보드</nuxt-link></li>
+                <li :class="className('chart-icon', '/provider')"><nuxt-link to="/provider">대시보드</nuxt-link></li>
                 <li :class="className('book', '/provider/campaigns')"><nuxt-link to="/provider/campaigns">캠페인 목록</nuxt-link></li>
                 <li :class="className('building', '/provider/companies')"><nuxt-link to="/provider/companies">참여업체 목록</nuxt-link></li>
 <!--                <li><nuxt-link to="">소속직원</nuxt-link></li>
@@ -37,7 +37,7 @@ export default {
 
     methods: {
         className(add, url){
-            return this.$route.path.includes(url) ? add + ' active' : add + '';
+            return url === this.$route.path ? add + ' active' : add + '';
         }
     },
 
