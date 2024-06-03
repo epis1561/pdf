@@ -19,13 +19,13 @@
 	<link href="" rel="icon" type="image/jpg">
 	<link href="" rel="shortcut icon" type="image/jpg">
 	<link href="" rel="apple-touch-icon" type="image/jpg">				
-	<link rel="stylesheet" type="text/css" href="../asset/css/swiper.min.css"> 
-	<link rel="stylesheet" type="text/css" href="../asset/css/base.css"> 
-	<link rel="stylesheet" type="text/css" href="../asset/css/grid.css"> 
-	<link rel="stylesheet" type="text/css" href="../asset/css/user.css"> 
+	<link rel="stylesheet" type="text/css" href="../../asset/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="../../asset/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../asset/css/grid.css">
+	<link rel="stylesheet" type="text/css" href="../../asset/css/user.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="../asset/js/swiper.min.js"></script>	
-	<script src="../asset/js/user.js"></script>
+	<script src="../../asset/js/swiper.min.js"></script>
+	<script src="../../asset/js/user.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -33,7 +33,7 @@
 			<div class="header-top">
 				<div class="container">
 					<div class="header-top-logo">
-						<h1><a href=""><img src="../asset/images/logo.png"></a></h1>
+						<h1><a href=""><img src="../../asset/images/logo.png"></a></h1>
 					</div>
 					<div class="header-top-category">
 						<ul>
@@ -53,7 +53,7 @@
 				<div class="sub-box">
 					<div class="sub-left-box">
 						<div class="sub-left-head">
-							<img src="../asset/images/logo.png">
+							<img src="../../asset/images/logo.png">
 							<a href="javascript:;" class="close" onclick="menuClose();">닫기</a>
 						</div>
 						<div class="sub-left-body">
@@ -75,22 +75,21 @@
 									<li><a href="">CONTACT</a></li>
 								</ul>
 							</div>
+							<!--
 							<div class="sub-left-category">
 								<ul>
-									<li class="cate01"><a href=""><p>현황</p></a></li>
-									<li class="cate02 active"><a href=""><p>진단</p></a></li>
-									<li class="cate03"><a href=""><p>이력</p></a></li>
-									<!--
-									<li class="cate04">
-										<button type="button">답변 작성</button>
+									<li class="cate04"><a href=""><p>평가 안내</p></a></li>
+									<li class="cate05"><a href=""><p>기본 정보</p></a></li>
+									<li class="cate06 active">
+										<button type="button"><p>답변 작성</p></button>
 										<div>
 											<ul>
-												</li>
-													<button type="button">
+												<li>
+													<button type="button" data-type="depth">
 														<p><b>A</b>윤리</p>
 														<div class="graph">
 															<em>100%</em>
-															<div><span></span></div>
+															<div><span style="width:100%;"></span></div>
 														</div>
 													</button>
 													<ul>
@@ -102,12 +101,12 @@
 														<li><a href="">A6 . 정보보호</a></li>
 													</ul>
 												</li>
-												</li>
-													<button type="button">
+												<li>
+													<button type="button" data-type="depth">
 														<p><b>E</b>환경</p>
 														<div class="graph">
 															<em>76%</em>
-															<div><span></span></div>
+															<div><span style="width:76%;"></span></div>
 														</div>
 													</button>
 													<ul>
@@ -122,14 +121,14 @@
 											</ul>
 										</div>
 									</li>
-									-->
 								</ul>
 							</div>
+							-->
 						</div>
 					</div>
 					<div class="sub-right-box">
 						<div class="title-box">
-							<h2><em>자가 진단</em>진단</h2>
+							<h2>진단</h2>
 						</div>
 						<div class="list-top-box">
 							<div class="list-top-search">
@@ -141,63 +140,41 @@
 							<div class="list-top-filter">
 								<ul>
 									<li class="active"><a href="">전체</a></li>
-									<li><a href="">진행중</a></li>
-									<li><a href="">진행완료</a></li>
+									<li><a href="">진단중</a></li>
+									<li><a href="">진단 완료</a></li>
 								</ul>
 							</div>
-						</div>
+						</div>  
 						<div class="check-list-box">
 							<ul>
 								<li class="active">
 									<div class="list-head">
 										<p>간적 에너지 사용량</p>
 										<div>
-											<em>16/16</em>
-											<b>진행 완료</b>
+											<b>진단완료</b>
 										</div>
 									</div>
 									<div class="list-body">
-										<time>2023-10-06 ~ 2024-12-02</time>
-										<a href="">이력 확인</a>
+										<time>2023-10-06 ~ 2024-12-02<em>종료</em></time>
+										<div class="flex flex-vc">
+											<a href="" class="">진행현황</a>
+											<a href="" class="green">평가결과</a>
+										</div>
 									</div>
 								</li>
-								<li>
+								<li class="">
 									<div class="list-head">
 										<p>간적 에너지 사용량</p>
 										<div>
-											<em>12/16</em>
 											<b>진행중</b>
 										</div>
 									</div>
 									<div class="list-body">
-										<time>2023-10-06 ~ 2024-12-02</time>
-										<a href="">작성하기</a>
-									</div>
-								</li>
-								<li>
-									<div class="list-head">
-										<p>간적 에너지 사용량</p>
-										<div>
-											<em>12/16</em>
-											<b>진행중</b>
+										<time>2023-10-06 ~ 2024-12-02<em>239일 11:51분 후 종료</em></time>
+										<div class="flex flex-vc">
+											<a href="" class="black">진행현황</a>
+											<a href="" class="green">평가결과</a>
 										</div>
-									</div>
-									<div class="list-body">
-										<time>2023-10-06 ~ 2024-12-02</time>
-										<a href="">작성하기</a>
-									</div>
-								</li>
-								<li>
-									<div class="list-head">
-										<p>간적 에너지 사용량</p>
-										<div>
-											<em>12/16</em>
-											<b>진행중</b>
-										</div>
-									</div>
-									<div class="list-body">
-										<time>2023-10-06 ~ 2024-12-02</time>
-										<a href="">작성하기</a>
 									</div>
 								</li>
 							</ul>
@@ -209,7 +186,7 @@
 		<footer>
 			<div class="container">
 				<div class="footer-logo">
-					<img src="../asset/images/img_member_footer_logo.png">
+					<img src="../../asset/images/img_member_footer_logo.png">
 				</div>
 				<div class="footer-info">
 					<div class="footer-info-link">
@@ -240,6 +217,6 @@
 			</div>
 		</footer>
 	</div>
-	<script src="../asset/js/swiper.js"></script>
+	<script src="../../asset/js/swiper.js"></script>
 </body>
 </html>

@@ -287,3 +287,20 @@ label {
 .board-list-box .list-body .list-body-graph > ul > li .graph-right .graph-right-title strong {
     font-size:18px;
 }
+.board-faq-box > ul > li .list-body .description {
+    font-size: 16px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom: 2px solid #E4E4E4;
+    padding: 0 0 30px;
+    margin: 0 0 30px;
+}
+.board-faq-box > ul > li .list-body .description .imgs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+.board-faq-box > ul > li .list-body .description .imgs img {
+    max-width:150px;
+}

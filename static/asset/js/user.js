@@ -76,14 +76,6 @@ $(document).on("change",".agree-box input",function(){
 
 	if(len > checklen) $(".agree-total-box input").prop("checked",false);
 	if(len == checklen) $(".agree-total-box input").prop("checked",true);
-});   
-
-// FAQ
-$(document).on("click", ".board-faq-box button", function(){
-	var parents = $(this).closest("li");
-
-	parents.toggleClass("active");
-	parents.siblings().removeClass("active");
 });
 
 // 마이페이지 카테고리 토글
