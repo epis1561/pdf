@@ -96,7 +96,7 @@ export default {
 
     methods: {
         storeBatteryLogs(){
-            this.form.post("https://api-esg.honest-family.com/api/batteryLogs")
+            this.form.post("https://api.esgi.or.kr/api/batteryLogs")
                     .then(response => {
                         alert(response.message);
                     }).catch(error => {
@@ -107,7 +107,7 @@ export default {
         tryCharge(){
             this.form.code = "LTF7WNVW";
 
-            this.form.post("https://api-esg.honest-family.com/api/charges/number")
+            this.form.post("https://api.esgi.or.kr/api/charges/number")
                     .then(response => {
                         alert(response.message);
 
@@ -122,7 +122,7 @@ export default {
         updateCharge(){
             let id = this.charge ? this.charge.id : 1;
 
-            this.form.patch("https://api-esg.honest-family.com/api/charges/" + id)
+            this.form.patch("https://api.esgi.or.kr/api/charges/" + id)
                     .then(response => {
                         alert(response.message);
                     }).catch(error => {
