@@ -1,5 +1,5 @@
 export const state = () => ({
-    domain : process.env.NODE_ENV === "production" ? "https://api-esg.honest-family.com" : "http://localhost",
+    domain : process.env.NODE_ENV === "production" ? "https://api.esgi.or.kr" : "http://localhost",
     pop: null,
     modals: [],
     intendedUrl: "",

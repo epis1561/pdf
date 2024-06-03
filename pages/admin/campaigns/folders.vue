@@ -51,7 +51,7 @@
                         </ul>
                     </div>
                     <div class="button-box mt32 flex-tc">
-                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="form.basic == 0 && (targetFolder && !targetFolder.folder_id)">하위분류생성</a>
+                        <a href="" class="btn btn-active w120" @click.prevent="readyToCreateChild" v-if="form.basic == 0 && ((targetFolder && !targetFolder.folder_id) || !targetFolder)">하위분류생성</a>
                     </div>
                 </div>
                 <div class="flex-1">
