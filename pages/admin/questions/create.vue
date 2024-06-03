@@ -68,18 +68,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="full">
-                                    <div class="list-title">
-                                        <strong>요약 메모</strong>
-                                    </div>
-                                    <div class="list-content">
-                                        <div class="input-box no-border">
-                                            <input type="text" class="f18" placeholder="내용을 입력해주세요." v-model="form.memo">
 
-                                            <error :form="form" name="memo" />
-                                        </div>
-                                    </div>
-                                </li>
                                 <li class="full">
                                     <div class="list-title">
                                         <strong>필수 여부</strong>
@@ -221,6 +210,10 @@
                                                             <option :value="0">아니오</option>
                                                         </select>
                                                         <error :form="form" :name="`options.${index}.add_field`" />
+                                                    </div>
+                                                    <div class="input-box no-border flex-1" v-if="form.options[index].add_field == 1">
+                                                        <input type="text" class="f18" placeholder="추가 필드 입력가이드 (ex. 인증명)" v-model="form.options[index].add_field_placeholder">
+                                                        <error :form="form" :name="`options.${index}.add_field_placeholder`" />
                                                     </div>
                                                 </div>
                                             </li>
@@ -365,6 +358,19 @@
                                 </div>
                             </div>
                         </li>
+
+                        <li class="full">
+                            <div class="list-title">
+                                <strong>메모</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="textarea-box">
+                                    <textarea class="f18" placeholder="내용을 입력해주세요." v-model="form.memo" style="padding:16px; border:1px solid #e1e1e1;"></textarea>
+
+                                    <error :form="form" name="memo" />
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -449,6 +455,7 @@ export default {
                 question_id:"",
                 title: "",
                 add_field: 0,
+                add_field_placeholder: "",
                 type_satisfaction: "",
                 comment_satisfy: "",
                 comment_unsatisfy: "",

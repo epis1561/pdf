@@ -60,7 +60,7 @@
 
         <!-- 추가필드 -->
         <dl v-if="needValueAdditional(folderQuestion, folderQuestionIndex)" class="add-field">
-            <input ref="input" type="text" placeholder="추가내용을 입력해주세요." v-model="form.answers[folderQuestionIndex].value_additional">
+            <input ref="input" type="text" :placeholder="getValueAdditionalPlaceholder(folderQuestion, folderQuestionIndex)" v-model="form.answers[folderQuestionIndex].value_additional">
         </dl>
 
         <!-- 첨부파일 -->
@@ -103,10 +103,19 @@ export default {
         needValueAdditional(folderQuestion, index){
             let folderQuestionOption = folderQuestion.folderQuestionOptions.find(folderQuestionOption => folderQuestionOption.id == this.form.answers[index].folder_question_option_id);
 
+            if(folderQuestionOption && folderQuestionOption.option.add_field_placeholder)
+                return folderQuestionOption.option.add_field_placeholder;
+
+            return false;
+        },
+
+        getValueAdditionalPlaceholder(folderQuestion, index){
+            let folderQuestionOption = folderQuestion.folderQuestionOptions.find(folderQuestionOption => folderQuestionOption.id == this.form.answers[index].folder_question_option_id);
+
             if(folderQuestionOption && folderQuestionOption.option.add_field == 1)
                 return true;
 
-            return false;
+            return "추가내용을 입력해주세요.";
         },
 
         removed(data){

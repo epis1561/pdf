@@ -64,18 +64,19 @@
                     <tr>
                         <th>번호</th>
 
-                        <th>카테고리</th>
-                        <th>검색용 라벨</th>
+                        <th>영역</th>
+                        <th>1차 카테고리</th>
+                        <th>2차 카테고리</th>
                         <th>
                             제목
-                            <button class="btn-sort" @click.prevent="() => {form.order_by='title'; form.align = form.align === 'desc' ? 'asc' : 'desc'; form.page = 1; filter();}">
+<!--                            <button class="btn-sort" @click.prevent="() => {form.order_by='title'; form.align = form.align === 'desc' ? 'asc' : 'desc'; form.page = 1; filter();}">
                                 <i class="xi-renew"></i>
-                            </button>
+                            </button>-->
                         </th>
-                        <th>유형</th>
+<!--                        <th>유형</th>
                         <th>필수</th>
                         <th>해당없음</th>
-                        <th>첨부파일</th>
+                        <th>첨부파일</th>-->
 
                         <th></th>
                     </tr>
@@ -84,13 +85,16 @@
                     <tr v-for="item in items.data" :key="item.id">
                         <td>{{ item.id }}</td>
 
+                        <td>{{ item.category ? item.category.format_domain : '' }}</td>
                         <td>{{ item.category && item.category.category ? item.category.category.title : item.category.title }}</td>
-                        <td>{{ item.label_search }}</td>
+                        <td>{{ item.category ? item.category.title : '' }}</td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.format_type }}</td>
+<!--                        <td>{{ item.label_search }}</td>-->
+
+<!--                        <td>{{ item.format_type }}</td>
                         <td>{{ item.required ? 'Y' : 'N' }}</td>
                         <td>{{ item.give_exception ? 'Y' : 'N' }}</td>
-                        <td>{{ item.required_file ? 'Y' : 'N' }}</td>
+                        <td>{{ item.required_file ? 'Y' : 'N' }}</td>-->
 
                         <td>
                             <div class="table-button-box">
