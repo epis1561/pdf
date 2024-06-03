@@ -1,15 +1,19 @@
-var swiper = new Swiper(".itemSwiper .swiper-container", {
+var swiper = new Swiper(".main-banner .swiper-container", {
 	loop: true,
-	slidesPerView: 2,
-	spaceBetween: 20,
+	slidesPerView: 1,
+	spaceBetween: 0,
+	speed: 1000,
 	autoplay: {
         delay: 2500,
         disableOnInteraction: false,
     },
-	navigation: {
-		nextEl: ".itemSwiper .swiper-button-next",
-        prevEl: ".itemSwiper .swiper-button-prev",
-    },		
+	pagination: {
+        el: ".main-banner .swiper-pagination",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + (index + 1) + "</span>";
+        },
+    },
 });
 
 var swiper2 = new Swiper(".itemSwiper2 .swiper-container", {

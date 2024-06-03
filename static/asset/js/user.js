@@ -64,3 +64,31 @@ $(document).on("change",".agree-list-box > .list-body input",function(){
 	if(len == checklen) $(".agree-list-box > .list-foot input").prop("checked",true);
 });
 
+
+/* 체크박스 전체동의 */
+$(document).on("change",".agree-total-box input",function(){
+	$(".agree-box input").prop("checked" , $(this).prop("checked"));
+});
+
+$(document).on("change",".agree-box input",function(){
+	var len = $(".agree-box input").length;
+	var checklen = $(".agree-box input:checked").length;
+
+	if(len > checklen) $(".agree-total-box input").prop("checked",false);
+	if(len == checklen) $(".agree-total-box input").prop("checked",true);
+});   
+
+// FAQ
+$(document).on("click", ".board-faq-box button", function(){
+	var parents = $(this).closest("li");
+
+	parents.toggleClass("active");
+	parents.siblings().removeClass("active");
+});
+
+// 마이페이지 카테고리 토글
+$(document).on("click", ".mypage-body-category button", function(){
+	var parents = $(this).closest("li");
+
+	parents.toggleClass("active");
+});
