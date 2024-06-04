@@ -141,7 +141,6 @@ export default {
             this.$axios.get("api/qnas",{
                 prams:this.form.data(),
             }).then(response => {
-                console.log(response.data);
                 this.items = response.data;
             })
         }

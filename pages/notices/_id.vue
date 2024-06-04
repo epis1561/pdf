@@ -1,5 +1,6 @@
 <template>
     <section>
+    <div v-if="item">
         <div class="container xs">
             <div class="sub-box">
                 <div class="sub-left-box is-m">
@@ -69,7 +70,7 @@
                 <div class="sub-right-box">
                     <div class="location-box">
                         <ul>
-                            <li class="home"><nuxt-link to="/">홈</nuxt-link></li>
+                            <li class="home"><a href="">홈</a></li>
                             <li>고객 센터</li>
                             <li>공지사항</li>
                         </ul>
@@ -77,76 +78,60 @@
                     <div class="title-box">
                         <h2 class="lg">공지사항</h2>
                     </div>
-                    <div class="category-box mt64 mt-lg-30">
-                        <ul>
-                            <li><nuxt-link to="/faqs">FAQ</nuxt-link></li>
-                            <li><nuxt-link to="/qnas">문의사항</nuxt-link></li>
-                            <li class="active"><nuxt-link to="/notices">공지사항</nuxt-link></li>
-                            <li><nuxt-link to="/documents">자료실</nuxt-link></li>
-                        </ul>
-                    </div>
-                    <div class="board-list-box">
-                        <table>
-                            <tr v-for="item in items.data" :key="item.id">
-                                <always :item="item"></always>
-                                <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.description }}</nuxt-link></td>
-                                <td class="date">{{item.format_created_at}}</td>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <div class="paging-box">
-                        <ul>
-                            <empty v-if="items.data.length === 0" />
-
-                            <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
-                        </ul>
+                    <div class="board-view-box">
+                        <div class="view-head">
+                            <em>{{ item.id }}</em>
+                            <h3>{{ item.title }}</h3>
+                            <time>{{ item.format_created_at }}</time>
+                        </div>
+                        <div class="view-body">
+                            <div class="view-body-content">
+                                <p>
+                                    {{ item.description }}
+                                </p>
+                                <img src="/asset/images/img_user_board_view.png" class="mt32 mt-lg-20">
+                            </div>
+                        </div>
+                        <div class="view-foot">
+                            <div class="view-foot-related">
+                                <nuxt-link to="/notices/item.prev.id" class="prev">이전</noxt-link>
+                                <a href="" class="next">다음</a>
+                            </div>
+                            <div class="view-foot-button">
+                                <nuxt-link to="/documents" class="list">목록</nuxt-link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </section>
 </template>
-<style>
-
-</style>
 <script>
-import Form from "@/utils/Form";
-
+import Form from "~/utils/Form";
 export default {
 
-
-    data() {
-
+    data(){
         return {
-            form: new Form(this.$axios,{
-                page:1,
-            }),
-            items:{
-                data: [],
-                meta: {
-                    current_page:1,
-                    last_page:1,
-                }
-            }
+            item: null,
         }
     },
-    methods: {
-        filter(){
-            this.$axios.get("/api/notices", {
-                prams: this.form.data(),
-            }).then(response => {
-                console.log(response.data);
-                this.items = response.data;
 
-            });
+    methods:{
+        getItem(){
+            this.$axios.get("/api/notices/" + this.$route.params.id)
+                    .then(response => {
+                        console.log(response.data.data);
+                        this.item = response.data.data;
+                    });
         },
+
+
     },
 
-    computed: {},
-
-    mounted() {
-        this.filter();
+    mounted(){
+        this.getItem();
     }
 }
 </script>
