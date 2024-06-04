@@ -193,33 +193,6 @@ export default {
                             this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
                         });
         },
-
-        up(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index > 0) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index - 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/questions/" + item.id + "/up");
-            }
-        },
-
-        down(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index < this.items.data.length - 1) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index + 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/questions/" + item.id + "/down");
-
-            }
-
-        },
-
         importExcel(e){
             this.form.file = e.target.files[0];
 
@@ -260,6 +233,16 @@ export default {
                     });
         },
 
+    },
+
+    watch: {
+        "$route.query.domain": {
+            handler(){
+                this.form.domain = this.$route.query.domain;
+
+                this.filter();
+            }
+        }
     },
 
     computed: {
