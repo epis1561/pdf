@@ -31,9 +31,9 @@
                     </div>-->
 
                     <div class="select-box mr10">
-                        <select v-model="form.category_id" @change="() => {form.page=1; filter();}">
+                        <select v-model="form.domain" @change="() => {form.page=1; filter();}">
                             <option value="">도메인</option>
-                            <option :value="category.id" v-for="category in categories.data" :key="category.id" v-if="!category.category_id">{{ category.title }}</option>
+                            <option :value="domain.value" v-for="domain in domains.data" :key="domain.value">{{ domain.label }}</option>
                         </select>
                     </div>
                     <div class="select-box mr10">
@@ -155,6 +155,10 @@ export default {
                 }
             },
 
+            domains: {
+                data: [],
+            },
+
             form: new Form(this.$axios, {
                 page: 1,
 
@@ -189,6 +193,13 @@ export default {
             });
         },
 
+        getDomains(){
+            this.$axios.get("/api/domains")
+                    .then(response => {
+                        this.domains = response.data;
+                    });
+        },
+
         copy(item){
             this.$store.commit("setLoading", true);
 
@@ -207,45 +218,7 @@ export default {
                             this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
                         });
         },
-        importExcel(e){
-            this.form.file = e.target.files[0];
 
-            e.target.value = "";
-
-            this.$store.commit("setLoading", true);
-
-            this.form.post("/api/admin/questions/import")
-                    .then(response => {
-                        this.$store.commit("setPop", {
-                            description: "",
-                        });
-
-                        this.filter();
-
-                        if(response.data){
-                            let a = document.getElementById("download");
-
-                            a.href = response.data;
-
-                            a.click();
-                        }
-                    })
-        },
-
-        exportExcel(){
-            this.$store.commit("setLoading", true);
-
-            this.form.post("/api/admin/questions/export")
-                    .then(response => {
-                        if(response.data){
-                            let a = document.getElementById("download");
-
-                            a.href = response.data;
-
-                            a.click();
-                        }
-                    });
-        },
 
     },
 
@@ -267,6 +240,8 @@ export default {
     },
 
     mounted() {
+        this.getDomains();
+
         this.filter();
     }
 }

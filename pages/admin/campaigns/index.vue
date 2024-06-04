@@ -82,7 +82,8 @@
 
                         <td>
                             <div class="table-button-box">
-                                <nuxt-link :to="`/admin/campaigns/create?id=${item.id}`" class="active">조회</nuxt-link>
+                                <nuxt-link :to="`/admin/campaigns/create?id=${item.id}`" class="active">정보 수정</nuxt-link>
+                                <a href="#" class="active" @click.prevent="move(item)">지표 수정</a>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
@@ -149,6 +150,15 @@ export default {
             });
         },
 
+        move(item){
+            if(item.state !== "BEFORE")
+                return this.$store.commit("setPop", {
+                    description: "이미 시작된 캠페인의 지표는 수정할 수 없습니다."
+                });
+
+            return this.$router.push(`/admin/campaigns/folders?campaign_id=${item.id}&basic=0`);
+        },
+
         remove(item){
             let confirmed = window.confirm("정말로 삭제하시겠습니까?");
 
@@ -157,32 +167,6 @@ export default {
                     .then(response => {
                         this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
                     });
-        },
-
-        up(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index > 0) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index - 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/campaigns/" + item.id + "/up");
-            }
-        },
-
-        down(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index < this.items.data.length - 1) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index + 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/campaigns/" + item.id + "/down");
-
-            }
-
         },
 
         importExcel(e){
