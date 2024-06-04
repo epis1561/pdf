@@ -488,12 +488,12 @@ export default {
             if(this.item)
                 return this.form.post("/api/admin/questions/" + this.item.id)
                         .then(response => {
-                            this.$router.push(`/admin/questions?domain=${response.data.category.domain}`);
+                            this.$router.push(`/admin/questions?domain=${this.domain}`);
                         }).catch(() => {});
 
             this.form.post("/api/admin/questions")
                     .then(response => {
-                        this.$router.push(`/admin/questions?domain=${this.$route.query.domain}`);
+                        this.$router.push(`/admin/questions?domain=${this.domain}`);
                     }).catch(() => {});
         },
 
