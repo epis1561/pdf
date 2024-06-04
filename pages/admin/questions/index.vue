@@ -97,7 +97,7 @@
                         <td>{{ item.required_file ? 'Y' : 'N' }}</td>-->
 
                         <td>
-                            <div class="table-button-box">
+                            <div class="table-button-box" style="display: flex; gap:12px;">
                                 <nuxt-link :to="`/admin/questions/create?id=${item.id}`" class="active">조회</nuxt-link>
                                 <a href="#" class="active" @click.prevent.stop="copy(item)">복사</a>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
