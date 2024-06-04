@@ -153,6 +153,8 @@ export default {
                 file: "",
                 category_id: "",
 
+                domain: this.$route.query.domain || "",
+
                 order_by: "",
                 align: "",
 
