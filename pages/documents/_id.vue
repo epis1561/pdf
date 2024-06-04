@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div>
+        <div v-if="item">
         <div class="container xs">
             <div class="sub-box">
                 <div class="sub-left-box is-m">
@@ -72,7 +72,7 @@
                         <ul>
                             <li class="home"><nuxt-link to="/">홈</nuxt-link></li>
                             <li>고객 센터</li>
-                            <li>공지사항</li>
+                            <li>자료실</li>
                         </ul>
                     </div>
                     <div class="title-box">
@@ -80,25 +80,27 @@
                     </div>
                     <div class="board-view-box">
                         <div class="view-head">
-                            <em>{{ }}</em>
-                            <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </h3>
-                            <time>2024.05.31</time>
+                            <em>{{ item.id }}</em>
+                            <h3>{{ item.title }} </h3>
+                            <time>{{ item.format_created_at }}</time>
                         </div>
                         <div class="view-body">
                             <div class="view-body-content">
                                 <p>
-                                    “Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?”
+                                    {{item.description}}
                                 </p>
-                                <img src="/asset/images/img_user_board_view.png" class="mt32 mt-lg-20">
                             </div>
                         </div>
+
+                        <input-files :default="item.files" :only-show="true" />
+
                         <div class="view-foot">
                             <div class="view-foot-related">
-<!--                                <nuxt-link  v-if="item.prev" :to="`/documents/${item.prev.id}`" class="prev">이전</nuxt-link>-->
-<!--                                <nuxt-link  v-if="item.next" :to="`/documents/${item.next.id}`" class="next">다음</nuxt-link>-->
+                                <nuxt-link  v-if="item.prev" :to="`/documents/${item.prev.id}`" class="prev">이전</nuxt-link>
+                                <nuxt-link  v-if="item.next" :to="`/documents/${item.next.id}`" class="next">다음</nuxt-link>
                             </div>
                             <div class="view-foot-button">
-<!--                                <nuxt-link to="/documents" class="list">목록</nuxt-link>-->
+                                <nuxt-link to="/documents" class="list">목록</nuxt-link>
                             </div>
                         </div>
                     </div>
@@ -122,7 +124,6 @@ export default {
         getItem(){
             this.$axios.get("/api/documents/" + this.$route.params.id)
                     .then(response => {
-                        console.log(response.data.data);
                         this.item = response.data.data;
                     });
         },

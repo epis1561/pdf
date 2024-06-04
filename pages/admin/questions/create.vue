@@ -426,7 +426,7 @@ export default {
                 files_remove_ids: [],
             }),
 
-            domain: "",
+            domain: this.$route.query.domain || "",
             category_id: "",
 
             categories: {

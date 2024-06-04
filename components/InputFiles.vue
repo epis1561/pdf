@@ -14,6 +14,10 @@
                     <a :href="file.url" class="m-file">
                         <h3 class="m-file-title">{{file.name}}</h3>
 
+                        <button v-if="onlyShow" class="icon-download">
+                            <i class="xi-download"></i>
+                        </button>
+
                         <button v-if="!onlyShow" class="m-btn-remove" @click.prevent="remove(file, index)" type="button">
                             <i class="xi-close"></i>
                         </button>
@@ -23,6 +27,10 @@
                 <div class="m-file-wrap" v-for="(file, index) in files" :key="index">
                     <div class="m-file">
                         <h3 class="m-file-title">{{file.name}}</h3>
+
+                        <button v-if="onlyShow" class="icon-download">
+                            <i class="xi-download"></i>
+                        </button>
 
                         <button v-if="!onlyShow" class="m-btn-remove" @click.prevent="remove(file, index)" type="button">
                             <i class="xi-close"></i>
@@ -76,6 +84,9 @@
 }
 .m-input-files.type01 .m-file .m-btn-remove i {
     color:#000;
+}
+.m-input-files.type01 .m-file .icon-download {
+    margin-left:8px;
 }
 </style>
 <script>

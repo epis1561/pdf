@@ -62,7 +62,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>번호</th>
+                        <th>고유번호</th>
 
                         <th>영역</th>
                         <th>1차 카테고리</th>
@@ -82,13 +82,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in items.data" :key="item.id">
-                        <td>{{ item.id }}</td>
+                    <tr v-for="item in items.data" style="cursor:pointer;" :key="item.id" @click.prevent="() => {$router.push(`/admin/questions/create?id=${item.id}`)}">
+                        <td>{{item.category.symbol_domain}}-{{ item.id }}</td>
 
                         <td>{{ item.category ? item.category.format_domain : '' }}</td>
                         <td>{{ item.category && item.category.category ? item.category.category.title : item.category.title }}</td>
                         <td>{{ item.category ? item.category.title : '' }}</td>
-                        <td>{{ item.title }}</td>
+                        <td>{{ item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title }}</td>
 <!--                        <td>{{ item.label_search }}</td>-->
 
 <!--                        <td>{{ item.format_type }}</td>
@@ -97,8 +97,9 @@
                         <td>{{ item.required_file ? 'Y' : 'N' }}</td>-->
 
                         <td>
-                            <div class="table-button-box">
+                            <div class="table-button-box" style="display: flex; gap:12px;">
                                 <nuxt-link :to="`/admin/questions/create?id=${item.id}`" class="active">조회</nuxt-link>
+                                <a href="#" class="active" @click.prevent.stop="copy(item)">복사</a>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
@@ -116,7 +117,7 @@
                 <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
 
                 <div class="button-box">
-                    <nuxt-link to="/admin/questions/create" class="btn btn-blue px45">등록</nuxt-link>
+                    <nuxt-link :to="`/admin/questions/create?domain=${form.domain}`" class="btn btn-blue px45">등록</nuxt-link>
                 </div>
             </div>
         </div>
@@ -144,11 +145,15 @@ export default {
 
             form: new Form(this.$axios, {
                 page: 1,
-                take: "",
+
+                take: 100,
+
                 word: "",
                 column: "",
                 file: "",
                 category_id: "",
+
+                domain: this.$route.query.domain || "",
 
                 order_by: "",
                 align: "",
@@ -170,6 +175,15 @@ export default {
             });
         },
 
+        copy(item){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.patch("/api/admin/questions/copy/" + item.id)
+                    .then(response => {
+                    this.filter();
+                });
+        },
+
         remove(item){
             let confirmed = window.confirm("정말로 삭제하시겠습니까?");
 
@@ -179,33 +193,6 @@ export default {
                             this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
                         });
         },
-
-        up(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index > 0) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index - 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/questions/" + item.id + "/up");
-            }
-        },
-
-        down(item){
-            let index = this.items.data.indexOf(item);
-
-            if (index < this.items.data.length - 1) {
-                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
-
-                this.items.data.splice(index + 1, 0, itemToMove); // Insert the item one position ahead
-
-                this.form.patch("/api/admin/questions/" + item.id + "/down");
-
-            }
-
-        },
-
         importExcel(e){
             this.form.file = e.target.files[0];
 
@@ -246,6 +233,16 @@ export default {
                     });
         },
 
+    },
+
+    watch: {
+        "$route.query.domain": {
+            handler(){
+                this.form.domain = this.$route.query.domain;
+
+                this.filter();
+            }
+        }
     },
 
     computed: {

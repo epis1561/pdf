@@ -96,6 +96,7 @@
                             <div class="view-foot-related">
                                 <nuxt-link  v-if="item.prev" :to="`/notices/${item.prev.id}`" class="prev">이전</nuxt-link>
                                 <nuxt-link  v-if="item.next" :to="`/notices/${item.next.id}`" class="next">다음</nuxt-link>
+
                             </div>
                             <div class="view-foot-button">
                                 <nuxt-link to="/notices" class="list">목록</nuxt-link>
