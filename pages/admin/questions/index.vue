@@ -62,7 +62,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>번호</th>
+                        <th>고유번호</th>
 
                         <th>영역</th>
                         <th>1차 카테고리</th>
