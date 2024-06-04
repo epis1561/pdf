@@ -82,8 +82,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in items.data" style="cursor:pointer;" :key="item.id" @click.prevent="() => {this.$router.push(`/admin/questions/create?id=${item.id}`)}">
-                        <td>{{ item.id }}</td>
+                    <tr v-for="item in items.data" style="cursor:pointer;" :key="item.id" @click.prevent="() => {$router.push(`/admin/questions/create?id=${item.id}`)}">
+                        <td>{{item.category.domain}}-{{ item.id }}</td>
 
                         <td>{{ item.category ? item.category.format_domain : '' }}</td>
                         <td>{{ item.category && item.category.category ? item.category.category.title : item.category.title }}</td>
@@ -144,7 +144,9 @@ export default {
 
             form: new Form(this.$axios, {
                 page: 1,
-                take: "",
+
+                take: 100,
+
                 word: "",
                 column: "",
                 file: "",
