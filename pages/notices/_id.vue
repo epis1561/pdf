@@ -94,7 +94,7 @@
                         </div>
                         <div class="view-foot">
                             <div class="view-foot-related">
-                                <nuxt-link to="/notices/item.prev.id" class="prev">이전</noxt-link>
+                                <nuxt-link :to="`/notices/${item.prev.id}`" class="prev">이전</nuxt-link>
                                 <a href="" class="next">다음</a>
                             </div>
                             <div class="view-foot-button">
