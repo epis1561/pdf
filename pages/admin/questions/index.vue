@@ -99,6 +99,7 @@
                         <td>
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/questions/create?id=${item.id}`" class="active">조회</nuxt-link>
+                                <button type="button" class="active" @click.prevent="copy(item)">복사</button>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
@@ -170,6 +171,15 @@ export default {
             }).then(response => {
                 this.items = response.data;
             });
+        },
+
+        copy(item){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.patch("/api/admin/questions/copy/" + item.id)
+                    .then(response => {
+                    this.filter();
+                });
         },
 
         remove(item){
