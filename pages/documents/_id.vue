@@ -1,6 +1,6 @@
 <template>
     <section>
-    <div v-if="item">
+        <div v-if="item">
         <div class="container xs">
             <div class="sub-box">
                 <div class="sub-left-box is-m">
@@ -72,41 +72,42 @@
                         <ul>
                             <li class="home"><nuxt-link to="/">홈</nuxt-link></li>
                             <li>고객 센터</li>
-                            <li>공지사항</li>
+                            <li>자료실</li>
                         </ul>
                     </div>
                     <div class="title-box">
-                        <h2 class="lg">공지사항</h2>
+                        <h2 class="lg">자료실</h2>
                     </div>
                     <div class="board-view-box">
                         <div class="view-head">
                             <em>{{ item.id }}</em>
-                            <h3>{{ item.title }}</h3>
+                            <h3>{{ item.title }} </h3>
                             <time>{{ item.format_created_at }}</time>
                         </div>
                         <div class="view-body">
                             <div class="view-body-content">
                                 <p>
-                                    {{ item.description }}
+                                    {{item.description}}
                                 </p>
-                                <img src="/asset/images/img_user_board_view.png" class="mt32 mt-lg-20">
                             </div>
                         </div>
+
+                        <input-files :default="item.files" :only-show="true" />
+
                         <div class="view-foot">
                             <div class="view-foot-related">
-                                <nuxt-link  v-if="item.prev" :to="`/notices/${item.prev.id}`" class="prev">이전</nuxt-link>
-                                <nuxt-link  v-if="item.next" :to="`/notices/${item.next.id}`" class="next">다음</nuxt-link>
-
+                                <nuxt-link  v-if="item.prev" :to="`/documents/${item.prev.id}`" class="prev">이전</nuxt-link>
+                                <nuxt-link  v-if="item.next" :to="`/documents/${item.next.id}`" class="next">다음</nuxt-link>
                             </div>
                             <div class="view-foot-button">
-                                <nuxt-link to="/notices" class="list">목록</nuxt-link>
+                                <nuxt-link to="/documents" class="list">목록</nuxt-link>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     </section>
 </template>
 <script>
@@ -121,9 +122,8 @@ export default {
 
     methods:{
         getItem(){
-            this.$axios.get("/api/notices/" + this.$route.params.id)
+            this.$axios.get("/api/documents/" + this.$route.params.id)
                     .then(response => {
-
                         this.item = response.data.data;
                     });
         },

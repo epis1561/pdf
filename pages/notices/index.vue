@@ -88,7 +88,7 @@
                     <div class="board-list-box">
                         <table>
                             <tr v-for="item in items.data" :key="item.id">
-                                <always :item="item"></always>
+                                <always></always>
                                 <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.description }}</nuxt-link></td>
                                 <td class="date">{{item.format_created_at}}</td>
                             </tr>
@@ -136,7 +136,6 @@ export default {
             this.$axios.get("/api/notices", {
                 prams: this.form.data(),
             }).then(response => {
-                console.log(response.data);
                 this.items = response.data;
 
             });
