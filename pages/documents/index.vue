@@ -87,67 +87,16 @@
                     </div>
                     <div class="board-list-box">
                         <table>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry. </a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
-                            </tr>
-                            <tr>
-                                <td class="num">10</td>
-                                <td class="subject"><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                                <td class="date">2024.05.31</td>
-                                <td class="file"><span>PDF</span></td>
+                            <tr v-for="item in items.data" :key="item.id">
+                                <td class="num">{{ item.id }}</td>
+                                <td class="subject"><nuxt-link :to="`/documents/${item.id}`">{{ item.title }}</nuxt-link></td>
+                                <td class="date">{{ item.format_created_at }}</td>
                             </tr>
                         </table>
                     </div>
-                    <div class="paging-box">
-                        <ul>
-                            <li class="prev"><a href="">이전</a></li>
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href="">5</a></li>
-                            <li class="next"><a href="">다음</a></li>
-                        </ul>
-                    </div>
+                    <empty v-if="items.data.length === 0" />
+
+                    <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
                 </div>
             </div>
         </div>
@@ -165,15 +114,38 @@ export default {
     data() {
 
         return {
+            form: new Form(this.$axios, {
+                page:1,
+            }),
+
+            items:{
+                data: [],
+                meta: {
+                    current_page:1,
+                    last_page:10,
+                }
+            }
+
 
         }
     },
-    methods: {},
+    methods: {
+        filter(){
+            this.$axios.get("api/documents",{
+                prams:this.form.data(),
+            }).then(response => {
+                console.log(response.data);
+                this.items = response.data;
+            })
+        }
+    },
 
-    computed: {},
+    computed: {
+
+    },
 
     mounted() {
-
+        this.filter();
     }
 }
 </script>

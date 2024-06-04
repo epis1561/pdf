@@ -70,7 +70,7 @@
                 <div class="sub-right-box">
                     <div class="location-box">
                         <ul>
-                            <li class="home"><a href="">홈</a></li>
+                            <li class="home"><nuxt-link to="/">홈</nuxt-link></li>
                             <li>고객 센터</li>
                             <li>공지사항</li>
                         </ul>
@@ -94,11 +94,11 @@
                         </div>
                         <div class="view-foot">
                             <div class="view-foot-related">
-                                <nuxt-link to="/notices/item.prev.id" class="prev">이전</noxt-link>
-                                <a href="" class="next">다음</a>
+                                <nuxt-link  v-if="item.prev" :to="`/notices/${item.prev.id}`" class="prev">이전</nuxt-link>
+                                <nuxt-link  v-if="item.next" :to="`/notices/${item.next.id}`" class="next">다음</nuxt-link>
                             </div>
                             <div class="view-foot-button">
-                                <nuxt-link to="/documents" class="list">목록</nuxt-link>
+                                <nuxt-link to="/notices" class="list">목록</nuxt-link>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ export default {
         getItem(){
             this.$axios.get("/api/notices/" + this.$route.params.id)
                     .then(response => {
-                        console.log(response.data.data);
+
                         this.item = response.data.data;
                     });
         },

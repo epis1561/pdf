@@ -1,5 +1,6 @@
 <template>
     <section>
+        <div>
         <div class="container xs">
             <div class="sub-box">
                 <div class="sub-left-box is-m">
@@ -75,77 +76,62 @@
                         </ul>
                     </div>
                     <div class="title-box">
-                        <h2 class="lg">공지사항</h2>
+                        <h2 class="lg">자료실</h2>
                     </div>
-                    <div class="category-box mt64 mt-lg-30">
-                        <ul>
-                            <li><nuxt-link to="/faqs">FAQ</nuxt-link></li>
-                            <li><nuxt-link to="/qnas">문의사항</nuxt-link></li>
-                            <li class="active"><nuxt-link to="/notices">공지사항</nuxt-link></li>
-                            <li><nuxt-link to="/documents">자료실</nuxt-link></li>
-                        </ul>
-                    </div>
-                    <div class="board-list-box">
-                        <table>
-                            <tr v-for="item in items.data" :key="item.id">
-                                <always></always>
-                                <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.description }}</nuxt-link></td>
-                                <td class="date">{{item.format_created_at}}</td>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <div class="paging-box">
-                        <ul>
-                            <empty v-if="items.data.length === 0" />
-
-                            <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
-                        </ul>
+                    <div class="board-view-box">
+                        <div class="view-head">
+                            <em>{{ }}</em>
+                            <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </h3>
+                            <time>2024.05.31</time>
+                        </div>
+                        <div class="view-body">
+                            <div class="view-body-content">
+                                <p>
+                                    “Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?”
+                                </p>
+                                <img src="/asset/images/img_user_board_view.png" class="mt32 mt-lg-20">
+                            </div>
+                        </div>
+                        <div class="view-foot">
+                            <div class="view-foot-related">
+<!--                                <nuxt-link  v-if="item.prev" :to="`/documents/${item.prev.id}`" class="prev">이전</nuxt-link>-->
+<!--                                <nuxt-link  v-if="item.next" :to="`/documents/${item.next.id}`" class="next">다음</nuxt-link>-->
+                            </div>
+                            <div class="view-foot-button">
+<!--                                <nuxt-link to="/documents" class="list">목록</nuxt-link>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </section>
 </template>
-<style>
-
-</style>
 <script>
-import Form from "@/utils/Form";
-
+import Form from "~/utils/Form";
 export default {
 
-
-    data() {
-
+    data(){
         return {
-            form: new Form(this.$axios,{
-                page:1,
-            }),
-            items:{
-                data: [],
-                meta: {
-                    current_page:1,
-                    last_page:1,
-                }
-            }
+            item: null,
         }
     },
-    methods: {
-        filter(){
-            this.$axios.get("/api/notices", {
-                prams: this.form.data(),
-            }).then(response => {
-                this.items = response.data;
 
-            });
+    methods:{
+        getItem(){
+            this.$axios.get("/api/documents/" + this.$route.params.id)
+                    .then(response => {
+                        console.log(response.data.data);
+                        this.item = response.data.data;
+                    });
         },
+
+
     },
 
-    computed: {},
-
-    mounted() {
-        this.filter();
+    mounted(){
+        this.getItem();
     }
 }
 </script>
