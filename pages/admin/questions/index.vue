@@ -32,8 +32,20 @@
 
                     <div class="select-box mr10">
                         <select v-model="form.category_id" @change="() => {form.page=1; filter();}">
-                            <option value="">카테고리</option>
+                            <option value="">도메인</option>
                             <option :value="category.id" v-for="category in categories.data" :key="category.id" v-if="!category.category_id">{{ category.title }}</option>
+                        </select>
+                    </div>
+                    <div class="select-box mr10">
+                        <select v-model="form.category_id" @change="() => {form.page=1; form.sub_category_id = ''; filter();}">
+                            <option value="">1차 카테고리</option>
+                            <option :value="category.id" v-for="category in categories.data" :key="category.id" v-if="!category.category_id">{{ category.title }}</option>
+                        </select>
+                    </div>
+                    <div class="select-box mr10">
+                        <select v-model="form.sub_category_id" @change="() => {form.page=1; filter();}">
+                            <option value="">2차 카테고리</option>
+                            <option :value="category.id" v-for="category in categories.data" :key="category.id" v-if="category.category_id == form.category_id">{{ category.title }}</option>
                         </select>
                     </div>
 
@@ -151,9 +163,11 @@ export default {
                 word: "",
                 column: "",
                 file: "",
-                category_id: "",
 
                 domain: this.$route.query.domain || "",
+                category_id: "",
+                sub_category_id: "",
+
 
                 order_by: "",
                 align: "",
