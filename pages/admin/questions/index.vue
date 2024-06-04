@@ -88,7 +88,7 @@
                         <td>{{ item.category ? item.category.format_domain : '' }}</td>
                         <td>{{ item.category && item.category.category ? item.category.category.title : item.category.title }}</td>
                         <td>{{ item.category ? item.category.title : '' }}</td>
-                        <td>{{ item.title }}</td>
+                        <td>{{ item.title.length > 15 ? item.title.slice(0, 15) + "..." : item.title }}</td>
 <!--                        <td>{{ item.label_search }}</td>-->
 
 <!--                        <td>{{ item.format_type }}</td>
