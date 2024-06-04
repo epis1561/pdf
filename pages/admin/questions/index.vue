@@ -117,7 +117,7 @@
                 <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
 
                 <div class="button-box">
-                    <nuxt-link to="/admin/questions/create" class="btn btn-blue px45">등록</nuxt-link>
+                    <nuxt-link :to="`/admin/questions/create?domain=${form.domain}`" class="btn btn-blue px45">등록</nuxt-link>
                 </div>
             </div>
         </div>
