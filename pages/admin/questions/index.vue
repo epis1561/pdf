@@ -99,7 +99,7 @@
                         <td>
                             <div class="table-button-box">
                                 <nuxt-link :to="`/admin/questions/create?id=${item.id}`" class="active">조회</nuxt-link>
-                                <button type="button" class="active" @click.prevent="copy(item)">복사</button>
+                                <a href="#" class="active" @click.prevent.stop="copy(item)">복사</a>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
