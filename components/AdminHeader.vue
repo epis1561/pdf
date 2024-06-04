@@ -120,7 +120,7 @@ export default {
 
         activeClass(url, haveToSame = false){
             if(haveToSame)
-                return this.$route.path === url ? 'active' : '';
+                return this.$route.fullPath === url ? 'active' : '';
 
             return this.$route.path.includes(url) ? 'active' : '';
         },
