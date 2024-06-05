@@ -305,6 +305,7 @@ label {
     max-width:150px;
 }
 
+<<<<<<< HEAD
 .area-users-create .list-content .link {
     display: flex;
     flex-wrap: wrap;
@@ -329,4 +330,8 @@ label {
 .area-users-create .m-input-phone .m-input-text input{
     padding-bottom: 0;
     padding-left: 0;
+=======
+.admin-container-box .admin-left .admin-left-category ul li > dl > dd > dl {
+    margin-left:24px;
+>>>>>>> 84f3bc1689679cb5b885426630f0505b00d68ce7
 }
