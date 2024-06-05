@@ -335,3 +335,145 @@ label {
     margin-left:24px;
 
 }
+
+/* 헤더작업 -  이원구*/
+.xi-user{
+    font-size: 25px;
+
+}
+.xi-close{
+    font-size: 25px;
+}
+.header-top-category{
+    display: flex;
+    align-items: center;
+    margin-right: 1%;
+    justify-content: space-between;
+}
+
+.drop_menu .container-wrap{
+    display: flex;
+}
+.drop_menu .leftbox{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e4e4e4;
+    width: 25%;
+}
+.drop_menu .photo_box{
+    color: #fff;
+    position: relative;
+}
+.drop_menu .photo_box .textbox{
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+.drop_menu .photo_box .textbox h3{
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.drop_menu .photo_box .go{
+    position: absolute;
+    top: 8%;
+    right: 4%;
+    z-index: 9999;
+}
+.drop_menu .photo_box .greeting{
+    filter: brightness(68%);
+    width: 100%;
+}
+.drop_menu .photo_box a{
+    display: inline-block;
+}
+.drop_menu .rightbox .menuset{
+    width: 33%;
+    padding: 5% 2.5% 0 2.5%;
+    border: 1px solid #e4e4e4;
+}
+.drop_menu .rightbox{
+    width: 75%;
+    display: flex;
+}
+.drop_menu .rightbox .menuset ul{
+    font-size: 20px;
+    font-weight: bold;
+}
+.drop_menu .rightbox .menuset ul li{
+    font-size: 20px;
+}
+.drop_menu .rightbox .menuset ul li:first-child{
+    margin-top: 24px;
+}
+.drop_menu .rightbox .menuset ul li{
+    margin-bottom: 24px;
+}
+.drop_menu .rightbox .menuset ul li:last-child{
+    margin-bottom: 0px;
+}
+
+.menu_close{
+    display:none;
+    font-size: 20px;
+}
+@media(max-width:1200px){
+    .drop_menu .rightbox .menuset{
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+    .drop_menu .photo_box .textbox h3{
+        font-size: 20px;
+    }
+    .drop_menu .photo_box .textbox{
+        font-size: 10px;
+    }
+    .drop_menu .rightbox .menuset ul{
+        font-size: 18px;
+    }
+    .drop_menu .rightbox .menuset ul li{
+        font-size: 18px;
+    }
+}
+@media(max-width:991px){
+    .header-top-category{
+        justify-content: end;
+    }
+    .drop_menu .container-wrap{
+        flex-direction: column-reverse;
+    }
+    .drop_menu .rightbox{
+        flex-direction: column;
+        width: 100%;
+    }
+    .drop_menu .leftbox{
+        width: 100%;
+    }
+    .drop_menu .photo_box .greeting{
+        max-height: 250px;
+        object-fit: fill;
+    }
+    .drop_menu .rightbox .menuset{
+        width: 100%;
+    }
+    .container .drop_menu{
+        overflow-y: auto;
+    }
+    header{
+        overflow-y: auto;
+
+    }
+    .drop_menu .rightbox .menuset{
+        padding: 20px;
+    }
+    .drop_menu{
+        padding: 0 !important;
+    }
+}
+@media(max-width:768px){
+
+}

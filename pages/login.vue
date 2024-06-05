@@ -113,12 +113,12 @@
                             <a href="" class="btn btn-skyblue lg bdr4 flex-1" @click.prevent="login">로그인</a>
                         </div>
                         <div class="member-guide-box">
-                            <a href="">
+                            <nuxt-link to="/users/createSelect">
                                 <div>
                                     <p>아직 회원이 아니신가요?</p>
                                     <small>ESGi에서 제공하는 서비스를 만나보세요.</small>
                                 </div>
-                            </a>
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>
