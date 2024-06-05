@@ -350,11 +350,22 @@
 
                         <li class="full">
                             <div class="list-title">
-                                <strong>도움말</strong>
+                                <strong>도움말 (지표설명)</strong>
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input-editor :default="form.help" @change="data => form.help = data" />
+                                    <input-editor :height="200" :default="form.help" @change="data => form.help = data" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="full">
+                            <div class="list-title">
+                                <strong>증빙/검토서류</strong>
+                            </div>
+                            <div class="list-content">
+                                <div class="input-box no-border">
+                                    <input-editor :height="200" :default="form.document" @change="data => form.document = data" />
                                 </div>
                             </div>
                         </li>
@@ -418,6 +429,7 @@ export default {
                 help: "",
                 type: "CHECKBOX",
                 memo: "",
+                document: "",
 
                 options: [],
 
