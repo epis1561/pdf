@@ -304,3 +304,29 @@ label {
 .board-faq-box > ul > li .list-body .description .imgs img {
     max-width:150px;
 }
+
+.area-users-create .list-content .link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 4px 4px 0;
+    height: 48px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 15px;
+    background: #F7F7F7;
+    border: 1px solid #E4E4E4;
+    color: rgba(0, 0, 0, 0.4);
+    margin-left:12px;
+}
+.area-users-create .list-content-inner {
+    margin-bottom:12px;
+}
+.area-users-create .m-input-phone .m-input-withBtn .m-input-btn{
+    color: rgba(0,0,0,0.4);
+}
+.area-users-create .m-input-phone .m-input-text input{
+    padding-bottom: 0;
+    padding-left: 0;
+}

@@ -15,7 +15,7 @@
                     자녀 관리
                 </nuxt-link>
                 <nuxt-link to="/orders" :class="`mypage-gnb-item ${this.$route.path.includes('orders') ? 'active' : ''}`">
-                    결제 내역
+                    문의 내역
                 </nuxt-link>
             </div>
         </div>
