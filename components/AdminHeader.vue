@@ -31,10 +31,15 @@
                     </a>
                     <dl>
                         <dd :class="activeClass('/admin/questions', true)"><nuxt-link to="/admin/questions">전체 질의</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/questions?domain=ENVIRONMENT', true)"><nuxt-link to="/admin/questions?domain=ENVIRONMENT">E 질의</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/questions?domain=SOCIAL1', true)"><nuxt-link to="/admin/questions?domain=SOCIAL1">S1 질의</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/questions?domain=SOCIAL2', true)"><nuxt-link to="/admin/questions?domain=SOCIAL2">S2 질의</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/questions?domain=GOVERNANCE', true)"><nuxt-link to="/admin/questions?domain=GOVERNANCE">G 질의</nuxt-link></dd>
+                        <dd>
+                            <dl>
+                                <dd :class="activeClass('/admin/questions?domain=ENVIRONMENT', true)"><nuxt-link to="/admin/questions?domain=ENVIRONMENT">E 질의</nuxt-link></dd>
+                                <dd :class="activeClass('/admin/questions?domain=SOCIAL1', true)"><nuxt-link to="/admin/questions?domain=SOCIAL1">S1 질의</nuxt-link></dd>
+                                <dd :class="activeClass('/admin/questions?domain=SOCIAL2', true)"><nuxt-link to="/admin/questions?domain=SOCIAL2">S2 질의</nuxt-link></dd>
+                                <dd :class="activeClass('/admin/questions?domain=GOVERNANCE', true)"><nuxt-link to="/admin/questions?domain=GOVERNANCE">G 질의</nuxt-link></dd>
+                                <dd :class="activeClass('/admin/questions?domain=CP', true)"><nuxt-link to="/admin/questions?domain=CP">CP 질의</nuxt-link></dd>
+                            </dl>
+                        </dd>
                         <dd :class="activeClass('/admin/campaigns')"><nuxt-link to="/admin/campaigns">캠페인</nuxt-link></dd>
                     </dl>
                 </li>

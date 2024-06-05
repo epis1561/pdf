@@ -304,3 +304,7 @@ label {
 .board-faq-box > ul > li .list-body .description .imgs img {
     max-width:150px;
 }
+
+.admin-container-box .admin-left .admin-left-category ul li > dl > dd > dl {
+    margin-left:24px;
+}
