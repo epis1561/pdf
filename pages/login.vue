@@ -97,7 +97,7 @@
                             <p class="mt32 mt-lg-10">ESGi를 방문해주신 것을 환영합니다.</p>
                         </div>
                         <div class="input-box mt48 mt-lg-24">
-                            <input type="text" placeholder="이메일을 입력해주세요" v-model="form.ids">
+                            <input type="text" placeholder="아이디를 입력해주세요" v-model="form.ids">
                         </div>
                         <error :form="form" name="ids" />
                         <div class="input-box mt8">

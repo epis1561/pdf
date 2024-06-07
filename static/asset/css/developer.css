@@ -437,6 +437,25 @@ label {
     display:none;
     font-size: 20px;
 }
+
+/*popinvite 팝업조정 - 이원구*/
+
+.m-pop.type01 {
+    display: flex; align-items: center; justify-content: center;
+    width:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index:100;
+}
+.m-pop.type01 .m-pop-inner {
+
+}
+.cover_black{
+    background-color: rgba(0,0,0,0.4) !important;
+}
+
 @media(max-width:1200px){
     .drop_menu .rightbox .menuset{
         padding-top: 2%;

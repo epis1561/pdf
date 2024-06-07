@@ -126,6 +126,7 @@
                                                 <dl>
                                                     <dd><a href="">회원정보 수정</a></dd>
                                                     <dd v-if=" this.$auth.user.data.company_admin == 1"><a href="">소속직원 관리</a></dd>
+                                                    <dd v-if=" this.$auth.user.data.company_admin == 0"><a href="">받은초대</a></dd>
                                                 </dl>
                                             </li>
                                             <li class="order"><a href="" class="link" @click.prevent="$store.commit('setPop', { description: '준비중입니다.' })">결제내역</a></li>
@@ -137,7 +138,7 @@
                                     <div class="mypage-body-tab">
                                         <ul>
                                             <li><a href="">회원정보 수정</a></li>
-                                            <li><a href="">소속직원 관리</a></li>
+                                            <li><a href="" v-if="">소속직원 관리</a></li>
                                         </ul>
                                     </diV>
                                     <div class="mypage-body-log">
