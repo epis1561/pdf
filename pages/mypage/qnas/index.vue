@@ -20,7 +20,7 @@
 
 import Form from "@/utils/Form";
 export default {
-    middleware: ["auth"],
+    middleware: ["user"],
     layout: "mypage",
 
     data() {
