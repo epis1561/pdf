@@ -17,7 +17,7 @@
             </button>
         </div>
 
-        <div class="input-box no-border flex-1">
+        <div class="input-box no-border flex-1" style="margin-top:12px;">
             <input type="text" class="f18" v-if="!form[address]" placeholder="상세주소를 입력해주세요" v-model="form[address_detail]" :name="address_detail" id="address_detail" @change="change" disabled>
             <input type="text" class="f18" v-else placeholder="상세주소를 입력해주세요" v-model="form[address_detail]" :name="address_detail" id="address_detail" @change="change">
         </div>

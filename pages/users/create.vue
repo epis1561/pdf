@@ -171,7 +171,7 @@
                                             <div class="group-content">
                                                 <div class="select-box">
                                                     <select v-model="form.company_size">
-                                                        <option value="" disablednㅜ>기업형태를 선택해주세요.</option>
+                                                        <option value="" disabled>기업형태를 선택해주세요.</option>
                                                         <option value="대기업">대기업</option>
                                                         <option value="중견기업">중견기업</option>
                                                         <option value="중소기업">중소기업</option>
@@ -258,7 +258,32 @@
                                                     <input-verify-number @verified="data => form.contact = data" />
                                                     <error :form="form" name="contact" />
                                                 </div>
-
+                                            </div>
+                                        </div>
+                                        <div class="content-group">
+                                            <div class="group-title">
+                                                <h3>부서</h3>
+                                            </div>
+                                            <div class="group-content">
+                                                <div class="group-content">
+                                                    <div class="input-box">
+                                                        <input type="text" placeholder="부서명을 입력해주세요." v-model="form.department">
+                                                    </div>
+                                                    <error :form="form" name="department" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content-group">
+                                            <div class="group-title">
+                                                <h3>직급</h3>
+                                            </div>
+                                            <div class="group-content">
+                                                <div class="group-content">
+                                                    <div class="input-box">
+                                                        <input type="text" placeholder="직급을 입력해주세요." v-model="form.position">
+                                                    </div>
+                                                    <error :form="form" name="position" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="content-group">
@@ -343,6 +368,8 @@ export default {
 
                 name: "", // 담당자명
                 contact: "", // 연락처 - 입력 시 숫자만 남도록 처리 필요 (코드찾기로 clearLetter 검색해서 작업 참고)
+                department: "", // 부서
+                position: "", //직급
                 email: "", // 이메일
                 agree_sms_promotion: "", // SMS 수신동의여부 (0 - 거절 시 , 1 - 수락 시)
                 agree_email_promotion: "", // EMAIL 수신동의여부 (0 - 거절 시 , 1 - 수락 시)

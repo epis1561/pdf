@@ -105,12 +105,12 @@
                                             <li class="person">
                                                 <div>
                                                     <strong>162</strong>
-                                                    <p>직원 수</p>
+                                                    <p>멤버수</p>
                                                 </div>
                                             </li>
                                             <li class="membership">
                                                 <div>
-                                                    <strong>1245일</strong>
+                                                    <strong>0일</strong>
                                                     <p>멤버쉽</p>
                                                 </div>
                                             </li>
@@ -125,12 +125,12 @@
                                                 <button type="button" class="link">내 정보</button>
                                                 <dl>
                                                     <dd><a href="">회원정보 수정</a></dd>
-                                                    <dd><a href="">소속직원 관리</a></dd>
+                                                    <dd v-if=" this.$auth.user.data.company_admin == 1"><a href="">소속직원 관리</a></dd>
                                                 </dl>
                                             </li>
-                                            <li class="order"><a href="" class="link">결제내역</a></li>
+                                            <li class="order"><a href="" class="link" @click.prevent="$store.commit('setPop', { description: '준비중입니다.' })">결제내역</a></li>
                                             <li class="qa"><a href="" class="link">문의내역</a></li>
-                                            <li class="membership"><a href="" class="link">멤버쉽</a></li>
+                                            <li class="membership"><a href="" class="link" @click.prevent="$store.commit('setPop', { description: '준비중입니다.' })">멤버쉽</a></li>
                                         </ul>
                                     </div>
                                     <!-- 탭은 모바일에서 내 정보의 경우에만 노출되어야 함 -->
@@ -227,7 +227,8 @@ export default {
         },
         logout(){
             this.$auth.logout();
-        }
+        },
+
     },
 
     mounted() {
