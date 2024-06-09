@@ -58,6 +58,7 @@
                         <th>번호</th>
 
                         <th>클라이언트</th>
+                        <th>회사명</th>
                         <th>캠페인명</th>
                         <th>시작일</th>
                         <th>종료일</th>
@@ -76,6 +77,7 @@
                         <td>{{ item.id }}</td>
 
                         <td>{{ item.campaign.provider.title }}</td>
+                        <td>{{ item.company.title }}</td>
                         <td>{{ item.campaign.title }}</td>
                         <td>{{ item.campaign.format_survey_started_at }}</td>
                         <td>{{ item.campaign.format_survey_finished_at }}</td>

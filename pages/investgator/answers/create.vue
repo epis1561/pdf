@@ -555,13 +555,17 @@ export default {
                     folderQuestion.answer.exception = folderQuestion.answer.exception == 1 ? 1 : folderQuestion.answer.invest_exception; // 얘는 boolean이라 || 쓰면 안됨
                     folderQuestion.answer.value = folderQuestion.answer.invest_value || folderQuestion.answer.value;
                     folderQuestion.answer.value_additional = folderQuestion.answer.invest_value_additional || folderQuestion.answer.value_additional;
+                    folderQuestion.answer.values_additional = folderQuestion.answer.invest_values_additional || folderQuestion.answer.values_additional;
                     folderQuestion.answer.folder_question_option_id = folderQuestion.answer.invest_folder_question_option_id || folderQuestion.answer.folder_question_option_id;
                     folderQuestion.answer.folder_question_option_ids = folderQuestion.answer.invest_folder_question_option_ids || folderQuestion.answer.folder_question_option_ids;
                 }
 
+                console.log(folderQuestion.answer.values_additional);
+
                 answer = {
                     ...folderQuestion.answer,
                     value: Array.isArray(folderQuestion.answer.value) ? [...folderQuestion.answer.value] : folderQuestion.answer.value,
+                    values_additional: folderQuestion.answer.values_additional ? {...folderQuestion.answer.values_additional} : {},
                     folder_question_option_id: folderQuestion.answer.folder_question_option_id,
                     folder_question_option_ids: Array.isArray(folderQuestion.answer.folder_question_option_ids) ? [...folderQuestion.answer.folder_question_option_ids] : folderQuestion.answer.folder_question_option_ids,
                     files: [],
@@ -577,6 +581,7 @@ export default {
                     folder_question_option_ids: [],
                     value: "",
                     value_additional: "",
+                    values_additional: [],
                     comment_invest: "",
                     exception: 0,
                     files: [],

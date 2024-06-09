@@ -591,6 +591,7 @@ export default {
                                 folder_question_option_ids: [],
                                 value: "",
                                 value_additional: "",
+                                values_additional: [],
                                 exception: 0,
                                 files: [],
                                 files_remove_ids: [],

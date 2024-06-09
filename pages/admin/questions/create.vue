@@ -203,7 +203,7 @@
 
                                                         <error :form="form" :name="`options.${index}.type_satisfaction`" />
                                                     </div>
-                                                    <div class="select-box no-border flex-1 mr45" v-if="form.type !== 'CHECKBOX'">
+                                                    <div class="select-box no-border flex-1 mr45" v-if="form.type === 'CHECKBOX' || form.type === 'RADIO'">
                                                         <select class="f18" v-model="form.options[index].add_field">
                                                             <option value="">추가 필드</option>
                                                             <option :value="1">예</option>

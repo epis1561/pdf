@@ -26,18 +26,12 @@
                                 <li><a href="">CONTACT</a></li>
                             </ul>
                         </div>
-                        <div class="sub-left-category">
-                            <ul>
-                                <li class="cate01"><nuxt-link to="/campaigns/dashboard" @click.prevent="ready"><p>현황</p></nuxt-link></li>
-                                <li class="cate02 active"><nuxt-link to="/campaigns"><p>진단</p></nuxt-link></li>
-                                <!--<li class="cate03"><a href="#" @click.prevent="ready"><p>이력</p></a></li>-->
-                            </ul>
-                        </div>
                     </div>
                 </div>
+
                 <div class="sub-right-box">
                     <div class="title-box">
-                        <h2><em>자가 진단</em>진단</h2>
+                        <h2>진단</h2>
                     </div>
                     <div class="list-top-box">
                         <div class="list-top-search">
@@ -49,9 +43,10 @@
                         <div class="list-top-filter">
                             <ul>
                                 <li :class="tabClass('')"><a href="#" @click.prevent="() => {changeState('')}">전체</a></li>
-                                <li :class="tabClass('WAIT')"><a href="#" @click.prevent="() => {changeState('WAIT')}">진행대기</a></li>
-                                <li :class="tabClass('ONGOING')"><a href="#" @click.prevent="() => {changeState('ONGOING')}">진행중</a></li>
-                                <li :class="tabClass('FINISH')"><a href="#" @click.prevent="() => {changeState('FINISH')}">진행완료</a></li>
+                                <li :class="tabClass('BEFORE')"><a href="#" @click.prevent="() => {changeState('BEFORE')}">대기기간</a></li>
+                                <li :class="tabClass('ONGOING_SURVEY')"><a href="#" @click.prevent="() => {changeState('ONGOING_SURVEY')}">응답기간</a></li>
+                                <li :class="tabClass('ONGOING_INVESTGATE')"><a href="#" @click.prevent="() => {changeState('ONGOING_INVESTGATE')}">평가기간</a></li>
+                                <li :class="tabClass('FINISH')"><a href="#" @click.prevent="() => {changeState('FINISH')}">종료</a></li>
                             </ul>
                         </div>
                     </div>
@@ -59,22 +54,20 @@
                         <empty v-if="items.data.length === 0" />
 
                         <ul>
-                            <li :class="`${item.survey && item.survey.state === 'FINISH' ? 'active' : ''}`" v-for="item in items.data" :key="item.id">
+                            <li :class="`${item && item.state === 'ONGOING_INVESTGATE' ? 'active' : ''}`" v-for="item in items.data" :key="item.id">
                                 <div class="list-head">
                                     <p>{{ item.title }}</p>
                                     <div>
-                                        <em>{{item.survey ? item.survey.count_answer : 0}}/{{item.count_question}}</em>
-                                        <b>{{ item.survey ? item.survey.format_state : '진행 대기' }}</b>
+                                        <b>{{ item.format_state }}</b>
                                     </div>
                                 </div>
                                 <div class="list-body">
-                                    <time>{{ item.format_survey_started_at }} ~ {{ item.format_survey_finished_at }}</time>
-
-                                    <div class="flex">
-                                        <nuxt-link :to="`/campaigns/reports?survey_id=${item.survey.id}`" v-if="item.survey && item.survey.invest_at" class="bg-active">결과리포트</nuxt-link>
-                                        <a href="#" @click.prevent="() => {$router.push(`/answers/create?survey_id=${item.survey.id}&campaign_id=${item.id}`)}" v-if="item.survey && item.survey.state === 'FINISH'">이력 확인</a>
-                                        <a href="#" @click="start(item)" v-else>작성하기</a>
+                                    <time>평가기간 : {{ item.format_improve_started_at }} ~ {{ item.format_improve_finished_at }}</time>
+                                    <div class="flex flex-vc">
+                                        <nuxt-link :to="`/investgator/surveys?campaign_id=${item.id}`" class="blue">평가대상 확인</nuxt-link>
                                     </div>
+                                    <!--                                    <a href="#" @click.prevent="() => {$router.push(`/answers/create?survey_id=${item.survey.id}&campaign_id=${item.id}`)}" v-if="item.survey && item.survey.state === 'FINISH'">이력 확인</a>
+                                                                        <a href="#" @click="start(item)" v-else>작성하기</a>-->
                                 </div>
                             </li>
                         </ul>
@@ -107,7 +100,7 @@ export default {
 
             form: new Form(this.$axios, {
                 page: 1,
-                surveyState: "",
+                state: "",
                 word: "",
                 campaign_id: "",
             }),
@@ -121,17 +114,17 @@ export default {
         filter(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/campaigns", {
+            this.$axios.get("/api/investgator/campaigns", {
                 params: this.form.data(),
             }).then(response => {
                 this.items = response.data;
             });
         },
         tabClass(state){
-            return state === this.form.surveyState ? 'active' : '';
+            return state === this.form.state ? 'active' : '';
         },
         changeState(state){
-            this.form.surveyState = state;
+            this.form.state = state;
 
             this.form.page = 1;
 
@@ -147,9 +140,9 @@ export default {
             this.$store.commit("setLoading", true);
 
             this.form.post("/api/surveys")
-                .then(response => {
-                    this.$router.push(`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`);
-                })
+                    .then(response => {
+                        this.$router.push(`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`);
+                    })
         },
     },
 
@@ -159,9 +152,6 @@ export default {
     },
 
     mounted() {
-        if(this.$auth.user.data.has_agency == 1)
-            return this.$router.push("/investgator/campaigns");
-
         this.filter();
     }
 }
