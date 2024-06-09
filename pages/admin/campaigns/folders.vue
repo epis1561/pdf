@@ -813,8 +813,6 @@ export default {
                 this.folderQuestions = response.data;
 
                 this.form.questions = this.folderQuestions.data.map(folderQuestion => {
-                    console.log(folderQuestion.folderQuestionOptions);
-
                     return {
                         ...folderQuestion,
                         ...folderQuestion.question,
