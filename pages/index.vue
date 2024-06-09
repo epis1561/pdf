@@ -27,7 +27,7 @@
                             </div>
                             <div class="news-right">
                                 <ul>
-                                    <li v-for="notice in notices.data" :key="notice.id">
+                                    <li v-for="(notice,index) in notices.data" :key="notice.id" v-if="index < 3">
                                         <nuxt-link :to="`/notices/${notice.id}`">
                                             <p>{{ notice.title }}</p>
                                             <time>{{ notice.format_created_at }}</time>
