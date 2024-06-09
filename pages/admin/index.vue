@@ -164,7 +164,7 @@ export default {
 
     mounted() {
 
-        this.$router.push("/admin");
+        this.$router.push("/admin/campaigns");
 
         /*this.$axios.get('/api/admin/charts')
             .then(response => {
