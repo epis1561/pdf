@@ -7,9 +7,9 @@
             <div class="footer-info">
                 <div class="footer-info-link">
                     <ul>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">오시는 길</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">이용약관</a></li>
+<!--                        <li><a href="">오시는 길</a></li>-->
                     </ul>
                 </div>
                 <div class="footer-info-text">

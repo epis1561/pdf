@@ -4,7 +4,7 @@
             <div class="title-box">
                 <h2>소속직원 관리</h2>
                 <div class="button-box">
-                    <a href="" class="btn btn-lightgray sm bdr4 h45 h-lg-35 px-lg-10 f18 f-lg-13 mr12 mr-lg-5">선택삭제</a>
+                    <a href="#" class="btn btn-lightgray sm bdr4 h45 h-lg-35 px-lg-10 f18 f-lg-13 mr12 mr-lg-5" @click.prevent="remove">선택삭제</a>
                     <!--                                @click.prevent="remove"-->
                     <a href="" class="btn btn-black sm bdr4 h45 h-lg-35 px-lg-10 f18 f-lg-13" @click.prevent="activeInvitation = true">직원초대</a>
                 </div>
@@ -39,12 +39,9 @@
 
             <empty v-if="items.data.length === 0"/>
 
-            <div class="paging-box">
-                <ul>
-                    <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}"/>
-                </ul>
-            </div>
+            <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}"/>
         </div>
+
         <pop-invitation v-if="activeInvitation" @close="activeInvitation = false"/>
     </div>
 
@@ -65,7 +62,6 @@ export default {
     data() {
         return {
             activeInvitation: false,
-            isChecked: false,
             form: new Form(this.$axios, {
                 page: 1,
                 ids: [],
@@ -75,7 +71,7 @@ export default {
                 data: [],
                 meta: {
                     current_page: 1,
-                    last_page: 10,
+                    last_page: 1
                 }
             },
 
@@ -85,32 +81,24 @@ export default {
 
     methods: {
         filter() {
+            this.$store.commit("setLoading", true);
+
             this.$axios.get("/api/members", {
                 prams: this.form.data(),
             }).then(response => {
-
                 this.items = response.data;
             });
         },
-        // checkbox(){
-        //     this.isChecked= ! this.isChecked;
-        //     if(this.isChecked){
-        //         this.ids.push(this.item.id);
-        //     }
-        //     else{
-        //         const index = this.ids.indexOf(this.item.id);
-        //         if (index > -1) {
-        //             this.ids.splice(index, 1);
-        //         }
-        //     }
-        // },
-        remove(){
-            this.form.delete("/api/admin/examples/1")
 
-                    // .then(response => {
-                    //     this.items.data = this.items.data.filter(itemData => !this.form.selected_ids.includes(itemData.id));
-                    //     this.form.selected_ids = [];
-                    // });
+        remove(){
+            this.$store.commit("setLoading", true);
+
+            this.form.delete("/api/members")
+                    .then(response => {
+                        this.filter();
+
+                        this.form.ids = [];
+                    })
         },
     },
 

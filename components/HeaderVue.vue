@@ -7,74 +7,71 @@
                 </div>
                 <div class="header-top-category">
                     <ul>
-                        <li><a href="">ESGI</a></li>
-                        <li><a href="">ESG</a></li>
-                        <li><a href="">리스크관리</a></li>
-                        <li><a href="">고객센터</a></li>
-                        <li class="menu"></li>
-                        <li class="menu_close"> <i class="xi-close"></i></li>
+                        <li><nuxt-link to="/contents/solution">ESGI</nuxt-link></li>
+                        <li><nuxt-link to="/campaigns">ESG</nuxt-link></li>
+                        <li><nuxt-link to="/contents/resk">리스크관리</nuxt-link></li>
+                        <li><nuxt-link to="/notices">고객센터</nuxt-link></li>
+                        <li class="menu" @click="isDropMenuVisible = true"></li>
+                        <li class="menu_close" @click="isDropMenuVisible = false"> <i class="xi-close"></i></li>
                     </ul>
-                    <nuxt-link to="/mypage">
+                    <nuxt-link to="/users/edit">
                         <i class="xi-user"></i>
                     </nuxt-link>
                 </div>
             </div>
         </div>
-       <transition name="fade">
-  <div class="container drop_menu" v-show="isDropMenuVisible">
 
+        <div class="container drop_menu" v-if="isDropMenuVisible">
+            <div class="container-wrap">
+                <div class="leftbox">
+                    <div class="photo_box greeting1">
+                        <img src="/asset/images/greeting1.png" class="greeting">
+                        <nuxt-link to="/contents/solution" class="go">
+                            <img src="/asset/images/go.png">
+                        </nuxt-link>
+                        <div class="textbox">
+                            <h3>ESGI</h3>
+                            ESG온라인 비대면 진단 솔루션
+                        </div>
+                    </div>
+                    <div class="photo_box greeting2">
+                        <img src="/asset/images/greeting2.png" class="greeting">
+                        <nuxt-link to="/contents/company" class="go">
+                            <img src="/asset/images/go.png" >
+                        </nuxt-link>
+                        <div class="textbox">
+                            <h3>About</h3>
+                            함께만드는 가치, 지속가능경영의 시작!<br>
+                            우리의 솔류션으로 현실이 됩니다.
+                        </div>
+                    </div>
+                </div>
 
-        <div class="container-wrap">
-            <div class="leftbox">
-            <div class="photo_box greeting1">
-                <img src="/asset/images/greeting1.png" class="greeting">
-                <a href="" class="go">
-                <img src="/asset/images/go.png">
-                </a>
-                <div class="textbox">
-                    <h3>ESGI</h3>
-                    ESG온라인 비대면 진단 솔루션
-                </div>
-            </div>
-            <div class="photo_box greeting2">
-                <img src="/asset/images/greeting2.png" class="greeting">
-                <a href="" class="go">
-                    <img src="/asset/images/go.png" >
-                </a>
-                <div class="textbox">
-                    <h3>About</h3>
-                    함께만드는 가치, 지속가능경영의 시작!<br>
-                    우리의 솔류션으로 현실이 됩니다.
-                </div>
-            </div>
-            </div>
-
-            <div class="rightbox">
-                <div class="menuset menu1">
-                    <ul>ESGI
-                        <li><a href="">솔루션소개</a></li>
-                        <li><a href="">회사소개</a></li>
-                        <li><a href="">리스크관리</a></li>
-                    </ul>
-                </div>
-                <div class="menuset menu2">
-                    <ul>ESG
-                        <li><a href="">진단</a></li>
-                        <li><a href="">현황</a></li>
-                    </ul>
-                </div>
-                <div class="menuset menu3">
-                    <ul>고객센터
-                        <li><a href="">자료실</a></li>
-                        <li><a href="">문의사항</a></li>
-                        <li><a href="">공지사항</a></li>
-                        <li><a href="">FAQ</a></li>
-                    </ul>
+                <div class="rightbox">
+                    <div class="menuset menu1">
+                        <ul>ESGI
+                            <li><nuxt-link to="/contents/solution">솔루션소개</nuxt-link></li>
+                            <li><nuxt-link to="/contents/company">회사소개</nuxt-link></li>
+                            <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
+                        </ul>
+                    </div>
+                    <div class="menuset menu2">
+                        <ul>ESG
+                            <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
+                            <li><nuxt-link to="/campaigns/dashboard">현황</nuxt-link></li>
+                        </ul>
+                    </div>
+                    <div class="menuset menu3">
+                        <ul>고객센터
+                            <li><nuxt-link to="/documents">자료실</nuxt-link></li>
+                            <li><nuxt-link to="/qnas">문의사항</nuxt-link></li>
+                            <li><nuxt-link to="/notices">공지사항</nuxt-link></li>
+                            <li><nuxt-link to="/faqs">FAQ</nuxt-link></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-     </transition>
     </header>
 </template>
 <script>
@@ -142,8 +139,8 @@ export default {
         this.$nextTick(() => {
 
         });
-        this.showDropMenuOnMaxWidth();
-        window.addEventListener('resize', this.showDropMenuOnMaxWidth);
+        // this.showDropMenuOnMaxWidth();
+        // window.addEventListener('resize', this.showDropMenuOnMaxWidth);
         this.mheader();
     },
     beforeDestroy() {

@@ -1,41 +1,50 @@
 <template>
-    <div class="subpage">
-        <div class="subpage-header">
-            OK로지웰은 전국 어디든 고객맞춤 서비스를 제공합니다.
-        </div>
-
-        <div class="subpage-container delivery_done">
-
-            <div class="onepage-wrap row-group">
-                <div class="section-title-wrap center row-group">
-                    <h3 class="section-title gr">
-                        회원가입이 완료되었습니다.
-                    </h3>
-                    <p class="section-subtitle">
-                        감사합니다
-                    </p>
-                </div>
-
-                <div class="subpage-btn-wrap col-group">
-                    <nuxt-link to="/login" class="subpage-btn white-orange">
-                        로그인하기
-                    </nuxt-link>
-                    <nuxt-link to="/" class="subpage-btn orange">
-                        메인으로
-                    </nuxt-link>
+    <section>
+        <div class="container">
+            <div class="sub-box">
+                <div class="sub-right-box">
+                    <div class="inner-box lg">
+                        <div class="title-box">
+                            <h2 class="flex-tc tc col-12">회원가입</h2>
+                            <p class="mt13 mt-lg-10 col-12 tc">ESGi를 방문해주신 것을 환영합니다.</p>
+                        </div>
+                        <div class="step-box mt48 mt-lg-24">
+                            <ul>
+                                <li class="active">
+                                    <em>Step 1</em>
+                                    <div class="bar"></div>
+                                    <p>약관동의</p>
+                                </li>
+                                <li class="active">
+                                    <em>Step 2</em>
+                                    <div class="bar"></div>
+                                    <p>정보입력</p>
+                                </li>
+                                <li class="active">
+                                    <em>Step 3</em>
+                                    <div class="bar"></div>
+                                    <p>가입완료</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="result-box">
+                            <p class="tc">로그인 후 서비스를 이용해주세요.</p>
+                        </div>
+                        <div class="button-box mt40">
+                            <div class="w400 flex-lg-1">
+                                <nuxt-link to="/login" class="btn btn-skyblue bdr4 lg">로그인</nuxt-link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-
-    </div>
-
+    </section>
 </template>
 
 <script>
 import Form from "../../utils/Form";
 export default {
-    layout: "empty",
     data(){
         return {
             form : new Form(this.$axios, {

@@ -9,7 +9,6 @@
                 <table>
                     <thead>
                     <tr>
-                        <th></th>
                         <th>업체명</th>
                         <th>초대자</th>
                         <th>초대일자</th>
@@ -18,29 +17,27 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in items.data" :key="item.id">
-                        <td><input type="checkbox" name="check" id="check"></td>
                         <td>{{ item.company.title }}</td>
-                        <td>이민호</td>
-                        <td>2024.00.00</td>
-                            <td v-show="item.state==='WAIT'"><a style="color:#4A51FF; padding-right:3px;" @click.prevent="accepted">수락</a>|<a style="color:#F61212; padding-left:3px;" @click.prevent="denied">거절</a></td>
-                            <td v-show="item.state==='ACCEPT'">{{ item.format_state }}</td>
-                            <td v-show="item.state==='DENY'">{{ item.format_state }}</td>
+                        <td>{{ item.user.name }}</td>
+                        <td>{{ item.format_created_at }}</td>
+
+                        <td v-if="item.state==='WAIT'" style="display:flex; align-items: center; justify-content: center; gap:8px;">
+                            <a style="color:#4A51FF; padding-right:3px;" @click.prevent="accept(item)">수락</a>
+                            <span class="hyphen" style="color:#999; font-size:12px;">|</span>
+                            <a style="color:#F61212; padding-left:3px;" @click.prevent="deny(item)">거절</a>
+                        </td>
+                        <td v-else>{{ item.format_state }}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <empty v-if="items.data.length === 0" />
+            <empty v-if="items.data.length === 0"/>
 
-            <div class="paging-box">
-                <ul>
-                    <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
-                </ul>
-            </div>
+            <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}"/>
+
         </div>
-        <pop-invitation :isInvite="isInvite" v-show="isInvite"/>
     </div>
-
 
 
 </template>
@@ -55,10 +52,8 @@ export default {
     middleware: ["user"],
 
     layout: "mypage",
-    data(){
+    data() {
         return {
-            isInvite:false,
-            isChecked:false,
             form: new Form(this.$axios, {
                 page: 1,
             }),
@@ -67,48 +62,52 @@ export default {
                 data: [],
                 meta: {
                     current_page: 1,
-                    last_page: 10,
+                    last_page: 1,
                 }
             },
-            ids:[],
-
         }
 
     },
 
     methods: {
-        filter(){
+        filter() {
             this.$axios.get("/api/invitations", {
                 prams: this.form.data(),
             }).then(response => {
-
-                console.log(response.data);
                 this.items = response.data;
             });
         },
-        accepted(){
-           this.items.data.state = 'ACCEPT';
-            // this.form.patch("/api/invitations/accept/{id}")
-            //         .then(response => {
-            //
-            //         });
+        accept(item) {
+            this.form.patch("/api/invitations/accept/" + item.id)
+                .then(response => {
+                    this.items.data = this.items.data.map(itemData => {
+                        if(itemData.id == item.id)
+                            return response.data;
+
+                        return itemData;
+                    });
+
+                    this.$auth.fetchUser();
+                });
         },
-        denied(){
-            this.items.data.state = 'DENY';
-            // this.form.patch("/api/invitations/deny/{this.items.id}")
-            //         .then(response => {
-            //
-            //         });
+        deny(item) {
+            this.$store.commit("setLoading", true);
+
+            this.form.patch("/api/invitations/deny/" + item.id)
+                    .then(response => {
+                        this.items.data = this.items.data.map(itemData => {
+                            if(itemData.id == item.id)
+                                return response.data;
+
+                            return itemData;
+                        })
+                    });
         }
     },
 
-    computed: {
+    computed: {},
 
-    },
-
-    watch: {
-
-    },
+    watch: {},
 
     mounted() {
         this.filter();

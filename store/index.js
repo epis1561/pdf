@@ -5,6 +5,7 @@ export const state = () => ({
     intendedUrl: "",
     price: null,
 
+
     instagram_client_id: "1662125527296137",
     instagram_client_secret: "bc1ff483f107b2f837e5555a940a54b7",
     push_token: null,
@@ -25,7 +26,10 @@ export const state = () => ({
     coords: {
         lat: "37.5179681611717",
         lon: "127.047059839521",
-    }
+    },
+
+    viewIntro: false,
+
 })
 
 export const mutations = {
@@ -66,6 +70,10 @@ export const mutations = {
 
     setCategories(state, data){
         state.categories = data;
+    },
+
+    setViewIntro(state, data) {
+        state.viewIntro = data;
     },
 
 }

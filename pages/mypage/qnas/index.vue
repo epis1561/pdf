@@ -33,7 +33,7 @@ export default {
                 data: [],
                 meta: {
                     current_page:1,
-                    last_page:10,
+                    last_page:1,
                 }
 
             },

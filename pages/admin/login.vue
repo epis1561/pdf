@@ -74,6 +74,14 @@ export default {
             this.$auth.loginWith('laravelSanctum', {
                 data: this.form.data(),
             }).then(response => {
+                if(this.$store.state.intendedUrl){
+                    let url = this.$store.state.intendedUrl;
+
+                    this.$store.commit("setIntendedUrl", null);
+
+                    return this.$router.push(url);
+                }
+
                 if(this.$auth.user.data.type === "AGENCY_ADMIN")
                     return this.$router.push("/admin/investgator/campaigns");
 

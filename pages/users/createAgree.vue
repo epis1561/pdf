@@ -2,70 +2,6 @@
     <section>
         <div class="container">
             <div class="sub-box">
-                <div class="sub-left-box is-m">
-                    <div class="sub-left-head">
-                        <img src="/asset/images/logo.png">
-                        <a href="javascript:;" class="close" onclick="menuClose();">닫기</a>
-                    </div>
-                    <div class="sub-left-body">
-                        <div class="sub-left-main">
-                            <ul>
-                                <li><a href="">COMPANY</a></li>
-                                <li><a href="">SERVICES</a></li>
-                                <li><a href="">PORTFOLIO</a></li>
-                                <li><a href="">INSIGHTS</a></li>
-                                <li><a href="">CONTACT</a></li>
-                            </ul>
-                        </div>
-                        <div class="sub-left-category">
-                            <ul>
-                                <li class="cate04"><a href=""><p>평가 안내</p></a></li>
-                                <li class="cate05 active"><a href=""><p>기본 정보</p></a></li>
-                                <li class="cate06">
-                                    <button type="button"><p>답변 작성</p></button>
-                                    <div>
-                                        <ul>
-                                            <li>
-                                                <button type="button" data-type="depth">
-                                                    <p><b>A</b>윤리</p>
-                                                    <div class="graph">
-                                                        <em>100%</em>
-                                                        <div><span style="width:100%;"></span></div>
-                                                    </div>
-                                                </button>
-                                                <ul>
-                                                    <li><a href="">A1 . 일반</a></li>
-                                                    <li class="active"><a href="">A2 . 투명경영 및 반부패, 이해상충 방지</a></li>
-                                                    <li><a href="">A3 . 불공정 거래 방지</a></li>
-                                                    <li><a href="">A4 . 위조부품 방지</a></li>
-                                                    <li><a href="">A6 . 정보보호</a></li>
-                                                    <li><a href="">A6 . 정보보호</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <button type="button" data-type="depth">
-                                                    <p><b>E</b>환경</p>
-                                                    <div class="graph">
-                                                        <em>76%</em>
-                                                        <div><span style="width:76%;"></span></div>
-                                                    </div>
-                                                </button>
-                                                <ul>
-                                                    <li><a href="">E1 . 환경경영시스템 구축</a></li>
-                                                    <li><a href="">E2 . 에너지 사용 및 온실가스 배출량 관리</a></li>
-                                                    <li><a href="">E3 . 수자원 관리</a></li>
-                                                    <li><a href="">E4 . 대기오염물질 관리</a></li>
-                                                    <li><a href="">E5 . 폐기물 관리</a></li>
-                                                    <li><a href="">E6 . 화학물질 관리</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 <div class="sub-right-box">
                     <div class="inner-box lg">
                         <div class="title-box">
@@ -184,15 +120,15 @@ export default {
     },
 
     methods: {
-
          isChecked(){
              this.agree1 = !this.agree1;
              this.agree2 = !this.agree2;
              $('input[type="checkbox"]').prop('checked', this.agree1 && this.agree2);
          },
+
         alert() {
-            if (this.agree1 == true && this.agree2 == true) {
-                this.$router.push("/users/create");
+            if (this.agree1 && this.agree2) {
+                this.$router.push("/users/create?category=" + this.$route.query.category);
             } else {
                 alert("필수약관에 동의해주세요.");
             }

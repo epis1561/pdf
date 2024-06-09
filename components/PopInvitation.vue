@@ -1,6 +1,6 @@
 
 <template>
-    <div class="m-pop type01">
+    <div class="m-pop type01 m-pop-invitation">
         <section class="m-pop-inner">
             <div class="container">
                 <div class="sub-box">
@@ -15,12 +15,12 @@
                                         <div class="write-content">
                                             <div class="content-group">
                                                 <div class="group-title">
-                                                    <h3>직원 이메일</h3>
+                                                    <h3>직원 아이디</h3>
                                                 </div>
                                                 <div class="group-content">
                                                     <div class="input-box">
-                                                        <input type="text" placeholder="초대하실 직원의 이메일을 입력해주세요.">
-                                                        <a href="" class="btn gray">초대하기</a>
+                                                        <input type="text" placeholder="초대하실 직원의 아이디를 입력해주세요." v-model="form.ids">
+                                                        <a href="#" class="btn gray" @click="store">초대하기</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -28,38 +28,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="mypage-table-box">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>부서</th>
-                                        <th>직급</th>
-                                        <th>이름</th>
-                                        <th>이메일</th>
-                                        <th>등록일자</th>
-                                        <th>관리</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>마케팅 팀</td>
-                                        <td>정직원</td>
-                                        <td>김철수</td>
-                                        <td>esgi1234@gmail.com</td>
-                                        <td>2024.05.31</td>
-                                        <td><a href="" class="select">선택</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>마케팅 팀</td>
-                                        <td>정직원</td>
-                                        <td>김철수</td>
-                                        <td>esgi1234@gmail.com</td>
-                                        <td>2024.05.31</td>
-                                        <td><a href="" class="select">선택</a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
                             <div class="button-box mt40">
                                 <div class="w400 flex-lg-1 mr24 mr-lg-10">
                                     <a href="" class="btn btn-lightgray bdr4 lg" @click.prevent="close">취소</a>
@@ -81,12 +50,28 @@ export default {
     data(){
         return {
 
+            form: new Form(this.$axios, {
+                ids: "",
+            }),
         }
     },
 
     methods: {
         close() {
             this.$emit('close');
+        },
+
+        store(){
+            this.$store.commit("setLoading", true);
+
+            this.form.post("/api/invitations")
+                    .then(response => {
+                        this.$store.commit("setPop", {
+                            description: "초대가 완료되었습니다."
+                        });
+
+                        this.close();
+                    })
         }
     },
 
