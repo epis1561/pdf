@@ -8,9 +8,10 @@
         </div>
         <div class="board-faq-box">
             <ul>
-               <mypageqna :item="item" v-for="item in items.data" :key="item.id"></mypageqna>
+               <mypage-qna :item="item" v-for="item in items.data" :key="item.id" />
             </ul>
         </div>
+
         <empty v-if="items.data.length === 0" />
 
         <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
