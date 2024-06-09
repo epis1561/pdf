@@ -132,6 +132,10 @@ export default {
 
     watch: {
         '$route'(to, from) {
+            $('header .header-top .header-top-category ul li.menu_close').hide();
+            $('.mobile').css('height', 'auto');
+            $('.drop_menu').hide();
+            $('header .header-top .header-top-category ul li.menu').show();
         }
     },
 

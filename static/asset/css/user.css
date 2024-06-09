@@ -1582,3 +1582,11 @@ footer .footer-info .footer-info-text ul li span:after {height:10px; margin:0 10
 .main-box .main-board ul li h2:after {width:24px; height:24px; margin:15px 0 0;}
 .main-box .main-board ul li img {margin:25px 0 0;}
 }
+
+#wrapper > section {
+    min-height:calc(100vh - 300px);
+}
+
+@media screen and (max-width:991px) {
+    min-height: calc(100vh - 283px);
+}
