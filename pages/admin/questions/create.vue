@@ -280,7 +280,7 @@
                                                 <div class="list-content flex flex-vc">
                                                     <b class="mr24">{{index + 1}}.</b>
                                                     <div class="input-box no-border flex-1">
-                                                        <input type="text" class="f18" placeholder="라벨 제목(before)을 입력해주세요." v-model="form.options[index].label_before">
+                                                        <input type="text" class="f18" placeholder="제목을 입력해주세요." v-model="form.options[index].label_before">
 
                                                         <error :form="form" :name="`options.${index}.label_before`" />
                                                     </div>
@@ -289,7 +289,7 @@
                                             <li>
                                                 <div class="list-content">
                                                     <div class="input-box no-border">
-                                                        <input type="text" class="f18" placeholder="라벨 제목(after)을 입력해주세요." v-model="form.options[index].label_after">
+                                                        <input type="text" class="f18" placeholder="단위를 입력해주세요." v-model="form.options[index].label_after">
 
                                                         <button type="button" class="red" style="color:red;" @click.prevent="removeOption(index)">삭제</button>
 

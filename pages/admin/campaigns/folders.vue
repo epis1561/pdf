@@ -33,7 +33,7 @@
                                             <button class="btn-toggle" @click.prevent="toggle(item);">
 
                                             </button>
-                                            <p  @click.prevent="toggleFolder(item)" :class="targetFolder && targetFolder.id == item.id ? 'active' : ''">{{index}}. {{item.title}}</p>
+                                            <p  @click.prevent="toggleFolder(item)" :class="targetFolder && targetFolder.id == item.id ? 'active' : ''">{{item.title}}</p>
                                         </a>
                                         <dl v-if="item.folders && activeIds.includes(item.id)">
                                             <dd :class="activeIds.includes(subItem.id) ? '' : ''" v-for="(subItem, subItemIndex) in item.folders" :key="subItem.id">
