@@ -535,3 +535,7 @@ header .header-top {
 .m-pop-invitation .m-pop-inner {
     width:800px !important;
 }
+
+.check-write-box > ul > li .write-right > dl > dd .write-head {
+    padding:0 !important;
+}

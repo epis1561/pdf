@@ -8,15 +8,6 @@
                         <a href="javascript:;" class="close" onclick="menuClose();">닫기</a>
                     </div>
                     <div class="sub-left-body">
-                        <div class="sub-left-main">
-                            <ul>
-                                <li><a href="">COMPANY</a></li>
-                                <li><a href="">SERVICES</a></li>
-                                <li><a href="">PORTFOLIO</a></li>
-                                <li><a href="">INSIGHTS</a></li>
-                                <li><a href="">CONTACT</a></li>
-                            </ul>
-                        </div>
                         <div class="sub-left-category">
                             <ul>
                                 <li :class="`cate04 ${tabClass(1)}`"><a href="#" @click.prevent="changeStep(1)"><p>평가 안내</p></a></li>
@@ -128,7 +119,7 @@
                                     <dl>
                                         <dd>
                                             <div class="write-head">
-                                                <strong>{{ folderQuestion.question.title }}</strong>
+<!--                                                <strong>{{ folderQuestion.question.title }}</strong>-->
                                             </div>
 
                                             <folder-question :survey="survey" :folder-question-index="folderQuestionIndex" :folder-question="folderQuestion" :form="answersForm" />
