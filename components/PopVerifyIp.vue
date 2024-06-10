@@ -1,6 +1,6 @@
 
 <template>
-    <div class="m-pop type01 m-pop-invitation">
+    <div class="m-pop type01 m-pop-verify">
         <div class="m-pop-inner">
             <div class="container">
                 <div class="sub-box">
@@ -53,10 +53,10 @@
                             </div>
 
                             <div class="button-box mt40">
-                                <div class="w200 flex-lg-1 mr24 mr-lg-10">
+                                <div class="w200 flex-lg-1 mr24 mr-lg-10" style="display: flex; justify-content: center;">
                                     <a href="" class="btn btn-lightgray bdr4 lg" @click.prevent="close">취소</a>
                                 </div>
-                                <div class="w200 flex-lg-1 mr24 mr-lg-10">
+                                <div class="w200 flex-lg-1 mr24 mr-lg-10" style="display: flex; justify-content: center;">
                                     <a href="" class="btn btn-blue bdr4 lg" @click.prevent="store" v-if="mode === 'beforeSend'">인증번호 발송</a>
                                     <a href="" class="btn btn-blue bdr4 lg" @click.prevent="update" v-else>인증하기</a>
                                 </div>
@@ -71,10 +71,16 @@
     </div>
 </template>
 <style>
-.m-pop-invitation .m-pop-inner {
+.m-pop-verify .m-pop-inner {
     padding:60px 40px;
     background-color:#fff;
-
+}
+.m-pop-verify .content-group {
+    margin-top:20px;
+}
+.m-pop-verify .group-title h3 {
+    margin-bottom:8px;
+    font-size:18px; font-weight:bold;
 }
 </style>
 <script>
