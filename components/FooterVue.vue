@@ -19,7 +19,7 @@
                         </li>
                         <li>
                             <span>Tel. 02-6334-6609~10</span>
-                            <span>E-Mail. skyong@Grc.Or.Kr</span>
+                            <span>E-Mail. skyong@grc.or.kr</span>
                         </li>
                         <li>
                             <span>Add. (08504) 서울특별시 금천구 서부샛길 606. B동 2208호</span>

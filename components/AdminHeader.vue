@@ -49,6 +49,7 @@
                         <i class="xi-minus active"></i>
                     </a>
                     <dl>
+                        <dd><nuxt-link to="/admin/emails">이메일</nuxt-link></dd>
                         <dd><a href="javascript:;">서버로그</a></dd>
                         <dd><a href="javascript:;">메모리 현황</a></dd>
                     </dl>
