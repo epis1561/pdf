@@ -114,7 +114,7 @@ label {
     word-break: keep-all;
 }
 .print-view-box .view-body .view-body-list > ul > li .view-list-tit div b {
-    font-size:16px !important;
+    font-size:14px !important; line-height:20px;
     word-break:keep-all;
 }
 .print-issue-box > ul > li > dl > dd {
