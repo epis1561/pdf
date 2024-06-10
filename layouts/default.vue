@@ -2,6 +2,8 @@
     <div id="wrapper">
         <loading v-if="$store.state.loading" />
 
+        <pop-verify-ip v-if="$store.state.activePopVerifyIp" />
+
         <pops />
 
         <pop />

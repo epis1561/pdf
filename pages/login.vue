@@ -100,6 +100,10 @@ export default {
                 this.$router.push("/");
             }).catch(error => {
                 this.form.onFail(error.response.data);
+
+                if(error.response.data && error.response.data.status_code == 403){
+                    this.$store.commit("setActivePopVerifyIp", true);
+                }
             });
 
             /*this.$axios.get('/sanctum/csrf-cookie').then(response => {

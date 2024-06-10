@@ -29,7 +29,7 @@ export const state = () => ({
     },
 
     viewIntro: false,
-
+    activePopVerifyIp: false,
 })
 
 export const mutations = {
@@ -75,6 +75,10 @@ export const mutations = {
     setViewIntro(state, data) {
         state.viewIntro = data;
     },
+
+    setActivePopVerifyIp(state, data){
+        state.activePopVerifyIp = data;
+    }
 
 }
 

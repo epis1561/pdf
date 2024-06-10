@@ -147,6 +147,8 @@ export default {
                 params: this.form.data()
             }).then(response => {
                 this.items = response.data;
+            }).catch(error => {
+                console.log(error);
             });
         },
 
