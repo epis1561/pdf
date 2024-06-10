@@ -401,7 +401,7 @@ export default {
         storeAnswers(needNext = true, onSuccess = () => {}){
             if(!this.checkValidation()) {
                 return this.$store.commit("setPop", {
-                    description: "입력 내용을 롹인해주세요."
+                    description: "입력 내용을 확인해주세요."
                 });
             }
 
