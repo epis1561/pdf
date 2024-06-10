@@ -2,6 +2,7 @@
     <div>
         <pop />
         <loading v-if="$store.state.loading"/>
+        <pop-verify-ip v-if="$store.state.activePopVerifyIp" />
 
         <Nuxt />
     </div>

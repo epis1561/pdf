@@ -2,6 +2,8 @@
     <div class="dashboard-box">
         <loading v-if="$store.state.loading"/>
 
+        <pop-verify-ip v-if="$store.state.activePopVerifyIp" />
+
         <pop />
 
         <provider-sidebar />
