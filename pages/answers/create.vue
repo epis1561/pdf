@@ -598,6 +598,8 @@ export default {
                         this.answersForm.answers.push(answer);
                     })
                 }
+
+                window.scrollTo(0, 0);
             }
         }
     },

@@ -617,8 +617,10 @@ export default {
                     newFolder.folderQuestions.map(folderQuestion => {
                         this.setForm("answersForm", folderQuestion);
                         this.setForm("investForm", folderQuestion);
-                    })
+                    });
                 }
+
+                window.scrollTo(0, 0);
             }
         }
     },
