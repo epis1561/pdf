@@ -82,6 +82,9 @@
     margin-bottom:8px;
     font-size:18px; font-weight:bold;
 }
+.m-pop-verify .button-box .btn {
+    width: 100%;
+}
 </style>
 <script>
 import Form from "../utils/Form";

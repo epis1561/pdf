@@ -110,6 +110,8 @@ export default {
 
     methods: {
         sendVerify(){
+            this.$store.commit("setLoading", true);
+
             this.form.post("/api/verifyNumbers")
                 .then(response => {
                     this.mode = "afterSend";
@@ -121,7 +123,7 @@ export default {
 
                     this.$store.commit("setPop", {
                         title: "발송완료",
-                        description: `인증번호 테스트 : ` + response.data.number
+                        description: "인증번호가 발송되었습니다."
                     });
                 });
         },
