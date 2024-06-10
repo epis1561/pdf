@@ -9,7 +9,7 @@
                     <ul>
                         <li><nuxt-link to="/contents/solution">ESGI</nuxt-link></li>
                         <li><nuxt-link to="/campaigns">ESG</nuxt-link></li>
-                        <li><nuxt-link to="/contents/resk">리스크관리</nuxt-link></li>
+                        <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
                         <li><nuxt-link to="/notices">고객센터</nuxt-link></li>
                         <li class="menu" @click="isDropMenuVisible = true"></li>
                         <li class="menu_close" @click="isDropMenuVisible = false"> <i class="xi-close"></i></li>

@@ -20,7 +20,7 @@
                     <div class="menu-list-box" style="height:700px;">
                         <ul>
                             <li :class="activeAll ? 'active' : ''">
-                                <a href="#" class="depth" @click.prevent="">
+                                <a href="#" class="depth" @click.prevent="form.sub">
                                     <button class="btn-toggle" @click.prevent="activeAll = !activeAll;">
 
                                     </button>
@@ -604,7 +604,7 @@ export default {
                 campaign_id: this.$route.query.campaign_id,
 
                 title:"",
-                use:"",
+                use:1,
                 basic: this.$route.query.basic,
 
                 description: "",

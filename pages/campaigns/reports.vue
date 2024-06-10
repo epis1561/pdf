@@ -899,7 +899,7 @@
                                                         <div class="view-list-cont">
                                                             <dl>
                                                                 <dd>
-                                                                    <b>실사 의견</b>
+                                                                    <b>주요 확인 내용</b>
                                                                     <p>{{answer.comment_invest}}</p>
                                                                 </dd>
                                                                 <!--<dd>
@@ -907,7 +907,7 @@
                                                                     <p>인적자원 관련 인증서</p>
                                                                 </dd>-->
                                                                 <dd>
-                                                                    <b>개선 의견</b>
+                                                                    <b>확인 근거자료</b>
                                                                     <p>{{answer.comment_improve}}</p>
                                                                 </dd>
                                                             </dl>
@@ -1197,7 +1197,7 @@
                                                         <div class="view-list-cont">
                                                             <dl>
                                                                 <dd>
-                                                                    <b>실사 의견</b>
+                                                                    <b>주요 확인 내용</b>
                                                                     <p>{{answer.comment_invest}}</p>
                                                                 </dd>
                                                                 <!--<dd>
@@ -1205,7 +1205,7 @@
                                                                     <p>인적자원 관련 인증서</p>
                                                                 </dd>-->
                                                                 <dd>
-                                                                    <b>개선 의견</b>
+                                                                    <b>확인 근거자료</b>
                                                                     <p>{{answer.comment_improve}}</p>
                                                                 </dd>
                                                             </dl>
@@ -1496,7 +1496,7 @@
                                                         <div class="view-list-cont">
                                                             <dl>
                                                                 <dd>
-                                                                    <b>실사 의견</b>
+                                                                    <b>주요 확인 내용</b>
                                                                     <p>{{answer.comment_invest}}</p>
                                                                 </dd>
                                                                 <!--<dd>
@@ -1504,7 +1504,7 @@
                                                                     <p>인적자원 관련 인증서</p>
                                                                 </dd>-->
                                                                 <dd>
-                                                                    <b>개선 의견</b>
+                                                                    <b>확인 근거자료</b>
                                                                     <p>{{answer.comment_improve}}</p>
                                                                 </dd>
                                                             </dl>
@@ -1794,7 +1794,7 @@
                                                         <div class="view-list-cont">
                                                             <dl>
                                                                 <dd>
-                                                                    <b>실사 의견</b>
+                                                                    <b>주요 확인 내용</b>
                                                                     <p>{{answer.comment_invest}}</p>
                                                                 </dd>
                                                                 <!--<dd>
@@ -1802,7 +1802,7 @@
                                                                     <p>인적자원 관련 인증서</p>
                                                                 </dd>-->
                                                                 <dd>
-                                                                    <b>개선 의견</b>
+                                                                    <b>확인 근거자료</b>
                                                                     <p>{{answer.comment_improve}}</p>
                                                                 </dd>
                                                             </dl>

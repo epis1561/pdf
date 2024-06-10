@@ -190,7 +190,7 @@
                                         <template v-if="survey.invest_at">
                                             <li>
                                                 <div class="write-head">
-                                                    <strong>실사(현장)진단 사항</strong>
+                                                    <strong>주요 확인 내용</strong>
                                                 </div>
                                                 <div class="write-body">
                                                     <p v-text="investForm.answers[folderQuestionIndex].comment_invest || '-'" style="white-space: pre-line"></p>
@@ -198,7 +198,7 @@
                                             </li>
                                             <li>
                                                 <div class="write-head">
-                                                    <strong>개선진단 사항</strong>
+                                                    <strong>확인 근거자료</strong>
                                                 </div>
                                                 <div class="write-body">
                                                     <textarea placeholder="내용을 입력해주세요." v-model="investForm.answers[folderQuestionIndex].comment_improve"></textarea>
@@ -208,7 +208,7 @@
 
                                         <li v-else>
                                             <div class="write-head">
-                                                <strong>실사(현장)진단 사항</strong>
+                                                <strong>주요 확인 내용</strong>
                                             </div>
                                             <div class="write-body">
                                                 <textarea placeholder="내용을 입력해주세요." v-model="investForm.answers[folderQuestionIndex].comment_invest"></textarea>
@@ -453,7 +453,7 @@ export default {
 
             if(notInvestFolder)
                 return this.$store.commit("setPop", {
-                    description: `${notInvestFolder.title}의 실사의견 작성을 완료해주세요.`
+                    description: `${notInvestFolder.title}의 견실사의견 작성을 완료해주세요.`
                 });
 
             this.$store.commit("setLoading", true);
