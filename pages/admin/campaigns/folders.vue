@@ -858,6 +858,7 @@ export default {
             this.$axios.get("/api/admin/questions" , {
                 params: this.textGroupQuestionForm.data()
             }).then(response => {
+                console.log(response.data);
                 this.textGroupQuestions = response.data;
             });
         },
