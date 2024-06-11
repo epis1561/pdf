@@ -626,6 +626,15 @@ export default {
                 }
             },
 
+            textQuestions: {
+                data: [],
+                meta: {
+                    current_page:1,
+                    last_page:1,
+                    total: 0,
+                }
+            },
+
             types: {
                 data: [],
             },
@@ -635,6 +644,11 @@ export default {
                 word: "",
                 type: "",
 
+            }),
+
+            textGroupQuestionForm: new Form(this.$axios, {
+                type: "TEXTGROUP",
+                page: 1,
             }),
 
             campaignsForm: new Form(this.$axios, {
@@ -838,6 +852,16 @@ export default {
             });
         },
 
+        getTextGroupQuestions(){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/admin/questions" , {
+                params: this.textGroupQuestionForm.data()
+            }).then(response => {
+                this.textGroupQuestions = response.data;
+            });
+        },
+
         getTypes(){
             this.$axios.get("/api/admin/questions/types")
                     .then(response => {
@@ -886,6 +910,13 @@ export default {
 
     computed: {
         filteredQuestions(){
+            if(this.$route.query.basic == 1){
+                return this.questions.data.filter(question => {
+                    if(this.form.questions.find(questionData => questionData.id == question.id))
+                        return false;
+                });
+            }
+
             return this.questions.data.filter(question => {
                 if(this.form.questions.find(questionData => questionData.id == question.id))
                    return false;
@@ -912,6 +943,8 @@ export default {
         this.getTypes();
 
         this.getQuestions();
+
+        this.getTextGroupQuestions();
 
         this.getCampaign();
 
