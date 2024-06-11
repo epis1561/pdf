@@ -140,7 +140,7 @@ export default {
 
         start(campaign){
             if(campaign.survey)
-                return this.$router.push(`/answers/create?survey_id=${campaign.survey.id}&campaign_id=${campaign.id}`);
+                return location.href=`/answers/create?survey_id=${campaign.survey.id}&campaign_id=${campaign.id}`;
 
             this.form.campaign_id = campaign.id;
 
@@ -148,7 +148,7 @@ export default {
 
             this.form.post("/api/surveys")
                 .then(response => {
-                    this.$router.push(`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`);
+                    location.href=`/answers/create?survey_id=${response.data.id}&campaign_id=${campaign.id}`;
                 })
         },
     },
