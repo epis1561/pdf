@@ -911,7 +911,7 @@ export default {
     computed: {
         filteredQuestions(){
             if(this.$route.query.basic == 1){
-                return this.questions.data.filter(question => {
+                return this.textQuestions.data.filter(question => {
                     if(this.form.questions.find(questionData => questionData.id == question.id))
                         return false;
                 });
