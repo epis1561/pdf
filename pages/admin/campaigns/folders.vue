@@ -626,7 +626,7 @@ export default {
                 }
             },
 
-            textQuestions: {
+            textGroupQuestions: {
                 data: [],
                 meta: {
                     current_page:1,
@@ -911,7 +911,7 @@ export default {
     computed: {
         filteredQuestions(){
             if(this.$route.query.basic == 1){
-                return this.textQuestions.data.filter(question => {
+                return this.textGroupQuestions.data.filter(question => {
                     if(this.form.questions.find(questionData => questionData.id == question.id))
                         return false;
                 });
