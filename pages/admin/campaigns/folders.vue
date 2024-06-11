@@ -626,15 +626,6 @@ export default {
                 }
             },
 
-            textGroupQuestions: {
-                data: [],
-                meta: {
-                    current_page:1,
-                    last_page:1,
-                    total: 0,
-                }
-            },
-
             types: {
                 data: [],
             },
@@ -642,13 +633,8 @@ export default {
             questionsForm: new Form(this.$axios, {
                 column: "label_search",
                 word: "",
-                type: "",
+                type: this.$route.query.basic == 1 ? 'TEXTGROUP' : '',
 
-            }),
-
-            textGroupQuestionForm: new Form(this.$axios, {
-                type: "TEXTGROUP",
-                page: 1,
             }),
 
             campaignsForm: new Form(this.$axios, {
@@ -852,17 +838,6 @@ export default {
             });
         },
 
-        getTextGroupQuestions(){
-            this.$store.commit("setLoading", true);
-
-            this.$axios.get("/api/admin/questions" , {
-                params: this.textGroupQuestionForm.data()
-            }).then(response => {
-                console.log(response.data);
-                this.textGroupQuestions = response.data;
-            });
-        },
-
         getTypes(){
             this.$axios.get("/api/admin/questions/types")
                     .then(response => {
@@ -911,13 +886,6 @@ export default {
 
     computed: {
         filteredQuestions(){
-            if(this.$route.query.basic == 1){
-                return this.textGroupQuestions.data.filter(question => {
-                    if(this.form.questions.find(questionData => questionData.id == question.id))
-                        return false;
-                });
-            }
-
             return this.questions.data.filter(question => {
                 if(this.form.questions.find(questionData => questionData.id == question.id))
                    return false;
@@ -944,8 +912,6 @@ export default {
         this.getTypes();
 
         this.getQuestions();
-
-        this.getTextGroupQuestions();
 
         this.getCampaign();
 
