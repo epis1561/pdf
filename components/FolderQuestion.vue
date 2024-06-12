@@ -34,7 +34,7 @@
         <template v-if="folderQuestion.question.type === 'TEXTGROUP'">
             <div v-for="(folderQuestionOption, index) in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
                 <b>{{ folderQuestionOption.option.label_before }}</b>
-                <input ref="input" type="number" :placeholder="`내용을 입력해주세요.`" v-model="form.answers[folderQuestionIndex].value[index]">
+                <input ref="input" type="text" :placeholder="`내용을 입력해주세요.`" v-model="form.answers[folderQuestionIndex].value[index]">
                 <em>{{folderQuestionOption.option.label_after}}</em>
             </div>
         </template>
