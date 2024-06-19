@@ -191,14 +191,16 @@ label {
 .m-viewer.type01 {
     background-color:#232323;
 }
+.m-viewer.type01 .swiper-slide {
+    display: flex; height:100vh;
+    justify-content: center;
+    overflow-y:auto;
+}
 .m-viewer.type01 .swiper-slide .wrapper {
     padding-top:80px;
     background-color:#fff;
 }
-.m-viewer.type01 .swiper-slide {
-    display: flex; height:100vh;
-    justify-content: center; align-items: center;
-}
+
 .m-viewer.type01 .total-comment {
     width:339px; flex:0 0 auto !important;
 }
@@ -226,11 +228,6 @@ label {
 }
 .board-company-box > ul > li:hover {
     border-color:#1592E6;
-}
-@media screen and (max-height:1200px) {
-    .m-viewer.type01 .swiper-slide .wrapper {
-        transform:scale(0.65);
-    }
 }
 @media print {
     .m-viewer.type01 {
