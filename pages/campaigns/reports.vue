@@ -1929,7 +1929,7 @@
                 </div>
 
                 <div class="btns">
-                    <button class="btn btn-expand" @click.prevent="download">
+                    <button class="btn btn-download" @click.prevent="download">
                         <i class="xi-download"></i>
                     </button>
                     <button class="btn btn-expand">
