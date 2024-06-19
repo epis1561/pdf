@@ -84,6 +84,15 @@ export default {
                     .then(response => {
                         this.$store.commit("setBanners", response.data);
                     })
+        },
+
+        getDomains(){
+            this.$axios.get("/api/domains")
+                    .then(response => {
+                        this.$store.commit("setDomains", {
+                            data: response.data.data.filter(item => item.label !== 'CP')
+                        });
+                    });
         }
     },
 
@@ -91,6 +100,7 @@ export default {
         // this.$store.dispatch("getCoords");
         // this.getBasic();
         // this.getBanners();
+        this.getDomains();
     }
 }
 </script>

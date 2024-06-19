@@ -18,17 +18,30 @@
                                     <button type="button" @click.prevent="(e) => changeStep(3,e)"><p>답변 작성</p></button>
                                     <div>
                                         <ul>
-                                            <li :class="`folder folder${folder.id} ${activeFolder && activeFolder.folder_id == folder.id ? 'active' : ''}`" v-for="(folder, index) in folders.data.filter(folder => folder.basic == 0 && !folder.folder_id)" :key="folder.id">
-                                                <button type="button" data-type="depth">
-                                                    <p><b>{{index + 1}}</b>{{ folder.title }}</p>
-<!--                                                    <div class="graph">
-                                                        <em>{{folder.progress}}%</em>
-                                                        <div><span :style="`width:${folder.progress}%;`"></span></div>
-                                                    </div>-->
+                                            <li v-for="(domainFolder, index) in domainFolders" :key="index">
+                                                <button type="button" data-type="depth" @click.prevent="toggleFolder">
+                                                    <p><b>{{domainFolder.symbol}}. {{domainFolder.label}}</b></p>
+
+                                                    <div class="graph">
+                                                        <em :class="getDomainProgress(domainFolder.value) == 100 ? 'active' : ''">{{getDomainProgress(domainFolder.value)}}%</em>
+                                                        <!-- <div><span :style="`width:${folder.progress}%;`"></span></div> -->
+                                                    </div>
                                                 </button>
+
                                                 <ul>
-                                                    <li :class="activeFolder && activeFolder.id == subFolder.id ? `subFolder subFolder${subFolder.id} active` : `subFolder subFolder${subFolder.id}`" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
-                                                        <a href="#" @click.prevent="changeFolder(subFolder)">{{index+1}}.{{subFolderIndex + 1}}. {{ subFolder.title }}</a>
+                                                    <li :class="`folder folder${folder.id} ${activeFolder && activeFolder.folder_id == folder.id ? 'active' : ''}`" v-for="(folder, index) in domainFolder.folders" :key="folder.id">
+                                                        <button type="button" data-type="depth" @click.prevent.stop="">
+                                                            <p @click.prevent.stop=""><b>{{index + 1}}.</b> {{ folder.title }}</p>
+                                                            <div class="graph">
+                                                                <em :class="getProgress(folder) == 100 ? 'active' : ''">{{getProgress(folder)}}%</em>
+                                                                <!-- <div><span :style="`width:${folder.progress}%;`"></span></div> -->
+                                                            </div>
+                                                        </button>
+                                                        <ul>
+                                                            <li :class="activeFolder && activeFolder.id == subFolder.id ? `subFolder subFolder${subFolder.id} active` : `subFolder subFolder${subFolder.id}`" v-for="(subFolder, subFolderIndex) in folder.folders" :key="subFolder.id">
+                                                                <a href="#" @click.prevent="changeFolder(subFolder)">{{index+1}}.{{subFolderIndex + 1}}. {{ subFolder.title }}</a>
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -110,8 +123,8 @@
                                     <b>{{folderQuestionIndex < 10 ? "0" + (folderQuestionIndex + 1) : folderQuestionIndex}}</b>
                                     <div>
                                         <p>{{ folderQuestion.question.title }}</p>
-                                        <small>
-                                            <editor-content :description="folderQuestion.question.help" />
+                                        <small class="btn-help" @click.prevent="activeHelpQuestion = folderQuestion.question" v-if="folderQuestion.question.help">
+                                            <i class="xi-help-o"></i> 도움말
                                         </small>
                                     </div>
                                 </div>
@@ -139,8 +152,63 @@
                 </div>
             </div>
         </div>
+
+        <div :class="`m-help type01 ${activeHelpQuestion ? 'active' : ''}`">
+            <div class="m-help-header" v-if="activeHelpQuestion">
+                <h3 class="title">도움말</h3>
+
+                <button class="btn-close" @click="activeHelpQuestion = null">
+                    <i class="xi-close"></i>
+                </button>
+            </div>
+
+            <div class="m-help-contents">
+                <div class="m-help-contents-inner">
+                    <editor-content :description="activeHelpQuestion.help" v-if="activeHelpQuestion" />
+                </div>
+            </div>
+        </div>
     </section>
 </template>
+<style>
+.m-help.type01 {
+    width:300px; height:100%;
+    position: fixed; right:-350px; top:0;
+    background-color:#fff;
+    box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+    z-index:10000;
+    transition:all .3s;
+}
+.m-help.type01.active {
+    right:0;
+}
+.m-help.type01 .m-help-header {
+    display: flex; align-items: center; justify-content: space-between;
+    width:100%;
+    padding:16px 20px;
+    background-color:#1C70AE;
+}
+.m-help.type01 .m-help-header .title {
+    margin-right:16px;
+    font-size:16px; line-height:20px; color:#fff;
+    word-break: keep-all;
+}
+.m-help.type01 .m-help-header i {
+    color:#fff;
+}
+.m-help.type01 .m-help-contents {
+    padding:20px;
+}
+.m-help.type01 .m-help-contents p {
+    line-height:20px;
+}
+.m-help.type01 .m-help-contents-inner {
+    height:calc(100vh - 94px);
+    padding:10px;
+    border:1px solid #e1e1e1;
+    overflow-y:auto;
+}
+</style>
 <script>
 import Form from "@/utils/Form";
 export default {
@@ -184,6 +252,8 @@ export default {
             activeFolder: "",
 
             loading: true,
+
+            activeHelpQuestion: null,
         }
     },
 
@@ -262,8 +332,11 @@ export default {
         },
 
         getFolders(onSuccess = () => {}){
+            this.$store.commit("setLoading", true);
+
             this.$axios.get("/api/folders", {
                 params: {
+                    take: 200,
                     campaign_id: this.$route.query.campaign_id,
                     survey_id: this.$route.query.survey_id,
                 },
@@ -455,7 +528,6 @@ export default {
                     }
 
                     if(targetFolderQuestion.question.type === "CHECKBOX"){
-                        console.log(answer);
                         if(targetFolderQuestion.question.required == 1 && (!answer.folder_question_option_ids || answer.folder_question_option_ids.length === 0)){
                             problemFolderQuestion = targetFolderQuestion;
                             errors.push("필수항목문항에는 값을 반드시 입력해야합니다.");
@@ -502,8 +574,6 @@ export default {
                 this.problemFolderQuestions.push(errors);
             });
 
-
-            console.log(this.problemFolderQuestions);
             return validate;
         },
 
@@ -552,10 +622,72 @@ export default {
                     })
                 })
         },
+
+        getProgress(folder){
+            let total = 0;
+            let answer = 0;
+
+            folder.folders.map(folder => {
+                folder.folderQuestions.map(folderQuestion => {
+                    total++;
+
+                    if(folderQuestion.answer)
+                        answer++;
+                })
+            })
+
+            if(total === 0)
+                return 0;
+
+            return Math.floor(answer / total * 100);
+        },
+
+        getDomainProgress(domain){
+            let total = 0;
+            let answer = 0;
+
+            this.domainFolders[domain].folders.map(folder => {
+                folder.folders.map(subFolder => {
+                    subFolder.folderQuestions.map(folderQuestion => {
+                        total++;
+
+                        if(folderQuestion.answer)
+                            answer++;
+                    })
+                })
+            });
+
+            if(total === 0)
+                return 0;
+
+            return Math.floor(answer / total * 100);
+        },
+
+        toggleFolder(e){
+            $(e.target).closest("li").toggleClass("active");
+        }
     },
 
     computed: {
+        domainFolders(){
+            let items = {};
 
+            this.$store.state.domains.data.map(domain => {
+                items[domain.value] = {
+                    folders: [],
+                    label: domain.label,
+                    value: domain.value,
+                    symbol: domain.symbol,
+                };
+            });
+
+            this.folders.data.map(folder => {
+                if(folder.domain && folder.basic == 0)
+                    items[folder.domain].folders.push(folder);
+            })
+
+            return items;
+        }
     },
 
     watch: {

@@ -187,9 +187,9 @@ html , body {overflow-x:auto; min-width:1300px;}
     border-top:2px solid black;
 }
 .write-box ul li .list-content {flex:1; min-width:0;}
-.write-box ul li .list-content p {font-size:18px; color:#A8A8A8;}
+.write-box ul li .list-content p {font-size:16px; color:#A8A8A8;}
 .write-box ul li .list-content p.active {color:#021D42;}
-.write-box ul li .list-content b {font-size:18px; font-weight:500;}
+.write-box ul li .list-content b {font-size:16px; font-weight:500;}
 .write-box ul li .list-content a.link {font-size:16px; font-weight:bold; color:#5DBBBB; margin-left:10px;}
 .write-box ul li .list-content a.write {font-size:18px; height:70px; font-weight:600; color:#2B9F97; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; background:rgba(43,159,151,0.08);}
 .write-box ul li .list-content a.write:before {display:inline-block; content:""; width:20px; height:20px; margin-right:8px; background:url('../images/icon_admin_list_add.png') no-repeat center / cover;}

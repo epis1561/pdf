@@ -7,6 +7,14 @@
 </template>
 <script>
 export default {
-    props: ["description"]
+    props: ["description"],
+
+    watch: {
+        description: {
+            handler(){
+
+            }
+        }
+    }
 }
 </script>

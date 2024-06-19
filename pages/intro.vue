@@ -8,6 +8,7 @@
                     <p>
                         ESGI, CP에 대한 전반적인 내용이 궁금하신가요?
                     </p>
+                    <p class="subtitle">홈페이지</p>
                     <span>바로가기</span>
                 </a>
             </li>
@@ -18,6 +19,7 @@
                     <p>
                         ESGI에 대한 내부 교육이 필요하신가요?
                     </p>
+                    <p class="subtitle">교육</p>
                     <span>바로가기</span>
                 </a>
             </li>
@@ -28,6 +30,7 @@
                     <p>
                         온라인 비대면 진단이 필요하신가요?
                     </p>
+                    <p class="subtitle">진단</p>
                     <span>바로가기</span>
                 </nuxt-link>
             </li>

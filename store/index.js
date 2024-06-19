@@ -4,8 +4,9 @@ export const state = () => ({
     modals: [],
     intendedUrl: "",
     price: null,
-
-
+    domains: {
+        data: [],
+    },
     instagram_client_id: "1662125527296137",
     instagram_client_secret: "bc1ff483f107b2f837e5555a940a54b7",
     push_token: null,
@@ -78,8 +79,11 @@ export const mutations = {
 
     setActivePopVerifyIp(state, data){
         state.activePopVerifyIp = data;
-    }
+    },
 
+    setDomains(state, data){
+        state.domains = data;
+    },
 }
 
 export const actions = {
