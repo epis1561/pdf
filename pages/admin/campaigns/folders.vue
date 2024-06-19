@@ -464,9 +464,9 @@
                     <div class="table-box mt25">
                         <table>
                             <colgroup>
+                                <col style="width:5%;">
                                 <col style="width:10%;">
-                                <col style="width:10%;">
-                                <col style="width:15%">
+                                <col style="width:20%">
                                 <col style="width:75%">
                             </colgroup>
                             <thead>
@@ -878,7 +878,12 @@ export default {
             this.$axios.get("/api/admin/folders/" , {
                 params: this.form.data()
             }).then(response => {
+                console.log(response.data);
+
                 this.items = response.data;
+
+                console.log("213");
+                console.log(this.items);
 
                 this.openAll();
             });
@@ -938,8 +943,9 @@ export default {
         store(){
             this.form.post("/api/admin/folders")
                     .then(response => {
-                        console.log(response);
                         this.$store.commit("setPop", {});
+
+                        this.form.reset();
 
                         this.getItems();
                     });
@@ -949,6 +955,8 @@ export default {
             this.form.delete("/api/admin/folders/" + this.form.id )
                     .then(response => {
                         this.$store.commit("setPop", {});
+
+                        this.form.reset();
 
                         this.getItems();
                     });

@@ -13,14 +13,14 @@
             <div class="line-box mt32"></div>
             <div class="mt16 flex flex-vc flex-tj">
                 <form class="flex flex-vc" @submit.prevent="filter">
-                    <div class="select-box mr10">
+<!--                    <div class="select-box mr10">
                         <select v-model="form.take" @change="() => {form.page=1; filter();}">
                             <option value="">목록 수</option>
                             <option value="10">10개</option>
                             <option value="50">50개</option>
                             <option value="100">100개</option>
                         </select>
-                    </div>
+                    </div>-->
 
 <!--                    <div class="select-box mr10">
                         <select v-model="form.active" @change="() => {form.page=1; filter();}">
@@ -49,13 +49,13 @@
                         </select>
                     </div>
 
-                    <div class="select-box mr10">
+<!--                    <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="">검색 조건</option>
                             <option value="label_search">검색용 라벨</option>
                             <option value="title">제목</option>
                         </select>
-                    </div>
+                    </div>-->
 
                     <div class="search-box mr10">
                         <input type="text" placeholder="검색어를 입력해주세요." v-model="form.word">
@@ -229,7 +229,20 @@ export default {
 
                 this.filter();
             }
-        }
+        },
+
+        "form.domain": {
+            handler(){
+                this.form.category_id = "";
+                this.form.sub_category_id = "";
+            }
+        },
+
+        "form.category_id": {
+            handler(){
+                this.form.sub_category_id = "";
+            }
+        },
     },
 
     computed: {
