@@ -29,12 +29,13 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="../asset/js/swiper.min.js"></script>
     <script src="../asset/js/common.js"></script>
+    <script type="text/javascript" src="../asset/js/html"></script>
     <style>
         html, body {min-width:1180px;}
     </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper" id="element-to-print">
     <div class="swiper m-viewer type01">
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -614,7 +615,7 @@
             <div class="logo">
                 <img :src="report.survey.campaign.provider.img ? report.survey.campaign.provider.img.url : ''" alt="">
             </div>
-            <h3 class="title">{{report.survey.campaign.title}}</h3>
+            <h3 class="title">결과보고서</h3>
             <button type="button" class="btn-close" @click.prevent="() => {$router.back()}">
                 <i class="xi-log-out"></i>
             </button>
@@ -701,7 +702,17 @@
         });
 
         $(".btn-download").click(function (){
-            alert('다운로드');
+
+            var element = document.getElementById('element-to-print');
+            var opt = {
+                margin:       1,
+                filename:     '결과보고.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+
         })
     }
 
@@ -748,5 +759,6 @@
     }
 </script>
 <script src="../asset/js/swiper.js"></script>
+
 </body>
 </html>
