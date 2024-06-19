@@ -205,9 +205,9 @@
                                                     </div>
                                                     <div class="select-box no-border flex-1 mr45" v-if="form.type === 'CHECKBOX' || form.type === 'RADIO'">
                                                         <select class="f18" v-model="form.options[index].add_field">
-                                                            <option value="">추가 필드</option>
-                                                            <option :value="1">예</option>
-                                                            <option :value="0">아니오</option>
+                                                            <option value="">추가 필드 (기본값 : 아니오)</option>
+                                                            <option :value="1">예 (추가필드)</option>
+                                                            <option :value="0">아니오 (추가필드)</option>
                                                         </select>
                                                         <error :form="form" :name="`options.${index}.add_field`" />
                                                     </div>
@@ -233,15 +233,18 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <!--
                                             <li class="full">
                                                 <div class="list-content">
-                                                    <div class="input-box no-border col-12">
-                                                        <input type="text" class="f18" placeholder="법규 정보 등록" v-model="form.options[index].comment_law">
-                                                        <error :form="form" :name="`options.${index}.comment_law`" />
+                                                    <div class="select-box no-border flex-1 mr45" v-if="form.type === 'CHECKBOX'">
+                                                        <select class="f18" v-model="form.options[index].check_only">
+                                                            <option value="">해당 문항만 체크 가능여부 (기본값 : 아니오)</option>
+                                                            <option :value="1">예 (해당 문항만 체크가능여부)</option>
+                                                            <option :value="0">아니오 (해당 문항만 체크가능여부)</option>
+                                                        </select>
+                                                        <error :form="form" :name="`options.${index}.check_only`" />
                                                     </div>
                                                 </div>
-                                            </li>-->
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -466,8 +469,10 @@ export default {
                 order: "",
                 question_id:"",
                 title: "",
-                add_field: 0,
+                add_field: "",
                 add_field_placeholder: "",
+
+                check_only: "",
                 type_satisfaction: "",
                 comment_satisfy: "",
                 comment_unsatisfy: "",

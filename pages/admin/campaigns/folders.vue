@@ -875,15 +875,13 @@ export default {
         getItems(){
             this.$store.commit("setLoading", true);
 
+            this.form.campaign_id = this.$route.query.campaign_id;
+            this.form.basic = this.$route.query.basic;
+
             this.$axios.get("/api/admin/folders/" , {
                 params: this.form.data()
             }).then(response => {
-                console.log(response.data);
-
                 this.items = response.data;
-
-                console.log("213");
-                console.log(this.items);
 
                 this.openAll();
             });
