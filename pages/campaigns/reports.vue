@@ -752,9 +752,9 @@
                                                         <p v-text="report.survey.comment_e"></p>
                                                     </div>
                                                 </div>
-                                                <div class="result-right-title mt40">
+<!--                                                <div class="result-right-title mt40">
                                                     <strong>환경 데이터 요약</strong>
-                                                </div>
+                                                </div>-->
 
                                                 <div class="result-right-table" v-if="report.domains['ENVIRONMENT'].numbers.length > 0">
                                                     <table>
@@ -775,26 +775,26 @@
                                                 <div class="result-right-table empty" v-else>
                                                     데이터가 없습니다.
                                                 </div>
-                                                <div class="result-right-title mt40">
-                                                    <strong>우수사항 및 미흡사항</strong>
-                                                </div>
-                                                <div class="flex">
-                                                    <div class="border-box flex-1 mr16 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">우수사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.good_e}}</div>
-                                                    </div>
-                                                    <div class="border-box flex-1 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">미흡사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_e}}</div>
-                                                    </div>
-                                                </div>
                                             </div>
 
                                             <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+                                        </div>
+
+                                        <div class="print-result-box mt20">
+                                            <div class="flex">
+                                                <div class="border-box flex-1 mr16 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">우수사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.good_e}}</div>
+                                                </div>
+                                                <div class="border-box flex-1 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">미흡사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_e}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1051,9 +1051,9 @@
                                                         <p v-text="report.survey.comment_s1"></p>
                                                     </div>
                                                 </div>
-                                                <div class="result-right-title mt40">
+<!--                                                <div class="result-right-title mt40">
                                                     <strong>노동 및 인권 데이터 요약</strong>
-                                                </div>
+                                                </div>-->
 
                                                 <div class="result-right-table" v-if="report.domains['SOCIAL1'].numbers.length > 0">
                                                     <table>
@@ -1074,26 +1074,27 @@
                                                 <div class="result-right-table empty" v-else>
                                                     데이터가 없습니다.
                                                 </div>
-                                                <div class="result-right-title mt40">
-                                                    <strong>우수사항 및 미흡사항</strong>
-                                                </div>
-                                                <div class="flex">
-                                                    <div class="border-box flex-1 mr16 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">우수사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.good_s1}}</div>
-                                                    </div>
-                                                    <div class="border-box flex-1 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">미흡사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_s1}}</div>
-                                                    </div>
-                                                </div>
+
                                             </div>
 
                                             <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+                                        </div>
+
+                                        <div class="print-result-box mt20">
+                                            <div class="flex">
+                                                <div class="border-box flex-1 mr16 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">우수사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.good_s1}}</div>
+                                                </div>
+                                                <div class="border-box flex-1 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">미흡사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_s1}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1350,9 +1351,9 @@
                                                         <p v-text="report.survey.comment_s2"></p>
                                                     </div>
                                                 </div>
-                                                <div class="result-right-title mt40">
+<!--                                                <div class="result-right-title mt40">
                                                     <strong>안전 및 보건 데이터 요약</strong>
-                                                </div>
+                                                </div>-->
 
                                                 <div class="result-right-table" v-if="report.domains['SOCIAL2'].numbers.length > 0">
                                                     <table>
@@ -1373,26 +1374,26 @@
                                                 <div class="result-right-table empty" v-else>
                                                     데이터가 없습니다.
                                                 </div>
-                                                <div class="result-right-title mt40">
-                                                    <strong>우수사항 및 미흡사항</strong>
-                                                </div>
-                                                <div class="flex">
-                                                    <div class="border-box flex-1 mr16 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">우수사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.good_s2}}</div>
-                                                    </div>
-                                                    <div class="border-box flex-1 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">미흡사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_s2}}</div>
-                                                    </div>
-                                                </div>
                                             </div>
 
                                             <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+                                        </div>
+
+                                        <div class="print-result-box mt20">
+                                            <div class="flex">
+                                                <div class="border-box flex-1 mr16 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">우수사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.good_s2}}</div>
+                                                </div>
+                                                <div class="border-box flex-1 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">미흡사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_s2}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1648,9 +1649,9 @@
                                                         <p v-text="report.survey.comment_g"></p>
                                                     </div>
                                                 </div>
-                                                <div class="result-right-title mt40">
+<!--                                                <div class="result-right-title mt40">
                                                     <strong>사회 및 윤리 데이터 요약</strong>
-                                                </div>
+                                                </div>-->
 
                                                 <div class="result-right-table" v-if="report.domains['GOVERNANCE'].numbers.length > 0">
                                                     <table>
@@ -1671,9 +1672,10 @@
                                                 <div class="result-right-table empty" v-else>
                                                     데이터가 없습니다.
                                                 </div>
-                                                <div class="result-right-title mt40">
-                                                    <strong>우수사항 및 미흡사항</strong>
-                                                </div>
+
+                                            </div>
+
+                                            <div class="print-result-box mt20">
                                                 <div class="flex">
                                                     <div class="border-box flex-1 mr16 px20 py20">
                                                         <div class="result-right-title mb12">
@@ -1926,7 +1928,7 @@
                 </div>
 
                 <div class="btns">
-                    <button class="btn btn-expand" @click.prevent="ready">
+                    <button class="btn btn-expand" @click.prevent="download">
                         <i class="xi-download"></i>
                     </button>
                     <button class="btn btn-expand">
@@ -2060,6 +2062,10 @@ export default {
     },
 
     methods: {
+        download(){
+
+        },
+
         ready(){
             return alert("준비중입니다.");
         },

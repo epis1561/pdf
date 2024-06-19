@@ -451,11 +451,14 @@ label {
 .print-result-box .result-right .result-right-top ul li > div {flex:1; min-width:0; padding-left:20px;}
 .print-result-box .result-right .result-right-top ul li > div .right-top-tit {font-size:20px; font-weight:500;}
 .print-result-box .result-right .result-right-top ul li > div .right-top-score {margin:6px 0 0; display:flex; flex-wrap:wrap; align-items:baseline;}
-.print-result-box .result-right .result-right-top ul li > div .right-top-score b {font-size:20px; font-weight:bold;}
-.print-result-box .result-right .result-right-top ul li > div .right-top-score small {font-size:16px; font-weight:500; margin-left:3px;} 
+.print-result-box .result-right .result-right-top ul li > div .right-top-score b {font-size:14px; font-weight:bold;}
+.print-result-box .result-right .result-right-top ul li > div .right-top-score small {font-size:14px; font-weight:500; margin-left:3px;}
 .print-result-box .result-right .result-right-title {margin:0 0 16px;}
 .print-result-box .result-right .result-right-title strong {font-size:24px; font-weight:bold;}
-.print-result-box .result-right .result-right-table {border-bottom:1px solid #f7f7f7;}
+.print-result-box .result-right .result-right-table {
+    margin-top:12px;
+    border-bottom:1px solid #f7f7f7;
+}
 .print-result-box .result-right .result-right-table thead tr th {background:#F7F7F7; padding:15px 0; font-size:15px; font-weight:bold; position:relative;}
 .print-result-box .result-right .result-right-table thead tr th:after {position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:20px; background:#ddd; content:"";}
 .print-result-box .result-right .result-right-table thead tr th:first-of-type {border-radius:8px 0 0 8px;}

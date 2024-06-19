@@ -164,7 +164,7 @@ label {
     margin:0 !important;
 }
 .print-view-box .box-like-comment {
-    min-height:270px;
+    min-height:120px;
     white-space: pre-line;
     line-height:20px;
 }
@@ -176,9 +176,6 @@ label {
     background-color:#F7F7F7; border-radius:12px;
 }
 .print-result-box .result-right .result-right-top ul li > div .right-top-tit {
-    font-size:16px !important;
-}
-.print-result-box .result-right .result-right-top ul li > div .right-top-score b {
     font-size:16px !important;
 }
 .graph-box .graph-foot strong {
@@ -230,7 +227,7 @@ label {
 .board-company-box > ul > li:hover {
     border-color:#1592E6;
 }
-@media screen and (max-height:900px) {
+@media screen and (max-height:1200px) {
     .m-viewer.type01 .swiper-slide .wrapper {
         transform:scale(0.65);
     }
