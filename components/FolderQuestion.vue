@@ -50,7 +50,7 @@
         <template v-if="folderQuestion.question.type === 'CHECKBOX'">
             <div v-for="(folderQuestionOption, folderQuestionOptionIndex) in folderQuestion.folderQuestionOptions" :key="folderQuestionOption.id">
                 <div class="check-box">
-                    <input ref="input" type="checkbox" name="" :id="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id" :value="folderQuestionOption.id" v-model="form.answers[folderQuestionIndex].folder_question_option_ids">
+                    <input ref="input" type="checkbox" name="" :data-type="folderQuestionOption.option.check_only == 1 ? 'check-only' : ''" :id="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id" :value="folderQuestionOption.id" v-model="form.answers[folderQuestionIndex].folder_question_option_ids" @change="checkCheckOnly">
                     <label :for="`${invest ? 'invest' : ''}folderQuestionOption-` + folderQuestionOption.id"><p>{{ folderQuestionOption.option.title }}</p></label>
                 </div>
 
@@ -142,6 +142,33 @@ export default {
 
         removed(data){
             this.form.answers[this.folderQuestionIndex].files_remove_ids = data;
+        },
+
+        checkCheckOnly(){
+            let answer = this.$refs.answer;
+            let inputs = answer.querySelectorAll('input:not([data-type="check-only"]), select, textarea');
+
+            let checkOnlyFolderQuestionOption;
+            let hasCheckOnly = this.form.answers[this.folderQuestionIndex].folder_question_option_ids.some(id => {
+                return this.folderQuestion.folderQuestionOptions.some(folderQuestionOption => {
+                    if(folderQuestionOption.id == id && folderQuestionOption.option.check_only == 1)
+                        return checkOnlyFolderQuestionOption = folderQuestionOption;
+
+                    return false;
+                });
+            });
+
+            if(hasCheckOnly){
+                this.form.answers[this.folderQuestionIndex].folder_question_option_ids = [checkOnlyFolderQuestionOption.id];
+
+                return inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }else{
+                return inputs.forEach(input => {
+                    input.disabled = false;
+                });
+            }
         },
 
         syncException(exception = false){
