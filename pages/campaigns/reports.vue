@@ -781,7 +781,7 @@
                                         </div>
 
                                         <div class="print-result-box mt20">
-                                            <div class="flex">
+                                            <div class="flex" style="width:100%;">
                                                 <div class="border-box flex-1 mr16 px20 py20">
                                                     <div class="result-right-title mb12">
                                                         <strong class="f18">우수사항</strong>
@@ -1081,7 +1081,7 @@
                                         </div>
 
                                         <div class="print-result-box mt20">
-                                            <div class="flex">
+                                            <div class="flex" style="width:100%;">
                                                 <div class="border-box flex-1 mr16 px20 py20">
                                                     <div class="result-right-title mb12">
                                                         <strong class="f18">우수사항</strong>
@@ -1380,7 +1380,7 @@
                                         </div>
 
                                         <div class="print-result-box mt20">
-                                            <div class="flex">
+                                            <div class="flex" style="width:100%;">
                                                 <div class="border-box flex-1 mr16 px20 py20">
                                                     <div class="result-right-title mb12">
                                                         <strong class="f18">우수사항</strong>
@@ -1675,25 +1675,26 @@
 
                                             </div>
 
-                                            <div class="print-result-box mt20">
-                                                <div class="flex">
-                                                    <div class="border-box flex-1 mr16 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">우수사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.good_g}}</div>
-                                                    </div>
-                                                    <div class="border-box flex-1 px20 py20">
-                                                        <div class="result-right-title mb12">
-                                                            <strong class="f18">미흡사항</strong>
-                                                        </div>
-                                                        <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_g}}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
                                         </div>
+
+                                        <div class="print-result-box mt20">
+                                            <div class="flex" style="width:100%;">
+                                                <div class="border-box flex-1 mr16 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">우수사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.good_g}}</div>
+                                                </div>
+                                                <div class="border-box flex-1 px20 py20">
+                                                    <div class="result-right-title mb12">
+                                                        <strong class="f18">미흡사항</strong>
+                                                    </div>
+                                                    <div class="box-like-comment gray-box px20 py20">{{report.survey.bad_g}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
