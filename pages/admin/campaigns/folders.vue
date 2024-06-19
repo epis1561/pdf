@@ -463,26 +463,43 @@
                     </div>
                     <div class="table-box mt25">
                         <table>
+                            <colgroup>
+                                <col style="width:10%;">
+                                <col style="width:10%;">
+                                <col style="width:15%">
+                                <col style="width:75%">
+                            </colgroup>
                             <thead>
                             <tr>
-                                <th width="65">번호</th>
-                                <th width="260">검색라벨</th>
+                                <th></th>
+                                <th>영역</th>
+                                <th>카테고리명</th>
                                 <th>제목</th>
-                                <th width="120">유형</th>
-                                <th width="120">선택</th>
+                                <!--
+                                <th>선택</th>
+                                -->
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="question in filteredQuestions" :key="question.id">
-                                <td>{{ question.id }}</td>
-                                <td>{{ question.label_search }}</td>
-                                <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
-                                <td>{{ question.format_type }}</td>
                                 <td>
+                                    <div class="m-input-checkbox type01">
+                                        <input type="checkbox" :id="'question'+question.id" name="" :value="question.id" v-model="selected_question_ids">
+                                        <label :for="'question'+question.id"></label>
+                                    </div>
+                                </td>
+                                <td>{{ question.category.format_domain }}</td>
+                                <td>{{ question.category.title }}</td>
+                                <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
+                                <!-- <td>
                                     <div class="table-button-box">
                                         <a href="#" class="active" @click.prevent="addQuestion(question)">선택</a>
                                     </div>
                                 </td>
+                                -->
+                            </tr>
+                            <tr v-if="filteredQuestions.length === 0">
+                                <td colspan="5">데이터가 없습니다.</td>
                             </tr>
                             </tbody>
                         </table>
@@ -491,6 +508,10 @@
                     <div class="mt24"></div>
 
                     <pagination :meta="questions.meta" @paginate="(page) => {questionsForm.page = page; getQuestions()}" />
+
+                    <div class="button-box mt16" style="justify-content: center;">
+                        <button type="submit" class="btn btn-active-2" @click.prevent="addQuestions">추가</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -737,7 +758,7 @@ export default {
                 column: "label_search",
                 word: "",
                 type: this.$route.query.basic == 1 ? 'TEXTGROUP' : '',
-
+                sub_category_id: "",
             }),
 
             campaignsForm: new Form(this.$axios, {
@@ -764,7 +785,9 @@ export default {
                 open_reporter : 1,
                 use_move_condition: "",
                 use_excel: "",
-            }
+            },
+
+            selected_question_ids: [],
         }
     },
 
@@ -961,7 +984,9 @@ export default {
             this.$store.commit("setLoading", true);
 
             this.$axios.get("/api/admin/questions" , {
-                params: this.questionsForm.data()
+                params: {
+                    ...this.questionsForm.data(),
+                }
             }).then(response => {
                 this.questions = response.data;
             });
@@ -1016,10 +1041,22 @@ export default {
                     }
                 })
             });
-
-            this.activePop = false;
         },
 
+        addQuestions(){
+            let question = null;
+
+            this.selected_question_ids.map(id => {
+                question = this.questions.data.find(question => question.id == id);
+
+                if(question)
+                    this.addQuestion(question);
+            });
+
+            this.activePop = false;
+
+            this.selected_question_ids = [];
+        },
     },
 
     computed: {
@@ -1043,8 +1080,14 @@ export default {
     watch: {
         targetFolder: {
             handler(){
-                if(this.targetFolder && (this.targetFolder.basic || this.targetFolder.folder_id))
+                if(this.targetFolder && this.targetFolder.category) {
+                    this.questionsForm.sub_category_id = this.targetFolder.category.id;
+                    this.getQuestions();
+                }
+
+                if(this.targetFolder && (this.targetFolder.basic || this.targetFolder.folder_id)) {
                     this.getFolderQuestions();
+                }
             }
         },
     },

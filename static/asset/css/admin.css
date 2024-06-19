@@ -144,7 +144,12 @@ html , body {overflow-x:auto; min-width:1300px;}
     transition:all .3s;
 }
 .table-box table tbody tr:hover td {background:#ECF3F8; }
-.table-box table tbody tr td a.subject {display:block; text-align:left; font-size:16px; font-weight:500; color:#021D42;}
+.table-box table tbody tr td a.subject {
+    display:block;
+    text-align:left; font-size:16px; font-weight:500;
+    word-break: break-all;
+    color:#021D42;
+}
 .table-box.sm table tbody tr td {padding:10px;}
 
 /* table-button-box */
