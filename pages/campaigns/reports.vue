@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-tj mt60">
+                                    <div class="flex flex-tj mt40">
                                         <div class="total-comment border-box flex-1 py35 px30 mr20">
                                             <div class="print-text-box">
                                                 <h2>{{report.survey.campaign.year}} 종합 의견</h2>
@@ -1948,75 +1948,7 @@
     </div>
 </template>
 <style>
-    .m-viewer.type01 .controller-top {
-        display: flex; align-items:center; justify-content: space-between;
-        width:100%; height:60px;
-        padding:12px 32px;
-        position:fixed; top:-70px; left:0;
-        background-color:#fff !important;
-        z-index:1;
-        border-bottom:1px solid #e1e1e1;
-        transition:all .3s;
-        box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-    }
-    .m-viewer.type01 .controller-top.active {
-        top:0;
-    }
-    .m-viewer.type01 .controller-top img {
-        max-height:40px;
-    }
-    .m-viewer.type01 .controller-top .title {
-        font-size:18px; font-weight:bold;
-        position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-    }
-    .m-viewer.type01 .controller-top .btn-close i {
-        font-size:24px;
-    }
 
-    .m-viewer.type01 .controller-bottom {
-        display: flex; align-items:center; justify-content: center;
-        width:100%; height:60px;
-        padding:12px 32px;
-        position:fixed; bottom:-70px; left:0;
-        background-color:#fff !important;
-        z-index:1;
-        border-top:1px solid #e1e1e1;
-        transition:all .3s;
-        box-shadow:0px -6px 6px rgba(0,0,0,0.16);
-    }
-    .m-viewer.type01 .controller-bottom.active {
-        bottom:0;
-    }
-    .m-viewer.type01 .controller-bottom .box-gage {
-        display: flex; align-items: center;
-        gap:12px;
-        margin-right:-24px;
-    }
-    .m-viewer.type01 .controller-bottom .box-gage .page span {
-        font-size:16px; color:#999;
-    }
-    .m-viewer.type01 .controller-bottom .box-gage .page span.active {
-        font-weight:bold; color:var(--color-active);
-    }
-    .m-viewer.type01 .controller-bottom .box-gage .gage {
-        width:350px; height:6px;
-        position:relative;
-        border-radius:3px; background-color:#eee;
-        overflow:hidden;
-    }
-    .m-viewer.type01 .controller-bottom .box-gage .gage .active {
-        width:100%; height:100%; max-width:0%;
-        position:absolute; top:0; left:0;
-        background-color:var(--color-active);
-        transition: all .3s;
-    }
-    .m-viewer.type01 .controller-bottom .btns {
-        display: flex; align-items: center; gap:12px;
-        position:absolute; right:24px; top:50%; transform:translateY(-50%);
-    }
-    .m-viewer.type01 .controller-bottom .btn i {
-        font-size:24px;
-    }
 </style>
 <script>
 import Form from "@/utils/Form";
