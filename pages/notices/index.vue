@@ -28,7 +28,6 @@
                                 <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.title }}</nuxt-link></td>
                                 <td class="date">{{item.format_created_at}}</td>
                             </tr>
-
                         </table>
                     </div>
 
