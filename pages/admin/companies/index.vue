@@ -5,7 +5,7 @@
                 <div class="sca-box">
                     <ul>
                         <li><p>회원 관리</p></li>
-                        <li class="active"><p>회사</p></li>
+                        <li class="active"><p>클라이언트 파트너사</p></li>
                     </ul>
                 </div>
                 <div class="button-box">
