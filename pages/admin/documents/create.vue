@@ -40,7 +40,7 @@
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input-files :default="item.files" :multiple="true" @change="(data) => form.files = data" @removed="data => form.files_remove_ids = data" />
+                                    <input-files :default="item ? item.files : []" :multiple="true" @change="(data) => form.files = data" @removed="data => form.files_remove_ids = data" />
 
                                     <error :form="form" name="files" />
                                 </div>
