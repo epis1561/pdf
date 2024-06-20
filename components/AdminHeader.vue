@@ -41,7 +41,7 @@
                             </dl>
                         </dd>
                         <dd :class="activeClass('/admin/campaigns')"><nuxt-link to="/admin/campaigns">캠페인</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/investgator/campaigns')"><nuxt-link to="/admin/agencies">실사자 배정</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/investgator/campaigns')"><nuxt-link to="/admin/investgator/campaigns">실사자 배정</nuxt-link></dd>
                     </dl>
                 </li>
                 <li class="active">
