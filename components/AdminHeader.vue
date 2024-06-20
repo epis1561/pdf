@@ -44,6 +44,19 @@
                     </dl>
                 </li>
                 <li class="active">
+                    <a href="javascript:;">게시판 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><nuxt-link to="/admin/notices">공지사항</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/faqs">FAQ</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/qnas">문의사항</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/documents">자료실</nuxt-link></dd>
+                    </dl>
+                </li>
+
+                <li class="active">
                     <a href="javascript:;">시스템 관리
                         <i class="xi-plus inactive"></i>
                         <i class="xi-minus active"></i>
@@ -65,18 +78,7 @@
                         <dd><a href="javascript:;">로그</a></dd>
                     </dl>
                 </li>
-                <li class="active">
-                    <a href="javascript:;">게시판 관리
-                        <i class="xi-plus inactive"></i>
-                        <i class="xi-minus active"></i>
-                    </a>
-                    <dl>
-                        <dd><a href="javascript:;">1대1 문의</a></dd>
-                        <dd><a href="javascript:;">회원전용</a></dd>
-                        <dd><a href="javascript:;">공지사항</a></dd>
-                        <dd><a href="javascript:;">캠페인</a></dd>
-                    </dl>
-                </li>
+
             </ul>
         </div>
 

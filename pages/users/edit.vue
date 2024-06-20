@@ -104,11 +104,11 @@
                         </div>
                         <div class="content-group">
                             <div class="group-title">
-                                <h3>업종</h3>
+                                <h3>업태</h3>
                             </div>
                             <div class="group-content">
                                 <div class="input-box">
-                                    <input type="text" placeholder="업종을 입력해주세요." v-model="form.company_category">
+                                    <input type="text" placeholder="업태을 입력해주세요." v-model="form.company_category">
                                     <error :form="form" name="company_category"/>
                                 </div>
                             </div>
@@ -164,6 +164,28 @@
                                     <input type="text" placeholder="담당자 연락처를 입력해주세요." v-model="form.contact"
                                            @input="clearLetter">
                                     <error :form="form" name="contact"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <div class="group-title">
+                                <h3>담당자 부서</h3>
+                            </div>
+                            <div class="group-content">
+                                <div class="input-box">
+                                    <input type="text" placeholder="담당자 부서를 입력해주세요." v-model="form.department">
+                                    <error :form="form" name="department"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <div class="group-title">
+                                <h3>담당자 직급</h3>
+                            </div>
+                            <div class="group-content">
+                                <div class="input-box">
+                                    <input type="text" placeholder="담당자 직급을 입력해주세요." v-model="form.position">
+                                    <error :form="form" name="position"/>
                                 </div>
                             </div>
                         </div>
@@ -251,8 +273,8 @@ export default {
                 password_confirmation: "", // 비밀번호 확인 (선택입력)
                 name: this.$auth.user.data.name, // 담당자명
                 contact: this.$auth.user.data.contact, // 연락처 - 입력 시 숫자만 남도록 처리 필요 (코드찾기로 clearLetter 검색해서 작업 참고)
-                department: this.$auth.user.data.department, // 부서
-                position: this.$auth.user.data.position, // 직급
+                department: this.$auth.user.data.department || "", // 부서
+                position: this.$auth.user.data.position || "", // 직급
                 email: this.$auth.user.data.email, // 이메일
                 agree_sms_promotion: this.$auth.user.data.agree_sms_promotion, // SMS 수신동의여부 (0 - 거절 시 , 1 - 수락 시)
                 agree_email_promotion: this.$auth.user.data.agree_email_promotion, // EMAIL 수신동의여부 (0 - 거절 시 , 1 - 수락 시)
@@ -262,7 +284,7 @@ export default {
                 company_name: this.$auth.user.data.company.title,
                 company_president: this.$auth.user.data.company.president,
                 company_contact: this.$auth.user.data.company.contact, // 회사 연락처 - 입력 시 숫자만 남도록 처리 필요 (코드찾기로 clearLetter 검색해서 작업 참고)
-                company_category: this.$auth.user.data.company.category, // 업종
+                company_category: this.$auth.user.data.company.category, // 업태
 
                 company_address: this.$auth.user.data.company.address,
                 company_address_detail: this.$auth.user.data.company.address_detail,

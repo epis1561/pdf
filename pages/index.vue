@@ -54,7 +54,7 @@
                                     </div>
 
                                     <div class="intro-left-content" v-if="activeIndex === 1">
-                                        <h2>ESGI for Sustainability</h2>
+                                        <h2>ESGi for Sustainability</h2>
                                         <p>
                                             함께 만드는 가치, 지속가능경영의 시작!
                                             <br/>우리의 솔루션으로 현실이 됩니다.

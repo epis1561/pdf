@@ -7,9 +7,12 @@
                 </div>
                 <div class="header-top-category">
                     <ul>
-                        <li><nuxt-link to="/contents/solution">ESGI</nuxt-link></li>
-                        <li><nuxt-link to="/campaigns">ESG</nuxt-link></li>
+<!--                        <li><nuxt-link to="/contents/solution">ESGi</nuxt-link></li>
+                        <li><nuxt-link to="/campaigns">ESG</nuxt-link></li>-->
+
+                        <li><nuxt-link to="/contents/solution">솔루션소개</nuxt-link></li>
                         <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
+                        <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
                         <li><nuxt-link to="/notices">고객센터</nuxt-link></li>
                         <li class="menu" @click="isDropMenuVisible = true"></li>
                         <li class="menu_close" @click="isDropMenuVisible = false"> <i class="xi-close"></i></li>
@@ -26,21 +29,21 @@
                 <div class="leftbox">
                     <div class="photo_box greeting1">
                         <img src="/asset/images/greeting1.png" class="greeting">
-                        <nuxt-link to="/contents/solution" class="go">
+                        <nuxt-link to="/campaigns" class="go">
                             <img src="/asset/images/go.png">
                         </nuxt-link>
                         <div class="textbox">
-                            <h3>ESGI</h3>
+                            <h3>진단</h3>
                             ESG온라인 비대면 진단 솔루션
                         </div>
                     </div>
                     <div class="photo_box greeting2">
                         <img src="/asset/images/greeting2.png" class="greeting">
-                        <nuxt-link to="/contents/company" class="go">
+                        <nuxt-link to="/campaigns/dashboard" class="go">
                             <img src="/asset/images/go.png" >
                         </nuxt-link>
                         <div class="textbox">
-                            <h3>About</h3>
+                            <h3>현황</h3>
                             함께만드는 가치, 지속가능경영의 시작!<br>
                             우리의 솔류션으로 현실이 됩니다.
                         </div>
@@ -49,14 +52,14 @@
 
                 <div class="rightbox">
                     <div class="menuset menu1">
-                        <ul>ESGI
+                        <ul>About
                             <li><nuxt-link to="/contents/solution">솔루션소개</nuxt-link></li>
                             <li><nuxt-link to="/contents/company">회사소개</nuxt-link></li>
                             <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
                         </ul>
                     </div>
                     <div class="menuset menu2">
-                        <ul>ESG
+                        <ul>ESGi
                             <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
                             <li><nuxt-link to="/campaigns/dashboard">현황</nuxt-link></li>
                         </ul>

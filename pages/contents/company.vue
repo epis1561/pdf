@@ -3,7 +3,7 @@
         <div class="company-box">
             <div class="company-intro">
                 <div class="container">
-                    <h2>ESGI for Sustainability</h2>
+                    <h2>ESGi for Sustainability</h2>
                 </div>
             </div>
             <div class="company-text">

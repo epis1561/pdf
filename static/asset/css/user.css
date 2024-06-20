@@ -953,7 +953,12 @@ footer .footer-info .footer-info-text ul li span:after {height:10px; margin:0 10
 .agree-box .agree-head {margin:0 0 16px;}
 .agree-box .agree-head h2 {font-size:20px; font-weight:600; line-height:1.3;}
 .agree-box .agree-head p {margin:15px 0 0; font-size:14px; line-height:1.4; color:rgba(0,0,0,0.4);}
-.agree-box .agree-body {background:#F7F7F7; border-radius:8px; padding:16px 24px; max-height:300px; overflow-y:auto;}
+.agree-box .agree-body {
+    background:#F7F7F7; border-radius:8px;
+    padding:16px 24px; max-height:300px;
+    overflow-y:auto;
+    white-space: pre-line; line-height:24px;
+}
 .agree-box .agree-body p {font-size:14px; line-height:1.4; color:rgba(0,0,0,0.4); margin:0 0 24px;}
 .agree-box .agree-body p:last-of-type {margin:0;}
 .agree-box .agree-foot {display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; margin:16px 0 0;}
@@ -1676,4 +1681,15 @@ footer .footer-info .footer-info-text ul li span:after {height:10px; margin:0 10
 
 @media screen and (max-width:991px) {
     min-height: calc(100vh - 283px);
+}
+
+.m-policy.type01 {
+    margin:40px 0;
+}
+.m-policy.type01 .m-policy-description {
+    padding:40px;
+    white-space: pre-line;
+    background-color:#eee;
+    border-radius:5px;
+    line-height:24px;
 }

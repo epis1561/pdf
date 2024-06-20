@@ -149,11 +149,11 @@
 
                                         <div class="content-group">
                                             <div class="group-title">
-                                                <h3>업종</h3>
+                                                <h3>업태</h3>
                                             </div>
                                             <div class="group-content">
                                                 <div class="input-box">
-                                                    <input type="text" placeholder="업종을 입력해주세요." v-model="form.company_category">
+                                                    <input type="text" placeholder="업태을 입력해주세요." v-model="form.company_category">
                                                 </div>
                                                     <error :form="form" name="company_category" />
                                             </div>
@@ -316,7 +316,7 @@ export default {
                 company_business_number : "",
                 company_president: "",
                 company_contact: "", // 회사 연락처 - 입력 시 숫자만 남도록 처리 필요 (코드찾기로 clearLetter 검색해서 작업 참고)
-                company_category: "", // 업종
+                company_category: "", // 업태
 
                 company_address: "",
                 company_address_detail: "",

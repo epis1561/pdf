@@ -4,36 +4,20 @@
             <div class="flex flex-vc flex-tj">
                 <div class="sca-box">
                     <ul>
-                        <li><p>캠페인 관리</p></li>
-                        <li class="active"><p>캠페인</p></li>
+                        <li><p>게시판 관리</p></li>
+                        <li class="active"><p>공지사항</p></li>
                     </ul>
+                </div>
+                <div class="button-box">
+                    <a href="#" class="btn btn-red" @click.prevent="removeAll">삭제</a>
                 </div>
             </div>
             <div class="line-box mt32"></div>
             <form class="mt16 flex flex-vc flex-tj" @submit.prevent="filter()">
                 <div class="flex flex-vc">
                     <div class="select-box mr10">
-                        <select v-model="form.take" @change="() => {form.page=1; filter();}">
-                            <option value="">목록 수</option>
-                            <option value="10">10개</option>
-                            <option value="50">50개</option>
-                            <option value="100">100개</option>
-                        </select>
-                    </div>
-
-                    <div class="select-box mr10">
-                        <select v-model="form.active" @change="() => {form.page=1; filter();}">
-                            <option value="" selected>활성여부</option>
-                            <option :value="1">활성</option>
-                            <option :value="0">비활성</option>
-                        </select>
-                    </div>
-
-                    <div class="select-box mr10">
                         <select v-model="form.column">
-                            <option value="">검색 조건</option>
-                            <option value="provider">클라이언트</option>
-                            <option value="title">캠페인명</option>
+                            <option value="" selected>검색 조건</option>
                         </select>
                     </div>
 
@@ -54,35 +38,34 @@
                 <table>
                     <thead>
                     <tr>
+                        <th>
+                            <div class="m-input-checkbox type01" @click="toggle">
+                                <input type="checkbox" id="" name="" checked
+                                       v-if="form.selected_ids.length === items.data.length">
+                                <input type="checkbox" id="" name="" v-else>
+                                <label for=""></label>
+                            </div>
+                        </th>
                         <th>번호</th>
-
-                        <th>클라이언트</th>
-                        <th>캠페인명</th>
-                        <th>시작일</th>
-                        <th>종료일</th>
-                        <th>상태</th>
-                        <th>활성여부</th>
-
+                        <th>제목</th>
+                        <th>등록일자</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in items.data" :key="item.id">
-                        <td>{{ item.id }}</td>
-
-                        <td>{{ item.provider.title }}</td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.format_survey_started_at }}</td>
-                        <td>{{ item.format_survey_finished_at }}</td>
-                        <td :class="`m-state type01 ${item.state}`">
-                            {{ item.format_state }}
+                        <td>
+                            <div class="m-input-checkbox type01">
+                                <input type="checkbox" :id="item.id" :value="item.id" v-model="form.selected_ids">
+                                <label :for="item.id"></label>
+                            </div>
                         </td>
-                        <td>{{ item.active ? '활성' : '비활성' }}</td>
-
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.created_at }}</td>
                         <td>
                             <div class="table-button-box">
-                                <nuxt-link :to="`/admin/campaigns/create?id=${item.id}`" class="active">정보 수정</nuxt-link>
-                                <a href="#" class="active" @click.prevent="move(item)">지표 수정</a>
+                                <nuxt-link :to="`/admin/notices/create?id=${item.id}`" class="active">조회</nuxt-link>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
@@ -100,7 +83,7 @@
                 <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
 
                 <div class="button-box">
-                    <nuxt-link to="/admin/campaigns/create" class="btn btn-blue px45">등록</nuxt-link>
+                    <nuxt-link to="/admin/notices/create" class="btn btn-blue px45">등록</nuxt-link>
                 </div>
             </div>
         </div>
@@ -127,6 +110,9 @@ export default {
             },
 
             form: new Form(this.$axios, {
+                selected_ids: [],
+                password: "",
+
                 page: 1,
                 take: "",
                 word: "",
@@ -139,35 +125,58 @@ export default {
     },
 
     methods: {
+        toggle(){
+            if(this.form.selected_ids.length === this.items.data.length)
+                return this.form.selected_ids = [];
+
+            return this.form.selected_ids = this.items.data.map(item => item.id);
+        },
+
         filter(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/admin/campaigns", {
+            this.$axios.get("/api/admin/notices", {
                 params: this.form.data()
             }).then(response => {
                 this.items = response.data;
-            }).catch(error => {
-                console.log(error);
             });
         },
 
-        move(item){
-            if(item.state !== "BEFORE")
-                return this.$store.commit("setPop", {
-                    description: "이미 시작된 캠페인의 지표는 수정할 수 없습니다."
-                });
+        removeAll(){
+            this.form.password = prompt("비밀번호를 입력해주세요.");
 
-            return this.$router.push(`/admin/campaigns/folders?campaign_id=${item.id}&basic=0`);
+            this.form.delete("/api/admin/notices/removeAll")
+                    .then(response => {
+                        this.items.data = this.items.data.filter(itemData => !this.form.selected_ids.includes(itemData.id));
+
+                        this.form.selected_ids = [];
+                    });
         },
 
-        remove(item){
-            let confirmed = window.confirm("정말로 삭제하시겠습니까?");
+        up(item){
+            let index = this.items.data.indexOf(item);
 
-            if(confirmed)
-                this.form.delete("/api/admin/campaigns/" + item.id)
-                    .then(response => {
-                        this.items.data = this.items.data.filter(itemData => itemData.id != item.id);
-                    });
+            if (index > 0) {
+                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
+
+                this.items.data.splice(index - 1, 0, itemToMove); // Insert the item one position ahead
+
+                this.form.patch("/api/admin/notices/" + item.id + "/up");
+            }
+        },
+
+        down(item){
+            let index = this.items.data.indexOf(item);
+
+            if (index < this.items.data.length - 1) {
+                const itemToMove = this.items.data.splice(index, 1)[0]; // Remove the item from the array
+
+                this.items.data.splice(index + 1, 0, itemToMove); // Insert the item one position ahead
+
+                this.form.patch("/api/admin/notices/" + item.id + "/down");
+
+            }
+
         },
 
         importExcel(e){
@@ -177,7 +186,7 @@ export default {
 
             this.$store.commit("setLoading", true);
 
-            this.form.post("/api/admin/campaigns/import")
+            this.form.post("/api/admin/notices/import")
                     .then(response => {
                         this.$store.commit("setPop", {
                             description: "",
@@ -198,7 +207,7 @@ export default {
         exportExcel(){
             this.$store.commit("setLoading", true);
 
-            this.form.post("/api/admin/campaigns/export")
+            this.form.post("/api/admin/notices/export")
                     .then(response => {
                         if(response.data){
                             let a = document.getElementById("download");
