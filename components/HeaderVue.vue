@@ -10,9 +10,9 @@
 <!--                        <li><nuxt-link to="/contents/solution">ESGi</nuxt-link></li>
                         <li><nuxt-link to="/campaigns">ESG</nuxt-link></li>-->
 
+                        <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
                         <li><nuxt-link to="/contents/solution">솔루션소개</nuxt-link></li>
                         <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
-                        <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
                         <li><nuxt-link to="/notices">고객센터</nuxt-link></li>
                         <li class="menu" @click="isDropMenuVisible = true"></li>
                         <li class="menu_close" @click="isDropMenuVisible = false"> <i class="xi-close"></i></li>
@@ -54,12 +54,12 @@
                     <div class="menuset menu1">
                         <ul>About
                             <li><nuxt-link to="/contents/solution">솔루션소개</nuxt-link></li>
-                            <li><nuxt-link to="/contents/company">회사소개</nuxt-link></li>
+<!--                            <li><nuxt-link to="/contents/company">회사소개</nuxt-link></li>-->
                             <li><nuxt-link to="/contents/risk">리스크관리</nuxt-link></li>
                         </ul>
                     </div>
                     <div class="menuset menu2">
-                        <ul>ESGi
+                        <ul>ESG
                             <li><nuxt-link to="/campaigns">진단</nuxt-link></li>
                             <li><nuxt-link to="/campaigns/dashboard">현황</nuxt-link></li>
                         </ul>
