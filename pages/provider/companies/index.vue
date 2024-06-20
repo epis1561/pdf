@@ -179,7 +179,7 @@
 import Form from "@/utils/Form";
 export default {
     layout: "provider",
-    middleware: ["provider"],
+    middleware: ["user"],
 
     data(){
 
