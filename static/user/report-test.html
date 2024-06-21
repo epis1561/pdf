@@ -23,23 +23,308 @@
     <link rel="stylesheet" type="text/css" href="../asset/css/swiper.min.css">
     <link rel="stylesheet" type="text/css" href="../asset/css/base.css">
     <link rel="stylesheet" type="text/css" href="../asset/css/grid.css">
-    <link rel="stylesheet" type="text/css" href="../asset/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="../asset/css/print.css">
     <link rel="stylesheet" type="text/css" href="../asset/css/user.css">
     <link rel="stylesheet" type="text/css" href="../asset/css/developer.css">
+    <link rel="stylesheet" type="text/css" href="../asset/css/print.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="../asset/js/swiper.min.js"></script>
     <script src="../asset/js/common.js"></script>
-    <script type="text/javascript" src="../asset/js/html"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         html, body {min-width:1180px;}
     </style>
 </head>
 <body>
-<div class="wrapper" id="element-to-print">
+<div class="wrapper" >
     <div class="swiper m-viewer type01">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
+        <div class="swiper-container remove-swiper">
+            <div class="swiper-wrapper" id="element">
                 <div class="swiper-slide">
+                    <div class="wrapper">
+                        <div class="admin-print-box">
+                            <div class="flex flex-tj">
+                                <div class="print-company-box mr20">
+                                    <div class="company-logo">
+                                        <img src="../asset/images/img_admin_company_logo.png">
+                                        <h2>삼성전자</h2>
+                                    </div>
+                                    <div class="company-info-01">
+                                        <ul>
+                                            <li class="half">
+                                                <b class="tit">기업 규모</b>
+                                                <p class="cont">중소기업</p>
+                                            </li>
+                                            <li class="half">
+                                                <b class="tit">대표자</b>
+                                                <p class="cont">이명순</p>
+                                            </li>
+                                            <li>
+                                                <b class="tit">사업자 주소</b>
+                                                <p class="cont">충북 제천시 제천북로 967</p>
+                                            </li>
+                                            <li>
+                                                <b class="tit">사업자 등록 번호</b>
+                                                <p class="cont">304-81-26751</p>
+                                            </li>
+                                            <li>
+                                                <b class="tit">연락처</b>
+                                                <p class="cont">02-0000-0000</p>
+                                            </li>
+                                            <li>
+                                                <b class="tit">사업자 분류</b>
+                                                <p class="cont">산업 > 자본제 > 기계</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="company-info-02">
+                                        <ul>
+                                            <li>
+                                                <b class="tit">근로자 수</b>
+                                                <p class="cont">10명</p>
+                                            </li>
+                                            <li>
+                                                <b class="tit">매출액</b>
+                                                <p class="cont">2,224,440 천 원</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="border-box px30 py30">
+                                        <div class="graph-box">
+                                            <div class="graph-head">
+                                                <h2>ESG 진단결과 보고서</h2>
+                                                <time>2024.00.00</time>
+                                            </div>
+                                            <div class="graph-body">
+                                                <div class="graph-main">
+                                                    <img src="../asset/images/img_admin_graph_main_01.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-tj mt20">
+                                        <div class="col-12 flex flex-tj">
+                                            <div class="border-box flex-1 mr10 mb20 px20 py20">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="graph-02 green">
+                                                            <div class="graph-title">
+                                                                <h2><b>E</b>환경</h2>
+                                                            </div>
+                                                            <div class="graph-bar">
+                                                                <div class="bar-unit">
+                                                                    <p>E-1</p>
+                                                                    <p>E-2</p>
+                                                                    <p>E-3</p>
+                                                                    <p>E-4</p>
+                                                                    <p>E-5</p>
+                                                                </div>
+                                                                <div class="bar-inner">
+                                                                    <div class="inner" style="width:70%;"><em>4</em></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border-box flex-1 ml10 mb20 px20 py20">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="graph-02 purple">
+                                                            <div class="graph-title">
+                                                                <h2><b>S</b>노동 및 인권</h2>
+                                                            </div>
+                                                            <div class="graph-bar">
+                                                                <div class="bar-unit">
+                                                                    <p>E-1</p>
+                                                                    <p>E-2</p>
+                                                                    <p>E-3</p>
+                                                                    <p>E-4</p>
+                                                                    <p>E-5</p>
+                                                                </div>
+                                                                <div class="bar-inner">
+                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 flex flex-tj">
+                                            <div class="border-box flex-1 mr10 px20 py20">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="graph-02 blue">
+                                                            <div class="graph-title">
+                                                                <h2><b>S</b>안전 및 보건</h2>
+                                                            </div>
+                                                            <div class="graph-bar">
+                                                                <div class="bar-unit">
+                                                                    <p>E-1</p>
+                                                                    <p>E-2</p>
+                                                                    <p>E-3</p>
+                                                                    <p>E-4</p>
+                                                                    <p>E-5</p>
+                                                                </div>
+                                                                <div class="bar-inner">
+                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border-box flex-1 ml10 px20 py20">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="graph-02 orange">
+                                                            <div class="graph-title">
+                                                                <h2><b>S</b>사회 및 윤리</h2>
+                                                            </div>
+                                                            <div class="graph-bar">
+                                                                <div class="bar-unit">
+                                                                    <p>E-1</p>
+                                                                    <p>E-2</p>
+                                                                    <p>E-3</p>
+                                                                    <p>E-4</p>
+                                                                    <p>E-5</p>
+                                                                </div>
+                                                                <div class="bar-inner">
+                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-tj mt40">
+                                <div class="total-comment border-box flex-1 py20 px30 mr20">
+                                    <div class="print-text-box">
+                                        <h2>2024 평가 요약</h2>
+                                        <p>
+                                            2024 - 1회차 (상반기) 샘플공업사(주) ESG 평가결과 총점 43.9점, ESG-4를 획득하였습
+                                            니다. 이는 환경, 사회, 지배구조(ESG) 위협과 기회요인을 적절한 수준에서 관리/통제하고 있
+                                            으며, 비재무적 요인으로 인한 이해관계자 가치 훼손 여지가 존재하는 수준입니다.
+                                        </p>
+                                    </div>
+                                    <div class="graph-box mt40">
+                                        <div class="graph-body">
+                                            <div class="doughnut-big">
+                                                <canvas class="myChart" id="myPieChart5" width="160"  height="160"></canvas>
+                                                <div class="score"><strong>43 <small>/ 100</small></strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="total-graph flex-1">
+                                    <div>
+                                        <div class="print-text-box">
+                                            <h2>2024 분야별 평가 요약</h2>
+                                            <p>분야별 평가의 만점은 모두 100점입니다. 노동 및 인권, 안전 및 보건은 S에 해당합니다.</p>
+                                        </div>
+                                        <div class="flex flex-tj mt16">
+                                            <div class="gray-box flex-1 mr16 py20 px10">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="doughnut" width="65px"  height="65px">
+                                                            <canvas class="myChart" id="myPieChart" width="65"  height="65"></canvas>
+                                                            <div class="score">43</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="graph-foot">
+                                                        <strong>환경</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gray-box flex-1 mr16 py20 px10">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="doughnut" width="65px"  height="65px">
+                                                            <canvas class="myChart" id="myPieChart2" width="65"  height="65"></canvas>
+                                                            <div class="score">43</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="graph-foot">
+                                                        <strong>노동 및 인권</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gray-box flex-1 mr16 py20 px10">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="doughnut" width="65px"  height="65px">
+                                                            <canvas class="myChart" id="myPieChart3" width="65"  height="65"></canvas>
+                                                            <div class="score">43</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="graph-foot">
+                                                        <strong>안전 및 보건</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gray-box flex-1 py20 px10">
+                                                <div class="graph-box">
+                                                    <div class="graph-body">
+                                                        <div class="doughnut" width="65px"  height="65px">
+                                                            <canvas class="myChart" id="myPieChart4" width="65"  height="65"></canvas>
+                                                            <div class="score">43</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="graph-foot">
+                                                        <strong>사회 및 윤리</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt20">
+                                        <div class="print-text-box">
+                                            <h2>기준치</h2>
+                                            <p>
+                                                기준치: 산업적 특수성에 따라 기업의 ESG 리스크 관리 수준을 평가함에 있어 ‘환경, 인권 및 노동, 윤리 및
+                                                지배구조, 제품 및 서비스 책임’의 4가지 부분이 차지하는 중요도의 비중을 말합니다. 가중치는 총점에 해당
+                                                부분의 점수가 얼마만큼 반영되는지를 나타냅니다.
+                                            </p>
+                                        </div>
+                                        <div class="graph-box mt12">
+                                            <div class="graph-body">
+                                                <div class="graph-04">
+                                                    <div class="inner">
+                                                        <span class="graph-04-01" style="width:36%;"></span>
+                                                        <span class="graph-04-02" style="width:22%;"></span>
+                                                        <span class="graph-04-03" style="width:16%;"></span>
+                                                        <span class="graph-04-04" style="width:26%;"></span>
+                                                    </div>
+                                                    <div class="category">
+                                                        <ul>
+                                                            <li>환경 36%</li>
+                                                            <li>노동 및 인권 22%</li>
+                                                            <li>안전 및 보건 16%</li>
+                                                            <li>사회 및 윤리 26%</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="html2pdf__page-break"></div>
+
+                <div class="swiper-slide" manual-pagination="true">
                     <div class="wrapper">
                         <div class="admin-print-box">
                             <div class="flex flex-tj">
@@ -324,291 +609,7 @@
                     </div>
                 </div>
 
-                <div class="swiper-slide">
-                    <div class="wrapper">
-                        <div class="admin-print-box">
-                            <div class="flex flex-tj">
-                                <div class="print-company-box mr20">
-                                    <div class="company-logo">
-                                        <img src="../asset/images/img_admin_company_logo.png">
-                                        <h2>삼성전자</h2>
-                                    </div>
-                                    <div class="company-info-01">
-                                        <ul>
-                                            <li class="half">
-                                                <b class="tit">기업 규모</b>
-                                                <p class="cont">중소기업</p>
-                                            </li>
-                                            <li class="half">
-                                                <b class="tit">대표자</b>
-                                                <p class="cont">이명순</p>
-                                            </li>
-                                            <li>
-                                                <b class="tit">사업자 주소</b>
-                                                <p class="cont">충북 제천시 제천북로 967</p>
-                                            </li>
-                                            <li>
-                                                <b class="tit">사업자 등록 번호</b>
-                                                <p class="cont">304-81-26751</p>
-                                            </li>
-                                            <li>
-                                                <b class="tit">연락처</b>
-                                                <p class="cont">02-0000-0000</p>
-                                            </li>
-                                            <li>
-                                                <b class="tit">사업자 분류</b>
-                                                <p class="cont">산업 > 자본제 > 기계</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="company-info-02">
-                                        <ul>
-                                            <li>
-                                                <b class="tit">근로자 수</b>
-                                                <p class="cont">10명</p>
-                                            </li>
-                                            <li>
-                                                <b class="tit">매출액</b>
-                                                <p class="cont">2,224,440 천 원</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="border-box px30 py30">
-                                        <div class="graph-box">
-                                            <div class="graph-head">
-                                                <h2>ESG 진단결과 보고서</h2>
-                                                <time>2024.00.00</time>
-                                            </div>
-                                            <div class="graph-body">
-                                                <div class="graph-main">
-                                                    <img src="../asset/images/img_admin_graph_main_01.png">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-tj mt20">
-                                        <div class="col-12 flex flex-tj">
-                                            <div class="border-box flex-1 mr10 mb20 px20 py20">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-02 green">
-                                                            <div class="graph-title">
-                                                                <h2><b>E</b>환경</h2>
-                                                            </div>
-                                                            <div class="graph-bar">
-                                                                <div class="bar-unit">
-                                                                    <p>E-1</p>
-                                                                    <p>E-2</p>
-                                                                    <p>E-3</p>
-                                                                    <p>E-4</p>
-                                                                    <p>E-5</p>
-                                                                </div>
-                                                                <div class="bar-inner">
-                                                                    <div class="inner" style="width:70%;"><em>4</em></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="border-box flex-1 ml10 mb20 px20 py20">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-02 purple">
-                                                            <div class="graph-title">
-                                                                <h2><b>S</b>노동 및 인권</h2>
-                                                            </div>
-                                                            <div class="graph-bar">
-                                                                <div class="bar-unit">
-                                                                    <p>E-1</p>
-                                                                    <p>E-2</p>
-                                                                    <p>E-3</p>
-                                                                    <p>E-4</p>
-                                                                    <p>E-5</p>
-                                                                </div>
-                                                                <div class="bar-inner">
-                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 flex flex-tj">
-                                            <div class="border-box flex-1 mr10 px20 py20">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-02 blue">
-                                                            <div class="graph-title">
-                                                                <h2><b>S</b>안전 및 보건</h2>
-                                                            </div>
-                                                            <div class="graph-bar">
-                                                                <div class="bar-unit">
-                                                                    <p>E-1</p>
-                                                                    <p>E-2</p>
-                                                                    <p>E-3</p>
-                                                                    <p>E-4</p>
-                                                                    <p>E-5</p>
-                                                                </div>
-                                                                <div class="bar-inner">
-                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="border-box flex-1 ml10 px20 py20">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-02 orange">
-                                                            <div class="graph-title">
-                                                                <h2><b>S</b>사회 및 윤리</h2>
-                                                            </div>
-                                                            <div class="graph-bar">
-                                                                <div class="bar-unit">
-                                                                    <p>E-1</p>
-                                                                    <p>E-2</p>
-                                                                    <p>E-3</p>
-                                                                    <p>E-4</p>
-                                                                    <p>E-5</p>
-                                                                </div>
-                                                                <div class="bar-inner">
-                                                                    <div class="inner" style="width:50%;"><em>3</em></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-tj mt40">
-                                <div class="total-comment border-box flex-1 py35 px30 mr20">
-                                    <div class="print-text-box">
-                                        <h2>2024 평가 요약</h2>
-                                        <p>
-                                            2024 - 1회차 (상반기) 샘플공업사(주) ESG 평가결과 총점 43.9점, ESG-4를 획득하였습
-                                            니다. 이는 환경, 사회, 지배구조(ESG) 위협과 기회요인을 적절한 수준에서 관리/통제하고 있
-                                            으며, 비재무적 요인으로 인한 이해관계자 가치 훼손 여지가 존재하는 수준입니다.
-                                        </p>
-                                    </div>
-                                    <div class="graph-box mt40">
-                                        <div class="graph-body">
-                                            <div class="graph-03 graph-03-05 big">
-                                                <div class="inner">
-                                                    <strong>43 <small>/ 100</small></strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="total-graph flex-1">
-                                    <div>
-                                        <div class="print-text-box">
-                                            <h2>2024 분야별 평가 요약</h2>
-                                            <p>분야별 평가의 만점은 모두 100점입니다. 노동 및 인권, 안전 및 보건은 S에 해당합니다.</p>
-                                        </div>
-                                        <div class="flex flex-tj mt16">
-                                            <div class="gray-box flex-1 mr16 py20 px10">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-03 graph-03-01">
-                                                            <div class="inner">
-                                                                <strong>43</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="graph-foot">
-                                                        <strong>환경</strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="gray-box flex-1 mr16 py20 px10">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-03 graph-03-02">
-                                                            <div class="inner">
-                                                                <strong>43</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="graph-foot">
-                                                        <strong>노동 및 인권</strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="gray-box flex-1 mr16 py20 px10">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-03 graph-03-03">
-                                                            <div class="inner">
-                                                                <strong>43</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="graph-foot">
-                                                        <strong>안전 및 보건</strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="gray-box flex-1 py20 px10">
-                                                <div class="graph-box">
-                                                    <div class="graph-body">
-                                                        <div class="graph-03 graph-03-04">
-                                                            <div class="inner">
-                                                                <strong>43</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="graph-foot">
-                                                        <strong>사회 및 윤리</strong>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt32">
-                                        <div class="print-text-box">
-                                            <h2>기준치</h2>
-                                            <p>
-                                                기준치: 산업적 특수성에 따라 기업의 ESG 리스크 관리 수준을 평가함에 있어 ‘환경, 인권 및 노동, 윤리 및
-                                                지배구조, 제품 및 서비스 책임’의 4가지 부분이 차지하는 중요도의 비중을 말합니다. 가중치는 총점에 해당
-                                                부분의 점수가 얼마만큼 반영되는지를 나타냅니다.
-                                            </p>
-                                        </div>
-                                        <div class="graph-box mt12">
-                                            <div class="graph-body">
-                                                <div class="graph-04">
-                                                    <div class="inner">
-                                                        <span class="graph-04-01" style="width:36%;"></span>
-                                                        <span class="graph-04-02" style="width:22%;"></span>
-                                                        <span class="graph-04-03" style="width:16%;"></span>
-                                                        <span class="graph-04-04" style="width:26%;"></span>
-                                                    </div>
-                                                    <div class="category">
-                                                        <ul>
-                                                            <li>환경 36%</li>
-                                                            <li>노동 및 인권 22%</li>
-                                                            <li>안전 및 보건 16%</li>
-                                                            <li>사회 및 윤리 26%</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <div class="controller-top active">
@@ -651,9 +652,20 @@
         </div>
     </div>
 </div>
+</div>
+</body>
+</html>
+<style>
+    .m-viewer.type01 .swiper-slide .wrapper {
+        transform:none;
+    }
+    .m-viewer.type01 .swiper-slide {
+        height:auto;
+    }
+</style>
 <script>
     // 원형 차트 그리기
-    drawChart();
+    //  drawChart();
 
     // Swiper 세팅
     initSwiper();
@@ -703,16 +715,16 @@
 
         $(".btn-download").click(function (){
 
-            var element = document.getElementById('element-to-print');
-            var opt = {
-                margin:       1,
-                filename:     '결과보고.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-
+            var element = document.getElementById('element');
+            html2pdf(element,
+                {
+                    margin:       1,
+                    filename:     '결과레포트.pdf',
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    html2canvas:{scale: 2, logging: true, dpi: 300, letterRendering: true},
+                    jsPDF:{unit: 'mm', format: 'a4', orientation: 'portrait', compressPDF: true}
+                }
+            );
         })
     }
 
@@ -757,8 +769,238 @@
         makeChart(43, chart4, '#FC952F');
         makeChart(43, chart5, '#1592E6');
     }
+
+
+    // 차트 생성
+    const ctx = document.getElementById('myPieChart').getContext('2d');
+    const myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+
+        data: {
+            labels: ['43',''],
+
+            datasets: [{
+                data: [43,57],
+                backgroundColor: ['#56D13F','rgba(0,0,0,0)'],
+                cutout:"66%",
+
+            }]
+        },
+
+        options:{
+
+            responsive:false,
+            hover: {
+                mode:null,
+            },
+
+            plugins:{
+
+
+                title: {
+                    display:false,
+                    text: '43',
+                    positon:"left"
+                },
+
+                legend:{
+                    display: false
+                },
+
+                tooltips: {
+                    enabled: false, // 툴팁 활성화
+                },
+
+            }
+           }
+    });
+    const ctx2 = document.getElementById('myPieChart2').getContext('2d');
+    const myPieChart2 = new Chart(ctx2, {
+        type: 'doughnut',
+
+        data: {
+            labels: ['43',''],
+
+            datasets: [{
+                data: [43,57],
+                backgroundColor: ['#4A51FF','rgba(0,0,0,0)'],
+                cutout:"66%",
+
+            }]
+        },
+
+        options:{
+
+            responsive:false,
+            hover: {
+                mode:null,
+            },
+
+            plugins:{
+
+                datalabels: {
+                    color: 'black',
+                    anchor: 'end',
+                },
+
+                title: {
+                    display:false,
+                    text: '43',
+                    positon:"left"
+                },
+
+                legend:{
+                    display: false
+                },
+
+                tooltips: {
+                    enabled: false, // 툴팁 활성화
+                },
+
+            }
+        }
+    });
+    const ctx3 = document.getElementById('myPieChart3').getContext('2d');
+    const myPieChart3 = new Chart(ctx3, {
+        type: 'doughnut',
+
+        data: {
+            labels: ['43',''],
+
+            datasets: [{
+                data: [43,57],
+                backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
+                cutout:"66%",
+
+            }]
+        },
+
+        options:{
+
+            responsive:false,
+            hover: {
+                mode:null,
+            },
+
+            plugins:{
+
+                datalabels: {
+                    color: 'black',
+                    anchor: 'end',
+                },
+
+                title: {
+                    display:false,
+                    text: '43',
+                    positon:"left"
+                },
+
+                legend:{
+                    display: false
+                },
+
+                tooltips: {
+                    enabled: false, // 툴팁 활성화
+                },
+
+            }
+        }
+    });
+    const ctx4 = document.getElementById('myPieChart4').getContext('2d');
+    const myPieChart4 = new Chart(ctx4, {
+        type: 'doughnut',
+
+        data: {
+            labels: ['43',''],
+
+            datasets: [{
+                data: [43,57],
+                backgroundColor: ['#FC952F','rgba(0,0,0,0)'],
+                cutout:"66%",
+
+            }]
+        },
+
+        options:{
+
+            responsive:false,
+            hover: {
+                mode:null,
+            },
+
+            plugins:{
+
+                datalabels: {
+                    color: 'black',
+                    anchor: 'end',
+                },
+
+                title: {
+                    display:false,
+                    text: '43',
+                    positon:"left"
+                },
+
+                legend:{
+                    display: false
+                },
+
+                tooltips: {
+                    enabled: false, // 툴팁 활성화
+                },
+
+            }
+        }
+    });
+    const ctx5 = document.getElementById('myPieChart5').getContext('2d');
+    const myPieChart5 = new Chart(ctx5, {
+        type: 'doughnut',
+
+        data: {
+            labels: ['43',''],
+
+            datasets: [{
+                data: [43,57],
+                backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
+                cutout:"66%",
+                borderColor: '#eee',
+            }]
+        },
+
+        options:{
+            animation: {
+                duration: 0
+            },
+            responsive:false,
+            hover: {
+                mode:null,
+            },
+
+            plugins:{
+
+                datalabels: {
+                    color: 'black',
+                    anchor: 'end',
+                },
+
+                title: {
+                    display:false,
+                    text: '43',
+                    positon:"left"
+                },
+
+                legend:{
+                    display: false
+                },
+
+                tooltips: {
+                    enabled: false, // 툴팁 활성화
+                },
+
+            }
+        }
+    });
+
 </script>
 <script src="../asset/js/swiper.js"></script>
 
-</body>
-</html>
