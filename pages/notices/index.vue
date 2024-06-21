@@ -24,11 +24,10 @@
                     <div class="board-list-box">
                         <table>
                             <tr v-for="item in items.data" :key="item.id">
-                                <always></always>
-                                <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.description }}</nuxt-link></td>
+                                <always :item="item" />
+                                <td class="subject"><nuxt-link :to="`/notices/${item.id}`">{{ item.title }}</nuxt-link></td>
                                 <td class="date">{{item.format_created_at}}</td>
                             </tr>
-
                         </table>
                     </div>
 

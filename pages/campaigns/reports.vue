@@ -1935,6 +1935,7 @@
                     <button class="btn btn-expand">
                         <i class="xi-expand"></i>
                     </button>
+
                     <button class="btn btn-prev">
                         <i class="xi-angle-left"></i>
                     </button>
@@ -2040,7 +2041,6 @@ export default {
                             return 0;
 
                         let progress = Math.floor((this.activeIndex + 1) / total * 100);
-                        console.log(total, this.activeIndex, progress);
 
                         $(".controller-bottom .box-gage .active").css('max-width', `${progress}%`);
                     }
@@ -2096,8 +2096,6 @@ export default {
             for(let i = 0; i < items.length; i += size){
                 result.push(items.slice(i, i + size));
             }
-
-            console.log(result);
 
             return result;
         },

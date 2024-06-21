@@ -6,7 +6,7 @@
                     <div class="inner-wrap-box">
                         <div class="inner-box reg-select-box">
                             <nuxt-link to="/users/createAgree?category=PERSONAL">
-                                <img src="/asset/images/img_user_reg_select_02.png">
+                                <img src="/asset/images/img_user_reg_select_01.png">
                                 <div>
                                     <div class="text">
                                         <p>개인회원</p>

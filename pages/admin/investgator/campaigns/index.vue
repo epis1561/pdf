@@ -186,7 +186,7 @@
 <script>
 import Form from "~/utils/Form";
 export default {
-    middleware: ["investgator"],
+    middleware: ["admin"],
 
     layout: "admin",
 

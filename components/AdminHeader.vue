@@ -18,10 +18,10 @@
                         <i class="xi-minus active"></i>
                     </a>
                     <dl>
-                        <dd :class="activeClass('/admin/companies')"><nuxt-link to="/admin/companies">회사</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/companies')"><nuxt-link to="/admin/companies">클라이언트 파트너사</nuxt-link></dd>
                         <dd :class="activeClass('/admin/users')"><nuxt-link to="/admin/users">회원</nuxt-link></dd>
                         <dd :class="activeClass('/admin/providers')"><nuxt-link to="/admin/providers">클라이언트</nuxt-link></dd>
-                        <dd :class="activeClass('/admin/agencies')"><nuxt-link to="/admin/agencies">실사파트너</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/agencies')"><nuxt-link to="/admin/agencies">실사파트너사</nuxt-link></dd>
                     </dl>
                 </li>
                 <li class="active">
@@ -41,8 +41,22 @@
                             </dl>
                         </dd>
                         <dd :class="activeClass('/admin/campaigns')"><nuxt-link to="/admin/campaigns">캠페인</nuxt-link></dd>
+                        <dd :class="activeClass('/admin/investgator/campaigns')"><nuxt-link to="/admin/investgator/campaigns">실사자 배정</nuxt-link></dd>
                     </dl>
                 </li>
+                <li class="active">
+                    <a href="javascript:;">게시판 관리
+                        <i class="xi-plus inactive"></i>
+                        <i class="xi-minus active"></i>
+                    </a>
+                    <dl>
+                        <dd><nuxt-link to="/admin/notices">공지사항</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/faqs">FAQ</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/qnas">문의사항</nuxt-link></dd>
+                        <dd><nuxt-link to="/admin/documents">자료실</nuxt-link></dd>
+                    </dl>
+                </li>
+
                 <li class="active">
                     <a href="javascript:;">시스템 관리
                         <i class="xi-plus inactive"></i>
@@ -65,18 +79,7 @@
                         <dd><a href="javascript:;">로그</a></dd>
                     </dl>
                 </li>
-                <li class="active">
-                    <a href="javascript:;">게시판 관리
-                        <i class="xi-plus inactive"></i>
-                        <i class="xi-minus active"></i>
-                    </a>
-                    <dl>
-                        <dd><a href="javascript:;">1대1 문의</a></dd>
-                        <dd><a href="javascript:;">회원전용</a></dd>
-                        <dd><a href="javascript:;">공지사항</a></dd>
-                        <dd><a href="javascript:;">캠페인</a></dd>
-                    </dl>
-                </li>
+
             </ul>
         </div>
 

@@ -1,67 +1,69 @@
 <template>
-   <canvas :id="id"></canvas>
+    <canvas :id="id"></canvas>
 </template>
 <script>
 import Form from "../utils/Form";
+
 export default {
-   props: {
-      id: {
-         default: "chart",
-      },
+    props: {
+        id: {
+            default: "chart",
+        },
 
-      items: {
-         default() {
-            return [];
-         }
-      },
+        item: {
+            default() {
+                return null;
+            }
+        },
 
-      years: {
-         default(){
-            return [];
-         }
-      }
-   },
-    data(){
-         this.chart = null;
+        years: {
+            default() {
+                return [];
+            }
+        }
+    },
+    data() {
+        this.chart = null;
 
-         return {
-
-         }
+        return {}
     },
 
     methods: {
-       drawChart(){
-          let context = document.getElementById(this.id).getContext('2d');
+        drawChart() {
+            let context = document.getElementById(this.id).getContext('2d');
 
-          this.chart = new Chart(context, {
-             type: 'bar',
-             responsive: true,
-             data: {
-                labels: this.items.map(item => item.question.options[0].data_title),
-                datasets: this.years.map((year, index) => {
-                   return {
-                      label: year,
-                      backgroundColor: '#1C70AE',
-                      data: this.items.map(item => item.invest_value[index]),
-
-                   }
-                }),
-             },
-             options: {
-                plugins: {
-                   legend: {
-                      display: false // 범례 숨기기
-                   },
+            console.log(this.years);
+            this.chart = new Chart(context, {
+                type: 'bar',
+                responsive: true,
+                data: {
+                    labels: this.years.map((year, index) => {
+                        return year
+                    }),
+                    datasets: [
+                        {
+                            label: this.item.question.options[0].data_title,
+                            backgroundColor: '#1C70AE',
+                            data: this.years.map((year, index) => this.item.invest_value[index]),
+                        }
+                    ],
                 },
-                barPercentage: 0.6 // 막대 간 간격 조정
-             }
-          });
-       }
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false // 범례 숨기기
+                        },
+                    },
+                    scales: {
+
+                    },
+                    barPercentage: 0.6 // 막대 간 간격 조정
+                }
+            });
+        }
     },
 
-    computed: {
-
-    },
+    computed: {},
 
     watch: {
         '$route'(to, from) {
@@ -70,9 +72,9 @@ export default {
     },
 
     mounted() {
-      this.$nextTick(() => {
-         this.drawChart();
-      })
+        this.$nextTick(() => {
+            this.drawChart();
+        })
     }
 }
 </script>

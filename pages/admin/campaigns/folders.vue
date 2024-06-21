@@ -74,6 +74,35 @@
                                     <a href="" class="link" @click.prevent="activeCampaigns = true" v-if="form.basic == 0">다른캠페인 불러오기</a>
                                 </div>
                             </li>
+
+                            <li class="full" v-if="targetFolder && targetFolder.folder_id">
+                                <div class="list-title">
+                                    <strong>카테고리</strong>
+                                </div>
+                                <div class="list-content flex flex-vc">
+                                    <p class="flex-1 active" v-if="selectedCategory">{{ selectedCategory.title }}</p>
+                                    <p class="flex-1" v-else>카테고리를 선택해주세요.</p>
+
+                                    <a href="" class="link" @click.prevent="activeCategories = true">카테고리 불러오기</a>
+                                    <error :form="form" name="category_id" />
+                                </div>
+                            </li>
+                            <li class="full" v-else>
+                                <div class="list-title">
+                                    <strong>영역</strong>
+                                </div>
+                                <div class="list-content flex flex-vc">
+                                    <div class="select-box">
+                                        <select v-model="form.domain">
+                                            <option value="">선택</option>
+                                            <option :value="domain.value" v-for="domain in domains.data" :key="domain.value">{{domain.label}}</option>
+                                        </select>
+                                    </div>
+
+                                    <error :form="form" name="domain" />
+                                </div>
+                            </li>
+
 <!--                            <li class="full">
                                 <div class="list-title">
                                     <strong>메뉴 ID</strong>
@@ -434,26 +463,43 @@
                     </div>
                     <div class="table-box mt25">
                         <table>
+                            <colgroup>
+                                <col style="width:5%;">
+                                <col style="width:10%;">
+                                <col style="width:20%">
+                                <col style="width:75%">
+                            </colgroup>
                             <thead>
                             <tr>
-                                <th width="65">번호</th>
-                                <th width="260">검색라벨</th>
+                                <th></th>
+                                <th>영역</th>
+                                <th>카테고리명</th>
                                 <th>제목</th>
-                                <th width="120">유형</th>
-                                <th width="120">선택</th>
+                                <!--
+                                <th>선택</th>
+                                -->
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="question in filteredQuestions" :key="question.id">
-                                <td>{{ question.id }}</td>
-                                <td>{{ question.label_search }}</td>
-                                <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
-                                <td>{{ question.format_type }}</td>
                                 <td>
+                                    <div class="m-input-checkbox type01">
+                                        <input type="checkbox" :id="'question'+question.id" name="" :value="question.id" v-model="selected_question_ids">
+                                        <label :for="'question'+question.id"></label>
+                                    </div>
+                                </td>
+                                <td>{{ question.category.format_domain }}</td>
+                                <td>{{ question.category.title }}</td>
+                                <td><a target="_blank" :href="`/admin/questions/create?id=${question.id}`" class="subject">{{ question.title }}</a></td>
+                                <!-- <td>
                                     <div class="table-button-box">
                                         <a href="#" class="active" @click.prevent="addQuestion(question)">선택</a>
                                     </div>
                                 </td>
+                                -->
+                            </tr>
+                            <tr v-if="filteredQuestions.length === 0">
+                                <td colspan="5">데이터가 없습니다.</td>
                             </tr>
                             </tbody>
                         </table>
@@ -462,6 +508,10 @@
                     <div class="mt24"></div>
 
                     <pagination :meta="questions.meta" @paginate="(page) => {questionsForm.page = page; getQuestions()}" />
+
+                    <div class="button-box mt16" style="justify-content: center;">
+                        <button type="submit" class="btn btn-active-2" @click.prevent="addQuestions">추가</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -472,7 +522,7 @@
                     <div class="title-box">
                         <h2>캠페인 목록</h2>
                     </div>
-                    <a href="#" class="close" @click.prevent="activeCampaigns = false">닫기</a>
+                    <a href="#" class="close" @click.prevent.stop="activeCampaigns = false">닫기</a>
                 </div>
                 <div class="popup-body">
                     <div class="line-box"></div>
@@ -538,6 +588,69 @@
             </div>
         </div>
 
+        <div class="popup-box fixed" v-if="activeCategories">
+            <div class="box lg active">
+                <div class="popup-head">
+                    <div class="title-box">
+                        <h2>카테고리 목록</h2>
+                    </div>
+                    <a href="#" class="close" @click.prevent.stop="activeCategories = false">닫기</a>
+                </div>
+                <div class="popup-body">
+                    <div class="line-box"></div>
+                    <div class="flex flex-vc flex-tj mt15">
+                        <form @submit.prevent="getCategories" class="flex flex-vc">
+
+                            <div class="select-box mr10">
+                                <select v-model="categoriesForm.domain" @change="() => {categoriesForm.page = 1; getCategories();}">
+                                    <option value="">분류</option>
+                                    <option v-for="domain in domains.data" :value="domain.value" :key="domain.value">{{domain.label}}</option>
+                                </select>
+                            </div>
+
+                            <div class="search-box">
+                                <input type="text" placeholder="검색어를 입력해주세요." v-model="categoriesForm.word">
+                            </div>
+
+                            <div class="button-box ml10">
+                                <button type="submit" class="btn btn-active-2" @click.prevent="getCategories">검색</button>
+                            </div>
+                        </form>
+                        <div class="list-count-box">
+                            <p>목록 <b>{{ categories.meta.total.toLocaleString() }}</b>건</p>
+                        </div>
+                    </div>
+                    <div class="table-box mt25">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>영역</th>
+                                <th>부모 카테고리</th>
+                                <th>카테고리명</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="category in categories.data" :key="category.id">
+                                <td>{{ category.format_domain }}</td>
+                                <td>{{ category.category ? category.category.title : '' }}</td>
+                                <td>{{ category.title }}</td>
+                                <td>
+                                    <div class="table-button-box">
+                                        <a href="#" class="active" @click.prevent.stop="selectCategory(category)">선택</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt24"></div>
+
+                    <pagination :meta="categories.meta" @paginate="(page) => {categoriesForm.page = page; getCategories()}" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -560,6 +673,7 @@ export default {
             activeAll: true,
             activePop : false,
             activeCampaigns: false,
+            activeCategories: false,
 
 
             domains : {
@@ -599,7 +713,8 @@ export default {
 
             form: new Form(this.$axios, {
                 id: "",
-                // domain: "",
+                domain: "",
+                category_id: "",
                 folder_id: this.targetFolder ? this.targetFolder.id : "",
                 campaign_id: this.$route.query.campaign_id,
 
@@ -626,6 +741,15 @@ export default {
                 }
             },
 
+            categories: {
+                data: [],
+                meta: {
+                    current_page:1,
+                    last_page:1,
+                    total: 0,
+                }
+            },
+
             types: {
                 data: [],
             },
@@ -634,11 +758,21 @@ export default {
                 column: "label_search",
                 word: "",
                 type: this.$route.query.basic == 1 ? 'TEXTGROUP' : '',
-
+                sub_category_id: "",
             }),
 
             campaignsForm: new Form(this.$axios, {
                 campaign_id: "",
+                column: "",
+                word: "",
+                type: "",
+            }),
+
+            categoriesForm: new Form(this.$axios, {
+                page:1,
+                only_sub_category: 1,
+                domain: "",
+                category_id: "",
                 column: "",
                 word: "",
                 type: "",
@@ -651,7 +785,9 @@ export default {
                 open_reporter : 1,
                 use_move_condition: "",
                 use_excel: "",
-            }
+            },
+
+            selected_question_ids: [],
         }
     },
 
@@ -700,11 +836,27 @@ export default {
         getCampaigns(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/admin/campaigns/" , {
+            this.$axios.get("/api/admin/campaigns" , {
                 params: this.form.data()
             }).then(response => {
                 this.campaigns = response.data;
             });
+        },
+
+        getCategories(){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/admin/categories" , {
+                params: this.categoriesForm.data()
+            }).then(response => {
+                this.categories = response.data;
+            });
+        },
+
+        selectCategory(category){
+            this.form.category_id = category.id;
+
+            this.activeCategories = false;
         },
 
         copyCampaign(campaign){
@@ -722,6 +874,9 @@ export default {
 
         getItems(){
             this.$store.commit("setLoading", true);
+
+            this.form.campaign_id = this.$route.query.campaign_id;
+            this.form.basic = this.$route.query.basic;
 
             this.$axios.get("/api/admin/folders/" , {
                 params: this.form.data()
@@ -786,8 +941,9 @@ export default {
         store(){
             this.form.post("/api/admin/folders")
                     .then(response => {
-                        console.log(response);
                         this.$store.commit("setPop", {});
+
+                        this.form.reset();
 
                         this.getItems();
                     });
@@ -797,6 +953,8 @@ export default {
             this.form.delete("/api/admin/folders/" + this.form.id )
                     .then(response => {
                         this.$store.commit("setPop", {});
+
+                        this.form.reset();
 
                         this.getItems();
                     });
@@ -832,9 +990,21 @@ export default {
             this.$store.commit("setLoading", true);
 
             this.$axios.get("/api/admin/questions" , {
-                params: this.questionsForm.data()
+                params: {
+                    ...this.questionsForm.data(),
+                }
             }).then(response => {
                 this.questions = response.data;
+            });
+        },
+
+        getDomains(){
+            this.$store.commit("setLoading", true);
+
+            this.$axios.get("/api/domains" , {
+                params: {}
+            }).then(response => {
+                this.domains = response.data;
             });
         },
 
@@ -851,7 +1021,6 @@ export default {
 
         syncQuestions(){
             this.$store.commit("setLoading", true);
-
 
             this.form.questions = this.form.questions.map(question => question);
 
@@ -878,10 +1047,22 @@ export default {
                     }
                 })
             });
-
-            this.activePop = false;
         },
 
+        addQuestions(){
+            let question = null;
+
+            this.selected_question_ids.map(id => {
+                question = this.questions.data.find(question => question.id == id);
+
+                if(question)
+                    this.addQuestion(question);
+            });
+
+            this.activePop = false;
+
+            this.selected_question_ids = [];
+        },
     },
 
     computed: {
@@ -895,14 +1076,24 @@ export default {
 
                 return true;
             })
+        },
+
+        selectedCategory(){
+            return this.categories.data.find(category => category.id == this.form.category_id);
         }
     },
 
     watch: {
         targetFolder: {
             handler(){
-                if(this.targetFolder && (this.targetFolder.basic || this.targetFolder.folder_id))
+                if(this.targetFolder && this.targetFolder.category) {
+                    this.questionsForm.sub_category_id = this.targetFolder.category.id;
+                    this.getQuestions();
+                }
+
+                if(this.targetFolder && (this.targetFolder.basic || this.targetFolder.folder_id)) {
                     this.getFolderQuestions();
+                }
             }
         },
     },
@@ -918,6 +1109,10 @@ export default {
         this.getItems();
 
         this.getCampaigns();
+
+        this.getDomains();
+
+        this.getCategories();
 
         // this.getDomains();
     }

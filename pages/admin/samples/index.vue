@@ -4,19 +4,11 @@
             <div class="flex flex-vc flex-tj">
                 <div class="sca-box">
                     <ul>
-                        <li><p>회원 관리</p></li>
-                        <li class="active"><p>클라이언트 파트너사</p></li>
+                        <li><p>게시판 관리</p></li>
+                        <li class="active"><p>공지사항</p></li>
                     </ul>
                 </div>
                 <div class="button-box">
-                    <a href="/asset/files/회사업로드양식.xlsx" class="btn btn-active mr10">엑셀 업로드 양식</a>
-
-                    <input type="file" id="excel" style="position: absolute; z-index:-1; left:-100000px;" @change="importExcel">
-                    <label for="excel" class="btn btn-active mr10">엑셀 업로드</label>
-
-                    <a href="#" style="opacity:0; position:absolute; left:-10000px;" id="download"></a>
-                    <a href="#" class="btn btn-active-2 mr10" @click.prevent="exportExcel">엑셀 다운로드</a>
-
                     <a href="#" class="btn btn-red" @click.prevent="removeAll">삭제</a>
                 </div>
             </div>
@@ -24,29 +16,8 @@
             <form class="mt16 flex flex-vc flex-tj" @submit.prevent="filter()">
                 <div class="flex flex-vc">
                     <div class="select-box mr10">
-                        <select v-model="form.take" @change="() => {form.page=1; filter();}">
-                            <option value="">목록 수</option>
-                            <option value="10">10개</option>
-                            <option value="50">50개</option>
-                            <option value="100">100개</option>
-                        </select>
-                    </div>
-
-                    <div class="select-box mr10">
-                        <select v-model="form.active" @change="() => {form.page=1; filter();}">
-                            <option value="" selected>활성여부</option>
-                            <option :value="1">활성</option>
-                            <option :value="0">비활성</option>
-                        </select>
-                    </div>
-
-                    <div class="select-box mr10">
                         <select v-model="form.column">
                             <option value="" selected>검색 조건</option>
-                            <option value="title">기업명</option>
-                            <option value="business_number">사업자번호</option>
-                            <option value="contact">연락처</option>
-                            <option value="president">대표자명</option>
                         </select>
                     </div>
 
@@ -76,12 +47,8 @@
                             </div>
                         </th>
                         <th>번호</th>
-                        <th>기업명</th>
-                        <th>사업자번호</th>
-                        <th>연락처</th>
-                        <th>대표자명</th>
-                        <th>유효기간</th>
-                        <th>활성여부</th>
+                        <th>제목</th>
+                        <th>등록일자</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -95,14 +62,10 @@
                         </td>
                         <td>{{ item.id }}</td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.business_number }}</td>
-                        <td>{{ item.contact }}</td>
-                        <td>{{ item.president }}</td>
-                        <td>{{ item.expired_at }}</td>
-                        <td>{{ item.active ? '활성' : '비활성' }}</td>
+                        <td>{{ item.created_at }}</td>
                         <td>
                             <div class="table-button-box">
-                                <nuxt-link :to="`/admin/companies/create?id=${item.id}`" class="active">조회</nuxt-link>
+                                <nuxt-link :to="`/admin/notices/create?id=${item.id}`" class="active">조회</nuxt-link>
 <!--                                <a href="#" @click.prevent="remove(item)">삭제</a>-->
                             </div>
                         </td>
@@ -120,7 +83,7 @@
                 <pagination :meta="items.meta" @paginate="(page) => {form.page = page; filter()}" />
 
                 <div class="button-box">
-                    <nuxt-link to="/admin/companies/create" class="btn btn-blue px45">등록</nuxt-link>
+                    <nuxt-link to="/admin/notices/create" class="btn btn-blue px45">등록</nuxt-link>
                 </div>
             </div>
         </div>
@@ -172,7 +135,7 @@ export default {
         filter(){
             this.$store.commit("setLoading", true);
 
-            this.$axios.get("/api/admin/companies", {
+            this.$axios.get("/api/admin/notices", {
                 params: this.form.data()
             }).then(response => {
                 this.items = response.data;
@@ -182,7 +145,7 @@ export default {
         removeAll(){
             this.form.password = prompt("비밀번호를 입력해주세요.");
 
-            this.form.delete("/api/admin/companies/removeAll")
+            this.form.delete("/api/admin/notices/removeAll")
                     .then(response => {
                         this.items.data = this.items.data.filter(itemData => !this.form.selected_ids.includes(itemData.id));
 
@@ -198,7 +161,7 @@ export default {
 
                 this.items.data.splice(index - 1, 0, itemToMove); // Insert the item one position ahead
 
-                this.form.patch("/api/admin/companies/" + item.id + "/up");
+                this.form.patch("/api/admin/notices/" + item.id + "/up");
             }
         },
 
@@ -210,7 +173,7 @@ export default {
 
                 this.items.data.splice(index + 1, 0, itemToMove); // Insert the item one position ahead
 
-                this.form.patch("/api/admin/companies/" + item.id + "/down");
+                this.form.patch("/api/admin/notices/" + item.id + "/down");
 
             }
 
@@ -223,7 +186,7 @@ export default {
 
             this.$store.commit("setLoading", true);
 
-            this.form.post("/api/admin/companies/import")
+            this.form.post("/api/admin/notices/import")
                     .then(response => {
                         this.$store.commit("setPop", {
                             description: "",
@@ -244,7 +207,7 @@ export default {
         exportExcel(){
             this.$store.commit("setLoading", true);
 
-            this.form.post("/api/admin/companies/export")
+            this.form.post("/api/admin/notices/export")
                     .then(response => {
                         if(response.data){
                             let a = document.getElementById("download");

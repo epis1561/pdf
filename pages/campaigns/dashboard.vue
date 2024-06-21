@@ -102,9 +102,9 @@
                             <div class="list-body">
                                 <empty v-if="domains['ENVIRONMENT'].numbers.length === 0" />
                                 <ul>
-                                    <li v-for="number in domains['ENVIRONMENT'].numbers">
+                                    <li v-for="(number,index) in domains['ENVIRONMENT'].numbers">
                                         <div class="graph-image">
-                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['ENVIRONMENT'].numbers" :years="survey.campaign.years"/>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :item="domains['ENVIRONMENT'].numbers[index]" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
                                             <b>{{ number.question.options[0].data_title }}</b>
@@ -121,9 +121,9 @@
                             <div class="list-body">
                                 <empty v-if="domains['SOCIAL1'].numbers.length === 0" />
                                 <ul>
-                                    <li v-for="number in domains['SOCIAL1'].numbers">
+                                    <li v-for="(number, index) in domains['SOCIAL1'].numbers">
                                         <div class="graph-image">
-                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :item="domains['SOCIAL1'].numbers[index]" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
                                             <b>{{ number.question.options[0].data_title }}</b>
@@ -140,9 +140,9 @@
                             <div class="list-body">
                                 <empty v-if="domains['SOCIAL2'].numbers.length === 0" />
                                 <ul>
-                                    <li v-for="number in domains['SOCIAL2'].numbers">
+                                    <li v-for="(number, index) in domains['SOCIAL2'].numbers">
                                         <div class="graph-image">
-                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :item="domains['SOCIAL2'].numbers[index]" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
                                             <b>{{ number.question.options[0].data_title }}</b>
@@ -159,9 +159,9 @@
                             <div class="list-body">
                                 <empty v-if="domains['GOVERNANCE'].numbers.length === 0" />
                                 <ul>
-                                    <li v-for="number in domains['GOVERNANCE'].numbers">
+                                    <li v-for="(number,index) in domains['GOVERNANCE'].numbers">
                                         <div class="graph-image">
-                                            <current-dashboard-chart :id="`chart${number.id}`" :items="domains['SOCIAL1'].numbers" :years="survey.campaign.years"/>
+                                            <current-dashboard-chart :id="`chart${number.id}`" :item="domains['GOVERNANCE'].numbers[index]" :years="survey.campaign.years"/>
                                         </div>
                                         <div class="graph-content">
                                             <b>{{ number.question.options[0].data_title }}</b>
@@ -248,8 +248,6 @@
                 makeChart(this.survey.score_s1, chart2, '#2B9F97');
                 makeChart(this.survey.score_s2, chart3, '#1C70AE');
                 makeChart(this.survey.score_g, chart4, '#2B9F97');
-
-
             }
 
         },

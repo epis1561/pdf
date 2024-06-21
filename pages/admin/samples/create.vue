@@ -3,8 +3,8 @@
         <div class="admin-right-container">
             <div class="sca-box">
                 <ul>
-                    <li><p>회원 관리</p></li>
-                    <li class="active"><p>회사</p></li>
+                    <li><p>게시판 관리</p></li>
+                    <li class="active"><p>공지사항</p></li>
                 </ul>
             </div>
             <div class="mt30">
@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <div class="list-title">
-                                <strong>기업명</strong>
+                                <strong>제목</strong>
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
@@ -24,83 +24,16 @@
                         </li>
                         <li>
                             <div class="list-title">
-                                <strong>사업자번호</strong>
+                                <strong>내용</strong>
                             </div>
                             <div class="list-content">
                                 <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="내용을 입력해 주세요." v-model="form.business_number">
+                                    <input-editor :default="form.description" @change="data => form.description = data" />
 
-                                    <error :form="form" name="business_number" />
+                                    <error :form="form" name="description" />
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="list-title">
-                                <strong>연락처</strong>
-                            </div>
-                            <div class="list-content">
-                                <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="내용을 입력해 주세요." v-model="form.contact">
-
-                                    <error :form="form" name="contact" />
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="list-title">
-                                <strong>대표자명</strong>
-                            </div>
-                            <div class="list-content">
-                                <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="내용을 입력해주세요." v-model="form.president">
-
-                                    <error :form="form" name="president" />
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="list-title">
-                                <strong>업태</strong>
-                            </div>
-                            <div class="list-content">
-                                <div class="input-box no-border">
-                                    <input type="text" class="f18" placeholder="내용을 입력해 주세요." v-model="form.category">
-
-                                    <error :form="form" name="category" />
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="list-title">
-                                <strong>기업형태</strong>
-                            </div>
-                            <div class="list-content">
-                                <div class="select-box no-border">
-                                    <select class="f18" v-model="form.size">
-                                        <option value="" disabled>선택</option>
-                                        <option value="대기업">대기업</option>
-                                        <option value="중소기업">중소기업</option>
-                                        <option value="소기업">소기업</option>
-                                    </select>
-
-                                    <error :form="form" name="size" />
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="list-title">
-                                <strong>유효기간</strong>
-                            </div>
-                            <div class="list-content">
-                                <div class="date-box no-border">
-                                    <input type="date" class="f18" placeholder="일자를 선택해주세요" v-model="form.expired_at">
-
-                                    <error :form="form" name="expired_at" />
-                                </div>
-                            </div>
-                        </li>
-
                         <li>
                             <div class="list-title">
                                 <strong>활성여부</strong>
@@ -255,16 +188,14 @@ export default {
                 company_id: "",
 
                 title: "",
-                size: "",
                 business_number: "",
                 contact: "",
                 president: "",
                 category: "",
-                // products: "",
+                products: "",
                 address: "",
                 address_detail: "",
                 address_zipcode: "",
-
                 expired_at: "",
                 active: 1,
 

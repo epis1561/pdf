@@ -8,7 +8,6 @@
                         <li class="active"><p>캠페인</p></li>
                     </ul>
                 </div>
-
             </div>
             <div class="line-box mt32"></div>
             <form class="mt16 flex flex-vc flex-tj" @submit.prevent="filter()">

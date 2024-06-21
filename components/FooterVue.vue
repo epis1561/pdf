@@ -7,8 +7,8 @@
             <div class="footer-info">
                 <div class="footer-info-link">
                     <ul>
-                        <li><a href="#">개인정보처리방침</a></li>
-                        <li><a href="#">이용약관</a></li>
+                        <li><nuxt-link to="/contents/privacyPolicy">개인정보처리방침</nuxt-link></li>
+                        <li><nuxt-link to="/contents/servicePolicy">이용약관</nuxt-link></li>
 <!--                        <li><a href="">오시는 길</a></li>-->
                     </ul>
                 </div>
@@ -25,7 +25,7 @@
                             <span>Add. (08504) 서울특별시 금천구 서부샛길 606. B동 2208호</span>
                         </li>
                         <li>
-                            <span>Copyright 2024. ESGI All rights reserved</span>
+                            <span>Copyright 2024. ESGi All rights reserved</span>
                         </li>
                     </ul>
                 </div>
