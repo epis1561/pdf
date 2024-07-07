@@ -23,8 +23,8 @@
     height: 65px;
 }
 .doughnut-big{
-    width: 180px;
-    height: 180px;
+    width: 140px;
+    height: 140px;
 }
 .doughnut .score{
     font-size: 20px;
@@ -68,9 +68,10 @@
 .print-view-box .view-body .view-body-list > ul > li .view-list-cont > dl > dd {display:flex; flex-wrap:wrap; border-bottom:1px solid #E4E4E4; padding:10px 0;}
 .print-view-box .view-body .view-body-list > ul > li .view-list-cont > dl > dd b {font-size:18px; line-height:1.3; font-weight:bold; width:120px;}
 .print-view-box .view-body .view-body-list > ul > li .view-list-cont > dl > dd p {flex:1; min-width:0; font-size:18px; line-height:1.3;}
-.print-view-box .view-foot {border-top:1px solid #000; padding:18px 0;}
-.print-view-box .view-foot img {width:150px;}
-
+.print-view-box .view-foot {border-top:1px solid #000; padding:10px 10px;}
+.print-view-box .view-foot img {width:110px;}
+.footer .view-foot {border-top:1px solid #000; padding:10px 10px;}
+.footer .view-foot img {width:110px;}
 /* print-intro-box */
 .print-intro-box {background:#F7F7F7; border-radius:15px; padding:30px 40px; margin:40px 0;}
 .print-intro-box h2 {font-size:26px; font-weight:bold; margin:0 0 20px;}
@@ -85,7 +86,7 @@
 .print-end-box .end-left dl dd {margin:0 0 7px; font-size:15px; line-height:1.3; font-weight:500;}
 .print-end-box .end-left dl dd:last-of-type {margin:0;}
 .print-end-box .end-right {flex:1; min-width:0;}
-.print-end-box:after {position:absolute; left:-23%; bottom:-28%; content:""; width:78%; height:100%; background:url('../images/bg_admin_print_issue.png') no-repeat center / 100% auto;}
+/*.print-end-box:after {position:absolute; left:-23%; bottom:-28%; content:""; width:78%; height:100%; background:url('../images/bg_admin_print_issue.png') no-repeat center / 100% auto;}*/
 
 /* print-issue-box */
 .print-issue-box > ul > li {margin:0 0 20px; padding:20px; border:1px solid #e4e4e4; border-radius:12px; display:flex; flex-wrap:wrap; align-items:center;}
@@ -676,14 +677,16 @@ label {
 .print-end-box .end-left dl dd {margin:0 0 7px; font-size:15px; line-height:1.3; font-weight:500;}
 .print-end-box .end-left dl dd:last-of-type {margin:0;}
 .print-end-box .end-right {flex:1; min-width:0;}
-.print-end-box:after {position:absolute; left:-23%; bottom:-28%; content:""; width:78%; height:100%; background:url('../images/bg_admin_print_issue.png') no-repeat center / 100% auto;}
+.print-end-box:after {position:absolute; left:-19%; bottom:0%; content:""; width:400px; height:350px; background:url('../images/bg_admin_print_issue.png') no-repeat;
+background-position: center; background-size: cover;
+}
 
 /* print-issue-box */
-.print-issue-box > ul > li {margin:0 0 20px; padding:20px; border:1px solid #e4e4e4; border-radius:12px; display:flex; flex-wrap:wrap; align-items:center;}
+.print-issue-box > ul > li {margin:0 0 5px; padding:5px 5px 0 10px; border:1px solid #e4e4e4; border-radius:12px; display:flex; flex-wrap:wrap; align-items:center;}
 .print-issue-box > ul > li:last-of-type {margin:0;}
 .print-issue-box > ul > li > strong {font-size:26px; line-height:1.4; font-weight:bold; padding:0 30px 0 10px;}
 .print-issue-box > ul > li > dl {flex:1; min-width:0; padding-left:20px; display:flex; flex-wrap:wrap; border-left:1px solid #E4E4E4;}
-.print-issue-box > ul > li > dl > dd {width:calc(50% - 12px); margin:0 6px 12px; background:#F7F7F7; border-radius:5px; display:flex; flex-wrap:wrap; align-items:center; height:60px; font-size:18px; font-weight:500; padding:0 20px;}
+.print-issue-box > ul > li > dl > dd {width:calc(50% - 12px); margin:0 6px 6px; background:#F7F7F7; border-radius:5px; display:flex; flex-wrap:wrap; align-items:center; height:60px; font-size:18px; font-weight:500; padding:0 20px;}
 
 /* border-box */
 .border-box {border:1px solid #E4E4E4; border-radius:12px;}
@@ -703,49 +706,212 @@ label {
 .m-viewer.type01 .swiper-slide{
     height: auto;
     overflow: hidden;
+    background-color: #fff;
 }
 .a4-size{
     width: 210mm !important;
     height: 297mm !important;
-    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
-    /* A4 용지에 맞게 여백 설정 */
-}
-.m-viewer.type01 .print .swiper-slide{
+    margin: 0 auto;
+    background-color: #fff;
 
 }
-
-
+.a4-size .admin-print-box{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto;
+    padding: 0 !important;
+}
 
 /*스와이퍼 제외했을 시 테스트 부분*/
 
-.wrapper{
-    background-color: #fff;
-}
+/*.a4-size .swiper-slide .wrapper {*/
+/*    background-color: #fff;*/
+/*    padding-top: 0 !important;*/
+/*}*/
+
 .m-viewer.type01{
     width: 800px;
     height: auto;
     margin: 0 auto;
     overflow: hidden;
 }
-
-#element-to-print{
-    width: 800px !important;
-    height: auto !important;
-    margin: 0 auto;
+/* 수정수정수정수정  전부다시 .a4넣어줘야할수도있다*/
+.m-viewer.type01 .total-comment{
+    width: 230px;
+    display: inline-block;
+    padding-bottom: 80px !important;
+    flex: 0 0 auto !important;
 }
-.m-viewer.type01 .swiper-slide .wrapper{
+
+.m-viewer.type01 .fixwidth{
+    display: inline-block;
+    width: 420px;
+}
+.myChart-big{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.clearfix::after{
+    content:'';
+    display: block;
+    clear: both;
+}
+.score-big{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* 수정수정수정수정 */
+.a4-size .m-viewer.type01{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.a4-size .swiper-wrapper{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    background-color: #fff;
+}
+ .m-viewer.type01 .swiper-slide .wrapper {
     padding-top: 80px;
 }
-.m-viewer.type01 .page {
 
+.swiper .a4-size{
+    padding-right: 120px;
 }
-.m-viewer.type01 .total-comment{
-    width: 280px;
-}
-
-
-
-
 /*.swiper-wrapper{*/
 /*    display: block !important;*/
 /*}*/
+.a4-size .report-index{
+    /*width: 210mm !important;*/
+    /*height: 297mm !important;*/
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    background-color: #fff;
+}
+
+/*.a4-size .admin-print-box{*/
+/*    padding: 0;*/
+/*}*/
+.a4-size .swiper-slide{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    background-color: #fff;
+}
+.a4-size .wrapper{
+    padding-top: 0;
+}
+.a4-size .wrapper > div{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    background-color: #fff;
+}
+
+.a4-size .swiper-container{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    background-color: #fff;
+}
+
+
+
+/*.a4-size .print-title-box{*/
+/*    height: 3%;*/
+/*}*/
+/*.a4-size .print-step-box {*/
+/*    height: 5%;*/
+/*}*/
+/*.a4-size .print-part-box{*/
+/*    height: 92%;*/
+/*}*/
+
+
+{
+    padding: 10px;
+    margin-right: 10px;
+}
+/*.a4-size .print-result-box .result-left{*/
+/*    width: 15%;*/
+/*    margin-right: 24px;*/
+/*}*/
+
+.a4-size .print-result-box .result-right{
+    width: 80%;
+}
+
+.print-view-box .view-head{
+    height: 10% !important;
+}
+.print-view-box .view-body{
+    height: 70% !important;
+    min-height:720px;
+    max-height: 720px;
+}
+
+.a4-size .print-result-box .result-right .result-right-top ul li > div{
+    padding-left: 10px;
+}
+
+.print-result-box .result-right .result-right-top ul li > div .right-top-tit{
+    font-size: 12px !important;
+}
+.print-result-box .result-right .result-right-top ul li > div .right-top-score b{
+    font-size: 10px !important;
+}
+
+.a4-size .print-part-box > ul > li{
+    padding: 30px 0;
+}
+.a4-size .print-end-box .end-left{
+    width: 240px;
+    margin-right: 25px;
+}
+.a4-size .print-end-box .end-right{
+    width: 410px;
+    min-height: 600px;
+    max-height: 600px;
+}
+.print-issue-box > ul > li > strong{
+    font-size: 20px !important;
+}
+.print-issue-box > ul > li > dl > dd {
+    font-size: 12px !important;
+    justify-content: center;
+    text-align: center;
+    padding: 0 15px;
+    word-break: keep-all;
+}
+.a4-size .print-end-box{
+    padding-bottom: 0;
+}
+.a4-size .print-intro-box{
+    padding: 10px 18px;
+    margin: 10px 0;
+}
+.a4-size .print-intro-box h2{
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.a4-size .print-intro-box dl dd{
+    font-size: 14px;
+    margin: 0 0 5px;
+}
+.a4-size .footer .print-title-box{
+    margin: 0 0 15px;
+}
+.background{
+    background-color: #000;
+}
+.print-step-box .print-step-list ul li p{
+    font-size: 8px !important;
+}

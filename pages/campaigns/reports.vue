@@ -1,11 +1,11 @@
 <template>
-    <div v-if="report">
-        <div class="swiper m-viewer type01 a4-size" >
-            <div class="swiper-container a4-size">
-                <div class="swiper-wrapper " id="element">
-                    <div class="swiper-slide a4-size">
+    <div v-if="report" class="background">
+        <div class="swiper m-viewer type01">
+            <div class="swiper-container" id="element">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
                         <!-- 진단결과 보고서 -->
-                        <div class="wrapper report-index">
+                        <div class="wrapper report-index" style="margin-top:15px;">
                             <div class="pdf_page">
                                 <div class="admin-print-box">
                                     <div class="flex flex-tj">
@@ -170,7 +170,7 @@
                                     </div>
 
                                     <div class="flex flex-tj mt30">
-                                        <div class="total-comment border-box flex-1 py35 px30 mr20">
+                                        <div class="total-comment border-box py15 px15 mr20">
                                             <div class="print-text-box">
                                                 <h2>{{report.survey.campaign.year}} 종합 의견</h2>
                                                 <p>
@@ -180,13 +180,13 @@
                                             <div class="graph-box mt40">
                                                 <div class="graph-body">
                                                     <div class="doughnut-big">
-                                                        <canvas class="myChart" id="myPieChart5" width="180"  height="180"></canvas>
-                                                        <div class="score"><strong>{{report.survey.score}} <small>/ 100</small></strong></div>
+                                                        <canvas class="myChart-big" id="myPieChart5" width="140"  height="140"></canvas>
+                                                        <div class="score-big"><strong>{{report.survey.score}} <small>/ 100</small></strong></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="total-graph flex-1">
+                                        <div class="total-graph fixwidth">
                                             <div>
                                                 <div class="print-text-box">
                                                     <h2>2024 분야별 평가 요약</h2>
@@ -290,11 +290,12 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide">
                         <!-- 부분별 평가 결과 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -637,11 +638,12 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide">
                         <!-- 환경 평가 -->
-                        <div class="wrapper">
+                      <div class="wrapper">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-view-box">
@@ -698,7 +700,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="print-result-box mt30">
+                                        <div class="print-result-box">
                                             <div class="result-left">
                                                 <div class="result-left-title">
                                                     <strong>평가 지표</strong>
@@ -731,10 +733,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="result-right">
+                                            <div class="result-right fixwidth">
                                                 <div class="result-right-top">
                                                     <ul>
                                                         <li>
+
                                                             <div>
                                                                 <div class="right-top-tit">점수</div>
                                                                 <div class="right-top-score">
@@ -789,7 +792,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+<!--                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>-->
                                         </div>
 
                                         <div class="print-result-box mt20">
@@ -813,10 +816,10 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['ENVIRONMENT'].sections" :key="sectionIndex">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['ENVIRONMENT'].sections" :key="sectionIndex">
                         <!-- 환경 평가 개선과제 -->
-                        <div class="wrapper">
+                        <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -936,11 +939,12 @@
                                 </div>
                             </div>
                         </div>
+                      <div class="html2pdf__page-break"></div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                      <!-- v-for 안에 브레이크포인트-->
+                    <div class="swiper-slide">
                         <!-- 노동 및 인권 평가 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-view-box">
@@ -1089,7 +1093,7 @@
 
                                             </div>
 
-                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+<!--                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>-->
                                         </div>
 
                                         <div class="print-result-box mt20">
@@ -1113,10 +1117,10 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['SOCIAL1'].sections" :key="sectionIndex">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['SOCIAL1'].sections" :key="sectionIndex">
                         <!-- 노동 및 인권 평가 개선과제 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -1236,12 +1240,12 @@
                                 </div>
                             </div>
                         </div>
-
+                      <div class="html2pdf__page-break"></div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                      <!-- v-for 안에 브레이크포인트 -->
+                    <div class="swiper-slide">
                         <!-- 안전 및 보건 평가 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-view-box">
@@ -1389,7 +1393,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+<!--                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>-->
                                         </div>
 
                                         <div class="print-result-box mt20">
@@ -1413,10 +1417,10 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['SOCIAL2'].sections" :key="sectionIndex">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['SOCIAL2'].sections" :key="sectionIndex">
                         <!-- 안전 및 보건 평가 개선과제 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -1536,11 +1540,13 @@
                                 </div>
                             </div>
                         </div>
+
+                      <div class="html2pdf__page-break"></div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                  <!-- v-for 안에 브레이크포인트 -->
+                    <div class="swiper-slide">
                         <!-- 사회 및 윤리 평가 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-view-box">
@@ -1689,7 +1695,7 @@
 
                                             </div>
 
-                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>
+<!--                                            <div class="view-foot"><img src="/asset/images/img_print_view_logo.png"></div>-->
                                         </div>
 
                                         <div class="print-result-box mt20">
@@ -1714,10 +1720,10 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['GOVERNANCE'].sections" :key="sectionIndex">
+                  <div class="html2pdf__page-break"></div>
+                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['GOVERNANCE'].sections" :key="sectionIndex">
                         <!-- 사회 및 평가 개선과제 -->
-                        <div class="wrapper">
+                      <div class="wrapper" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -1830,18 +1836,19 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="view-foot">
-                                            <img src="/asset/images/img_print_view_logo.png">
-                                        </div>
+                                      <div class="view-foot">
+                                        <img src="/asset/images/img_print_view_logo.png">
+                                      </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+                      <div class="html2pdf__page-break"></div>
                     </div>
-<!--                    <div class="html2pdf__page-break"></div>-->
-                    <div class="swiper-slide a4-size">
+                    <div class="swiper-slide">
                         <!-- 푸터 페이지 -->
-                        <div class="wrapper">
+                      <div class="wrapper footer" style="margin-top:15px">
                             <div>
                                 <div class="admin-print-box">
                                     <div class="print-title-box">
@@ -1882,7 +1889,7 @@
                                                     비재무적인 요소를 고려하여 판단
                                                 </p>
                                             </div>
-                                            <div class="print-issue-box mt40">
+                                            <div class="print-issue-box mt10">
                                                 <ul>
                                                     <li>
                                                         <strong>환경 이슈</strong>
@@ -1913,10 +1920,15 @@
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -2022,25 +2034,57 @@ export default {
 
     methods: {
         download() {
-
+            this.savedPageIndex = this.swiper.activeIndex;
+            this.swiper.slideTo(0);
             var element = document.getElementById("element");
+            $('.swiper').addClass('a4-size');
             $('.swiper-wrapper').css({'display':'block','padding-top':'0'});
-            $('.m-viewer.type01').addClass('a4-size');
-            $('.swiper-slide').addClass('a4-size');
-            $('.m-viewer.type01 .swiper-slide .wrapper').css('padding-top','0');
+            $('.m-viewer.type01 .total-comment').css({'width':'230px','display':'inline-block','padding-bottom':'80px !important','flex':'0 0 auto !important'});
+            $('.m-viewer.type01 .fixwidth').css({'display':'inline-block','width':'420px'});
+          //   수정수정
+            $('.background').css('background-color','#fff');
+            $('.a4-size .print-title-box').css('height','3%');
+            $('.a4-size .print-intro-box').css('height','10%');
+            $('.a4-size .print-end-box').css('height','80%');
+            $('.a4-size .print-step-box').css('height','5%');
+            $('.a4-size .print-part-box').css({'height':'92%','margin-top':'15px'});
+            $('.a4-size .print-view-box').css({'height':'92%','padding-bottom':'0'});
+            $('.a4-size .print-result-box .result-left').css({'width':'30%','margin-right':'24px'});
+          $('.a4-size .print-part-box > ul > li').css('padding','20px 0');
+          $('.a4-size .print-part-box > ul > li .part-left .part-left-title h2').css('font-size','24px');
+          $('.m-viewer.type01 .swiper-slide .wrapper').css('padding-top','0');
+          $('.a4-size .admin-print-box .print-end-box').css('max-height','650px');
+          $('.a4-size .graph-box .graph-body .graph-02 .graph-bar .bar-inner .inner em').css({'width':'30px','height':'30px'});
+            // 돌려놔야할부분
+            $('.print-result-box .result-right .result-right-top ul li > div .right-top-tit').css('font-size','12px !important');
+            $('.print-result-box .result-right .result-right-top ul li > div .right-top-score small').css('font-size','10px !important');
+            $('.print-result-box .result-right .result-right-top ul li').css('padding','10px');
+            $('.print-step-box .print-step-list ul li p').css('font-size','6px !important');
 
+                html2pdf().from(element).set({
+                    margin: 0,
+                    filename: '결과레포트.pdf',
+                    image: { type: 'jpg', quality: 0.98 },
+                    html2canvas: { scale: 1.0, logging: true, dpi: 600, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a4', pagesplit: true, orientation: 'portrait', compressPDF: true }
+                }).save();
 
-            html2pdf().from(element).set({
-                margin: 0,
-                filename: '결과레포트.pdf',
-                image: {type:'jpg',quality:0.98},
-                html2canvas:{scale: 1, logging: true, dpi: 300, letterRendering: true},
-                jsPDF:{unit: 'mm', format: 'a4', orientation: 'portrait', compressPDF: true}
-            }).save();
-            // $('.swiper-wrapper').css('display', 'flex');
-            // $('.swiper-slide').removeClass('a4-size');
+            setTimeout(() => {
+                $('.swiper').removeClass('a4-size');
+                $('.swiper-wrapper').css({'display':'flex','padding-top':'60px'});
+                $('.background').css('background-color','#000');
+                $('.m-viewer.type01 .swiper-slide .wrapper').css('padding-top','80px');
+                $('.m-viewer.type01 .wrapper').css('height','1272px');
+                this.swiper.slideTo(this.savedPageIndex);
+            }, 5000); // 1초 후에 실행
 
-        },
+            //  setTimeout(function() {
+            //      $('.admin-print-box').css('padding','15px 60px');
+            //      $('.background').css('background-color','#000');
+            //      $('.swiper').removeClass('a4-size');
+            //   $('.swiper-wrapper').css('display', 'flex');
+            // }, 6000);
+          },
 
 
 
@@ -2071,11 +2115,13 @@ export default {
 
         initSwiper(){
             //메인 배너 슬라이드
+
             this.swiper =  new Swiper(".swiper .swiper-container", {
                 navigation: {
                     nextEl: '.swiper .btn-next',
                     prevEl: '.swiper .btn-prev',
                 },
+                keyboard:true,
                 on: {
                     slideChange: function () {
                         $(".controller-bottom .page .active").text(this.activeIndex + 1);
@@ -2089,7 +2135,8 @@ export default {
 
                         $(".controller-bottom .box-gage .active").css('max-width', `${progress}%`);
                     }
-                }
+                },
+
             });
 
             $(".controller-bottom .total").text($(".swiper-slide").length);
@@ -2354,7 +2401,7 @@ export default {
                     datasets: [{
                         data: [this.report.survey.score,100-this.report.survey.score],
                         backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
-                        cutout:"75%",
+                        cutout:"80%",
                         borderColor: '#eee',
                     }]
                 },
