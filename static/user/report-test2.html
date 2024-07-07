@@ -350,7 +350,6 @@
             </div>
         </div>
         <div class="html2pdf__page-break"></div>
-
         <div class="swiper-slide page">
             <div class="wrapper">
                 <div class="admin-print-box">
@@ -640,14 +639,14 @@
 
 
     document.getElementsByClassName('btn-download')[0].addEventListener('click', () => {
-       var element = document.getElementById("element");
+        var element = document.getElementById('element');
 
 
         html2pdf().from(element).set({
             margin: 10,
             filename: '결과레포트.pdf',
             image: {type:'jpg',quality:0.98},
-            html2canvas:{scale: 2, logging: true, dpi: 300, letterRendering: true},
+            html2canvas:{scrollY:0, scrollX:0,scale: 1, logging: true, dpi: 300, letterRendering: true},
             jsPDF:{unit: 'mm', format: 'a4', orientation: 'portrait', compressPDF: true}
         }).save();
 

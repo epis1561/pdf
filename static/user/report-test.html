@@ -321,7 +321,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div class="html2pdf__page-break"></div>
 
                 <div class="swiper-slide" manual-pagination="true">
@@ -610,48 +610,48 @@
                 </div>
 
 
-        </div>
-
-        <div class="controller-top active">
-            <div class="logo">
-                <img :src="report.survey.campaign.provider.img ? report.survey.campaign.provider.img.url : ''" alt="">
             </div>
-            <h3 class="title">결과보고서</h3>
-            <button type="button" class="btn-close" @click.prevent="() => {$router.back()}">
-                <i class="xi-log-out"></i>
-            </button>
-        </div>
-        <div class="controller-bottom active">
-            <div class="box-gage">
-                <div class="gage">
-                    <div class="active"></div>
+
+            <div class="controller-top active">
+                <div class="logo">
+                    <img :src="report.survey.campaign.provider.img ? report.survey.campaign.provider.img.url : ''" alt="">
+                </div>
+                <h3 class="title">결과보고서</h3>
+                <button type="button" class="btn-close" @click.prevent="() => {$router.back()}">
+                    <i class="xi-log-out"></i>
+                </button>
+            </div>
+            <div class="controller-bottom active">
+                <div class="box-gage">
+                    <div class="gage">
+                        <div class="active"></div>
+                    </div>
+
+                    <div class="page">
+                        <span class="active">1</span>
+                        <span>/</span>
+                        <span class="total">1</span>
+                    </div>
                 </div>
 
-                <div class="page">
-                    <span class="active">1</span>
-                    <span>/</span>
-                    <span class="total">1</span>
+                <div class="btns">
+                    <button class="btn btn-download">
+                        <i class="xi-download"></i>
+                    </button>
+                    <button class="btn btn-expand">
+                        <i class="xi-expand"></i>
+                    </button>
+                    <button class="btn btn-prev">
+                        <i class="xi-angle-left"></i>
+                    </button>
+                    <button class="btn btn-next">
+                        <i class="xi-angle-right"></i>
+                    </button>
                 </div>
-            </div>
 
-            <div class="btns">
-                <button class="btn btn-download">
-                    <i class="xi-download"></i>
-                </button>
-                <button class="btn btn-expand">
-                    <i class="xi-expand"></i>
-                </button>
-                <button class="btn btn-prev">
-                    <i class="xi-angle-left"></i>
-                </button>
-                <button class="btn btn-next">
-                    <i class="xi-angle-right"></i>
-                </button>
             </div>
-
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
@@ -716,6 +716,7 @@
         $(".btn-download").click(function (){
 
             var element = document.getElementById('element');
+            $('.swiper-wrapper').css('display','block');
             html2pdf(element,
                 {
                     margin:       1,
@@ -728,47 +729,6 @@
         })
     }
 
-    function drawChart(){
-        const chart1 = document.querySelector('.graph-03-01');
-        const chart2 = document.querySelector('.graph-03-02');
-        const chart3 = document.querySelector('.graph-03-03');
-        const chart4 = document.querySelector('.graph-03-04');
-        const chart5 = document.querySelector('.graph-03-05');
-
-        const makeChart = (percent, classname, color) => {
-            let i = 1;
-            let chartFn = setInterval(function() {
-                if (i < percent) {
-                    colorFn(i, classname, color);
-                    i++;
-                } else {
-                    clearInterval(chartFn);
-                }
-            }, 10);
-        }
-
-        const colorFn = (i, classname, color) => {
-            if(classname == chart5){
-                classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #f7f7f7 " + i + "% 100%)";
-            }else{
-                classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #fff " + i + "% 100%)";
-            }
-        }
-
-        const replay = () => {
-            makeChart(43, chart1, '#56D13F');
-            makeChart(43, chart2, '#4A51FF');
-            makeChart(43, chart3, '#5090F5');
-            makeChart(43, chart4, '#FC952F');
-            makeChart(43, chart5, '#1592E6');
-        }
-
-        makeChart(43, chart1, '#56D13F');
-        makeChart(43, chart2, '#4A51FF');
-        makeChart(43, chart3, '#5090F5');
-        makeChart(43, chart4, '#FC952F');
-        makeChart(43, chart5, '#1592E6');
-    }
 
 
     // 차트 생성
@@ -812,7 +772,7 @@
                 },
 
             }
-           }
+        }
     });
     const ctx2 = document.getElementById('myPieChart2').getContext('2d');
     const myPieChart2 = new Chart(ctx2, {
@@ -1003,4 +963,3 @@
 
 </script>
 <script src="../asset/js/swiper.js"></script>
-

@@ -23,15 +23,15 @@
     height: 65px;
 }
 .doughnut-big{
-    width: 125px;
-    height: 125px;
+    width: 180px;
+    height: 180px;
 }
 .doughnut .score{
     font-size: 20px;
     font-weight: bold;
 }
 .graph-body .score strong{
-    font-size:25px; font-weight:bold; width:100%; text-align:center; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    font-size:21px; font-weight:bold; width:100%; text-align:center; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
 }
 .graph-body .score small{
     font-size:25px; margin-left:5px;
@@ -166,7 +166,7 @@
 
 
 
-html , body {overflow-x:auto; min-width:1300px;}
+html , body {overflow-x:auto; min-width:1180px;}
 /* 스크롤 바 전체에 스타일 적용 */
 *::-webkit-scrollbar {
     width: 6px; /* 스크롤 바 너비 */
@@ -540,7 +540,7 @@ label {
 }
 
 /* admin-print-box */
-.admin-print-box {max-width:1210px; padding:0 30px; margin:100px auto;}
+.admin-print-box {max-width:1210px; padding:15px 60px; margin:100px auto;}
 
 /* print-company-box */
 .print-company-box {background:#F7F7F7; border-radius:16px; padding:24px 16px; width:280px;}
@@ -691,18 +691,24 @@ label {
 /* gray-box */
 .gray-box {background:#F7F7F7; border-radius:8px;}
 .m-viewer.type01 .wrapper {
-    width:800px !important; height:auto !important;
+    width:auto; height:auto !important;
     padding-top:60px;
 }
 
 .m-viewer.type01.print .wrapper {
-    width: 800px;
+    width: auto;
     height:auto !important;
     padding-top:35px;
 }
 .m-viewer.type01 .swiper-slide{
     height: auto;
     overflow: hidden;
+}
+.a4-size{
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto; /* 페이지 중앙 정렬을 위한 설정 */
+    /* A4 용지에 맞게 여백 설정 */
 }
 .m-viewer.type01 .print .swiper-slide{
 
@@ -728,11 +734,18 @@ label {
     margin: 0 auto;
 }
 .m-viewer.type01 .swiper-slide .wrapper{
-    padding-top: 15px;
+    padding-top: 80px;
 }
 .m-viewer.type01 .page {
 
 }
-.swiper-wrapper{
-    display: block !important;
+.m-viewer.type01 .total-comment{
+    width: 280px;
 }
+
+
+
+
+/*.swiper-wrapper{*/
+/*    display: block !important;*/
+/*}*/

@@ -89,7 +89,7 @@ label {
 .admin-print-box {
     max-width:none !important;
     margin:0 !important;
-    padding:0 60px !important;
+    padding:0 60px;
 }
 .print-view-box {
     padding-bottom:150px;

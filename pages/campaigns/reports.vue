@@ -1,9 +1,9 @@
 <template>
     <div v-if="report">
-        <div class="swiper m-viewer type01">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+        <div class="swiper m-viewer type01 a4-size" >
+            <div class="swiper-container a4-size">
+                <div class="swiper-wrapper " id="element">
+                    <div class="swiper-slide a4-size">
                         <!-- 진단결과 보고서 -->
                         <div class="wrapper report-index">
                             <div class="pdf_page">
@@ -168,7 +168,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-tj mt40">
+
+                                    <div class="flex flex-tj mt30">
                                         <div class="total-comment border-box flex-1 py35 px30 mr20">
                                             <div class="print-text-box">
                                                 <h2>{{report.survey.campaign.year}} 종합 의견</h2>
@@ -178,10 +179,9 @@
                                             </div>
                                             <div class="graph-box mt40">
                                                 <div class="graph-body">
-                                                    <div class="graph-03 graph-03-05 big">
-                                                        <div class="inner">
-                                                            <strong>{{report.survey.score}} <small>/ 100</small></strong>
-                                                        </div>
+                                                    <div class="doughnut-big">
+                                                        <canvas class="myChart" id="myPieChart5" width="180"  height="180"></canvas>
+                                                        <div class="score"><strong>{{report.survey.score}} <small>/ 100</small></strong></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,8 +196,9 @@
                                                     <div class="gray-box flex-1 mr16 py20 px10">
                                                         <div class="graph-box">
                                                             <div class="graph-body">
-                                                                <div class="graph-03 graph-03-01">
-                                                                    <div class="inner">
+                                                                <div class="doughnut" width="65px"  height="65px">
+                                                                    <canvas class="myChart" id="myPieChart" width="65"  height="65"></canvas>
+                                                                    <div class="score">
                                                                         <strong>{{report.survey.score_e}}</strong>
                                                                     </div>
                                                                 </div>
@@ -210,8 +211,9 @@
                                                     <div class="gray-box flex-1 mr16 py20 px10">
                                                         <div class="graph-box">
                                                             <div class="graph-body">
-                                                                <div class="graph-03 graph-03-02">
-                                                                    <div class="inner">
+                                                                <div class="doughnut" width="65px"  height="65px">
+                                                                    <canvas class="myChart" id="myPieChart2" width="65"  height="65"></canvas>
+                                                                    <div class="score">
                                                                         <strong>{{report.survey.score_s1}}</strong>
                                                                     </div>
                                                                 </div>
@@ -224,8 +226,9 @@
                                                     <div class="gray-box flex-1 mr16 py20 px10">
                                                         <div class="graph-box">
                                                             <div class="graph-body">
-                                                                <div class="graph-03 graph-03-03">
-                                                                    <div class="inner">
+                                                                <div class="doughnut" width="65px"  height="65px">
+                                                                    <canvas class="myChart" id="myPieChart3" width="65"  height="65"></canvas>
+                                                                    <div class="score">
                                                                         <strong>{{report.survey.score_s2}}</strong>
                                                                     </div>
                                                                 </div>
@@ -238,8 +241,9 @@
                                                     <div class="gray-box flex-1 py20 px10">
                                                         <div class="graph-box">
                                                             <div class="graph-body">
-                                                                <div class="graph-03 graph-03-04">
-                                                                    <div class="inner">
+                                                                <div class="doughnut" width="65px"  height="65px">
+                                                                    <canvas class="myChart" id="myPieChart4" width="65"  height="65"></canvas>
+                                                                    <div class="score">
                                                                         <strong>{{report.survey.score_g}}</strong>
                                                                     </div>
                                                                 </div>
@@ -287,8 +291,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 부분별 평가 결과 -->
                         <div class="wrapper">
                             <div>
@@ -391,8 +395,9 @@
                                                         <div class="border-box mr16 px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-01">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart6" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.score_e }}</strong>
                                                                         </div>
                                                                     </div>
@@ -402,8 +407,9 @@
                                                         <div class="gray-box px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-05">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart7" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.average_e }}</strong>
                                                                         </div>
                                                                     </div>
@@ -459,8 +465,9 @@
                                                         <div class="border-box mr16 px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-02">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart8" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.score_s1 }}</strong>
                                                                         </div>
                                                                     </div>
@@ -470,8 +477,9 @@
                                                         <div class="gray-box px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-06">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart9" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.average_s1 }}</strong>
                                                                         </div>
                                                                     </div>
@@ -527,8 +535,9 @@
                                                         <div class="border-box mr16 px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-03">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart10" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.score_s2 }}</strong>
                                                                         </div>
                                                                     </div>
@@ -538,8 +547,9 @@
                                                         <div class="gray-box px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-07">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart11" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.average_s2 }}</strong>
                                                                         </div>
                                                                     </div>
@@ -595,8 +605,9 @@
                                                         <div class="border-box mr16 px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-04">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart12" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.score_g }}</strong>
                                                                         </div>
                                                                     </div>
@@ -606,8 +617,9 @@
                                                         <div class="gray-box px16 py16">
                                                             <div class="graph-box">
                                                                 <div class="graph-body">
-                                                                    <div class="graph-03 graph-03-02-08">
-                                                                        <div class="inner">
+                                                                    <div class="doughnut" width="65px"  height="65px">
+                                                                        <canvas class="myChart" id="myPieChart13" width="65"  height="65"></canvas>
+                                                                        <div class="score">
                                                                             <strong>{{ report.survey.average_g }}</strong>
                                                                         </div>
                                                                     </div>
@@ -626,8 +638,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 환경 평가 -->
                         <div class="wrapper">
                             <div>
@@ -801,8 +813,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['ENVIRONMENT'].sections" :key="sectionIndex">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['ENVIRONMENT'].sections" :key="sectionIndex">
                         <!-- 환경 평가 개선과제 -->
                         <div class="wrapper">
                             <div>
@@ -925,8 +937,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 노동 및 인권 평가 -->
                         <div class="wrapper">
                             <div>
@@ -1101,7 +1113,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['SOCIAL1'].sections" :key="sectionIndex">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['SOCIAL1'].sections" :key="sectionIndex">
                         <!-- 노동 및 인권 평가 개선과제 -->
                         <div class="wrapper">
                             <div>
@@ -1225,8 +1238,8 @@
                         </div>
 
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 안전 및 보건 평가 -->
                         <div class="wrapper">
                             <div>
@@ -1400,7 +1413,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['SOCIAL2'].sections" :key="sectionIndex">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['SOCIAL2'].sections" :key="sectionIndex">
                         <!-- 안전 및 보건 평가 개선과제 -->
                         <div class="wrapper">
                             <div>
@@ -1523,8 +1537,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 사회 및 윤리 평가 -->
                         <div class="wrapper">
                             <div>
@@ -1700,7 +1714,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" v-for="(section, sectionIndex) in answers['GOVERNANCE'].sections" :key="sectionIndex">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size" v-for="(section, sectionIndex) in answers['GOVERNANCE'].sections" :key="sectionIndex">
                         <!-- 사회 및 평가 개선과제 -->
                         <div class="wrapper">
                             <div>
@@ -1823,8 +1838,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="swiper-slide">
+<!--                    <div class="html2pdf__page-break"></div>-->
+                    <div class="swiper-slide a4-size">
                         <!-- 푸터 페이지 -->
                         <div class="wrapper">
                             <div>
@@ -1906,7 +1921,7 @@
                 </div>
             </div>
 
-            <div class="controller-top active">
+            <div class="controller-top active no-print">
                 <div class="logo">
                     <img :src="report.survey.campaign.provider.img ? report.survey.campaign.provider.img.url : ''" alt="">
                 </div>
@@ -1915,7 +1930,7 @@
                     <i class="xi-log-out"></i>
                 </button>
             </div>
-            <div class="controller-bottom active">
+            <div class="controller-bottom active no-print">
                 <div class="box-gage">
                     <div class="gage">
                         <div class="active"></div>
@@ -1950,6 +1965,11 @@
 </template>
 <style>
 
+@media print {
+    .no-print {
+        display: none;
+    }
+}
 </style>
 <script>
 import Form from "@/utils/Form";
@@ -1957,8 +1977,13 @@ export default {
     head() {
         return {
             link: [
-                {rel: 'stylesheet', type: 'text/css', href: '/asset/css/admin.css'},
+                {rel: 'stylesheet', type: 'text/css', href: '/asset/css/print.css'},
             ],
+            script:[
+                { type: 'text/javascript', src: 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js' },
+                { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/npm/chart.js' },
+
+            ]
         }
     },
 
@@ -1996,9 +2021,29 @@ export default {
     },
 
     methods: {
-        download(){
+        download() {
+
+            var element = document.getElementById("element");
+            $('.swiper-wrapper').css({'display':'block','padding-top':'0'});
+            $('.m-viewer.type01').addClass('a4-size');
+            $('.swiper-slide').addClass('a4-size');
+            $('.m-viewer.type01 .swiper-slide .wrapper').css('padding-top','0');
+
+
+            html2pdf().from(element).set({
+                margin: 0,
+                filename: '결과레포트.pdf',
+                image: {type:'jpg',quality:0.98},
+                html2canvas:{scale: 1, logging: true, dpi: 300, letterRendering: true},
+                jsPDF:{unit: 'mm', format: 'a4', orientation: 'portrait', compressPDF: true}
+            }).save();
+            // $('.swiper-wrapper').css('display', 'flex');
+            // $('.swiper-slide').removeClass('a4-size');
 
         },
+
+
+
 
         ready(){
             return alert("준비중입니다.");
@@ -2017,11 +2062,11 @@ export default {
                 this.splitAnswers();
 
                 this.$nextTick(() => {
-                    this.drawChart();
-
+                    this.getChart();
                     this.initSwiper();
                 });
             })
+
         },
 
         initSwiper(){
@@ -2100,61 +2145,6 @@ export default {
             return result;
         },
 
-        drawChart(){
-            const chart1 = document.querySelector('.graph-03-01');
-            const chart2 = document.querySelector('.graph-03-02');
-            const chart3 = document.querySelector('.graph-03-03');
-            const chart4 = document.querySelector('.graph-03-04');
-            const chart5 = document.querySelector('.graph-03-05');
-
-            const chart6 = document.querySelector('.graph-03-02-01');
-            const chart7 = document.querySelector('.graph-03-02-02');
-            const chart8 = document.querySelector('.graph-03-02-03');
-            const chart9 = document.querySelector('.graph-03-02-04');
-
-            const chart10 = document.querySelector('.graph-03-02-05');
-            const chart11 = document.querySelector('.graph-03-02-06');
-            const chart12 = document.querySelector('.graph-03-02-07');
-            const chart13 = document.querySelector('.graph-03-02-08');
-
-
-
-            const makeChart = (percent, classname, color) => {
-                let i = 1;
-                let chartFn = setInterval(function() {
-                    if (i < percent) {
-                        colorFn(i, classname, color);
-                        i++;
-                    } else {
-                        clearInterval(chartFn);
-                    }
-                }, 10);
-            }
-
-            const colorFn = (i, classname, color) => {
-                if(classname == chart5){
-                    classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #f7f7f7 " + i + "% 100%)";
-                }else{
-                    classname.style.background = "conic-gradient(" + color + " 0% " + i + "%, #fff " + i + "% 100%)";
-                }
-            }
-
-            makeChart(this.report.survey.score_e, chart1, '#4A51FF');
-            makeChart(this.report.survey.score_s1, chart2, '#5090F5');
-            makeChart(this.report.survey.score_s2, chart3, '#FC952F');
-            makeChart(this.report.survey.score_g, chart4, '#1592E6');
-            makeChart(this.report.survey.score, chart5, '#56D13F');
-
-            makeChart(this.report.survey.score_e, chart6, '#56D13F');
-            makeChart(this.report.survey.score_s1, chart7, '#4A51FF');
-            makeChart(this.report.survey.score_s2, chart8, '#5090F5');
-            makeChart(this.report.survey.score_g, chart9, '#FC952F');
-
-            makeChart(this.report.survey.average_e, chart10, '#E4E4E4');
-            makeChart(this.report.survey.average_s1, chart11, '#E4E4E4');
-            makeChart(this.report.survey.average_s2, chart12, '#E4E4E4');
-            makeChart(this.report.survey.average_g, chart13, '#E4E4E4');
-        },
 
         levelWidth(level){
             if(level == 1)
@@ -2172,6 +2162,622 @@ export default {
             if(level == 5)
                 return 99;
         },
+
+        getChart(){
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+            const myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_e,100-this.report.survey.score_e],
+
+                    datasets: [{
+                        data: [this.report.survey.score_e,100-this.report.survey.score_e],
+                        backgroundColor: ['#56D13F','rgba(0,0,0,0)'],
+                        cutout:"69%",
+
+                    }]
+                },
+
+                options:{
+
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx2 = document.getElementById('myPieChart2').getContext('2d');
+            const myPieChart2 = new Chart(ctx2, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_s1,100-this.report.survey.score_s1],
+
+                    datasets: [{
+                        data: [this.report.survey.score_s1,100-this.report.survey.score_s1],
+                        backgroundColor: ['#4A51FF','rgba(0,0,0,0)'],
+                        cutout:"69%",
+
+                    }]
+                },
+
+                options:{
+
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx3 = document.getElementById('myPieChart3').getContext('2d');
+            const myPieChart3 = new Chart(ctx3, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_s2,100-this.report.survey.score_s2],
+
+                    datasets: [{
+                        data: [this.report.survey.score_s2,100-this.report.survey.score_s2],
+                        backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
+                        cutout:"69%",
+
+                    }]
+                },
+
+                options:{
+
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx4 = document.getElementById('myPieChart4').getContext('2d');
+            const myPieChart4 = new Chart(ctx4, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_g,100-this.report.survey.score_g],
+
+                    datasets: [{
+                        data: [this.report.survey.score_g,100-this.report.survey.score_g],
+                        backgroundColor: ['#FC952F','rgba(0,0,0,0)'],
+                        cutout:"69%",
+
+                    }]
+                },
+
+                options:{
+
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx5 = document.getElementById('myPieChart5').getContext('2d');
+            const myPieChart5 = new Chart(ctx5, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score,100-this.report.survey.score],
+
+                    datasets: [{
+                        data: [this.report.survey.score,100-this.report.survey.score],
+                        backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
+                        cutout:"75%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx6 = document.getElementById('myPieChart6').getContext('2d');
+            const myPieChart6 = new Chart(ctx6, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_e,100-this.report.survey.score_e],
+
+                    datasets: [{
+                        data: [this.report.survey.score_e,100-this.report.survey.score_e],
+                        backgroundColor: ['#56D13F','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx7 = document.getElementById('myPieChart7').getContext('2d');
+            const myPieChart7 = new Chart(ctx7, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.average_e,100-this.report.survey.average_e],
+
+                    datasets: [{
+                        data: [this.report.survey.average_e,100-this.report.survey.average_e],
+                        backgroundColor: ['#E4E4E4','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx8 = document.getElementById('myPieChart8').getContext('2d');
+            const myPieChart8 = new Chart(ctx8, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_s1,100-this.report.survey.score_s1],
+
+                    datasets: [{
+                        data: [this.report.survey.score_s1,100-this.report.survey.score_s1],
+                        backgroundColor: ['#4A51FF','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx9 = document.getElementById('myPieChart9').getContext('2d');
+            const myPieChart9 = new Chart(ctx9, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.average_s1,100-this.report.survey.average_s1],
+
+                    datasets: [{
+                        data: [this.report.survey.average_s1,100-this.report.survey.average_s1],
+                        backgroundColor: ['#E4E4E4','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx10 = document.getElementById('myPieChart10').getContext('2d');
+            const myPieChart10 = new Chart(ctx10, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_s2,100-this.report.survey.score_s2],
+
+                    datasets: [{
+                        data: [this.report.survey.score_s2,100-this.report.survey.score_s2],
+                        backgroundColor: ['rgba(80, 144, 245,1)','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx11 = document.getElementById('myPieChart11').getContext('2d');
+            const myPieChart11 = new Chart(ctx11, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.average_s2,100-this.report.survey.average_s2],
+
+                    datasets: [{
+                        data: [this.report.survey.average_s2,100-this.report.survey.average_s2],
+                        backgroundColor: ['#E4E4E4','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx12 = document.getElementById('myPieChart12').getContext('2d');
+            const myPieChart12 = new Chart(ctx12, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.score_g,100-this.report.survey.score_g],
+
+                    datasets: [{
+                        data: [this.report.survey.score_g,this.report.survey.score_g],
+                        backgroundColor: ['#FC952F','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+            const ctx13 = document.getElementById('myPieChart13').getContext('2d');
+            const myPieChart13 = new Chart(ctx13, {
+                type: 'doughnut',
+
+                data: {
+                    labels: [this.report.survey.average_g,100-this.report.survey.average_g],
+
+                    datasets: [{
+                        data: [this.report.survey.average_g,100-this.report.survey.average_g],
+                        backgroundColor: ['#E4E4E4','rgba(0,0,0,0)'],
+                        cutout:"66%",
+                        borderColor: '#eee',
+                    }]
+                },
+
+                options:{
+                    animation: {
+                        duration: 0
+                    },
+                    responsive:false,
+                    hover: {
+                        mode:null,
+                    },
+
+                    plugins:{
+
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                        },
+
+                        title: {
+                            display:false,
+                            text: '43',
+                            positon:"left"
+                        },
+
+                        legend:{
+                            display: false
+                        },
+
+                        tooltips: {
+                            enabled: false, // 툴팁 활성화
+                        },
+
+                    }
+                }
+            });
+        },
+
     },
 
     computed: {
@@ -2189,6 +2795,7 @@ export default {
 
     mounted() {
         this.getReport();
+
         $("html,body").css("overflow-x", "hidden");
 
         /*
